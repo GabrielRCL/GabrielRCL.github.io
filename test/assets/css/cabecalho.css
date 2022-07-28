@@ -1,0 +1,9 @@
+.cabecalho {
+    font-family: 'Ibarra Real Nova', serif;
+    align-items: center;
+    background: black;
+    display: flex;
+    justify-content: space-between;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}

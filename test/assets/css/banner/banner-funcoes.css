@@ -1,0 +1,19 @@
+.funcoes {
+    float: left;
+}
+
+.funcoes__lista {
+    font-family: 'Ibarra Real Nova', serif;
+    font-weight: bold;
+    font-size: 2.06rem;
+    color: #000000;
+    position: absolute;
+    left: 5%;
+    top: 30%;
+    width: 100%;
+}
+
+.funcoes__item {
+    color: #FFFFFF;
+    text-shadow: 0 3px 3px rgba(0, 0, 0);
+}

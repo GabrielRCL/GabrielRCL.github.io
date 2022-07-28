@@ -1,0 +1,18 @@
+.banner_button_trial {
+    position: absolute;
+    left: calc(50% - 11rem);
+    top: 30%;
+    width: 20rem;
+    height: 3rem;
+
+    background: #FFCC00;
+    border-radius: 5px;
+    color: #000000;
+    font-family: 'Ibarra Real Nova', serif;
+    font-weight: bold;
+}
+
+.banner_button_trial:hover {
+    background: #FFFF00;
+    cursor: pointer;
+}
