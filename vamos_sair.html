@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Você aceita sair comigo?</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        button {
+            font-size: 1rem;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            position: absolute;
+        }
+
+        #sim-button {
+            top: calc(10% + 5px);
+            left: calc(45% - 60px);
+        }
+
+        #nao-button {
+            top: calc(10% + 5px);
+            left: calc(45% + 60px);
+        }
+
+        #nervoso-screen {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            color: black;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <h1>Você aceita sair comigo?</h1>
+    <button id="sim-button">SIM</button>
+    <button id="nao-button">NÃO</button>
+    <div id="nervoso-screen">Eita, Calma... Errei, Desculpa, Estou Nervoso...</div>
+
+    <script>
+        const simButton = document.getElementById('sim-button');
+        const naoButton = document.getElementById('nao-button');
+        const nervosoScreen = document.getElementById('nervoso-screen');
+
+        function randomizeButtonPosition(button) {
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+
+            let newX, newY;
+            do {
+                newX = Math.random() * (windowWidth - button.offsetWidth);
+                newY = Math.random() * (windowHeight - button.offsetHeight);
+            } while (
+                Math.abs(newX - naoButton.offsetLeft) < 50 &&
+                Math.abs(newY - naoButton.offsetTop) < 50
+            );
+
+            button.style.left = `${newX}px`;
+            button.style.top = `${newY}px`;
+        }
+
+        simButton.addEventListener('mouseover', () => {
+            randomizeButtonPosition(simButton);
+        });
+
+        simButton.addEventListener('click', () => {
+            randomizeButtonPosition(simButton);
+        });
+
+        naoButton.addEventListener('click', () => {
+            nervosoScreen.style.display = 'flex';
+        });
+    </script>
+</body>
+</html>
