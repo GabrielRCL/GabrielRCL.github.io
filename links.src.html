@@ -1,5 +1,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--INCLUDE:partials/theme-head.html-->
 <title>Gabriel Lucas · Links</title>
 <meta name="description" content="Full Stack Developer · Odoo Developer · Computer Engineering. Projects, CV and social links of Gabriel Lucas.">
 <meta property="og:type" content="profile">
@@ -80,6 +81,7 @@
         <button type="button" id="lang-en" data-set-lang="en" aria-pressed="true"><span class="flag" aria-hidden="true"><svg><use href="#flag-us"/></svg></span>EN</button>
         <button type="button" id="lang-pt" data-set-lang="pt" aria-pressed="false"><span class="flag" aria-hidden="true"><svg><use href="#flag-br"/></svg></span>PT</button>
       </div>
+      <button type="button" class="theme-btn" data-toggle-theme aria-pressed="false" aria-label="Switch theme"><svg class="ic i-moon"><use href="#lu-moon"/></svg><svg class="ic i-sun"><use href="#lu-sun"/></svg></button>
     </nav>
   </header>
 </div>
@@ -90,7 +92,7 @@
     <section class="profile">
       <div class="avatar"><img src="../assets/avatar.jpg" alt="Illustrated portrait of Gabriel Lucas" width="168" height="168"></div>
       <h1>Gabriel Lucas</h1>
-      <p class="role"><span class="en">Full Stack Developer · Odoo Developer</span><span class="pt">Desenvolvedor Full Stack · Desenvolvedor Odoo</span></p>
+      <p class="role"><span class="en">Full Stack Developer · Odoo Developer · Computer Engineering</span><span class="pt">Desenvolvedor Full Stack · Desenvolvedor Odoo · Engenharia da Computação</span></p>
       <p class="stackline"><span class="en">Odoo 19, Python, FastAPI, React and more</span><span class="pt">Odoo 19, Python, FastAPI, React e mais</span></p>
     </section>
 
@@ -144,6 +146,7 @@
 <script>
 (function () {
   var root = document.documentElement;
+<!--INCLUDE:partials/theme.js-->
   var buttons = document.querySelectorAll('[data-set-lang]');
   function setLang(lang) {
     root.setAttribute('data-lang', lang);

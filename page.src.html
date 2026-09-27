@@ -1,5 +1,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!--INCLUDE:partials/theme-head.html-->
 <title>Gabriel Lucas</title>
 <meta name="description" content="Full Stack Developer · Odoo Developer · Computer Engineering. I connect ERPs to banks, e-invoicing, WhatsApp and monitoring, and I built and ran my own software product.">
 <meta property="og:type" content="website">
@@ -216,6 +217,22 @@
   .btc-row .k { display: inline-flex; align-items: center; gap: 8px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
   .btc-row .k .ic { width: 18px; height: 18px; }
   .addr { display: flex; gap: 10px; align-items: flex-start; }
+
+  /* QR: an icon button next to Copy; its card floats above it. A mouse opens it on hover (a click
+     pins it); on a touch screen a tap opens and closes it. */
+  .qr-wrap { position: relative; flex: none; display: inline-flex; }
+  .copy.qr-btn { padding: 6px 8px; }
+  .copy.qr-btn .ic { width: 16px; height: 16px; }
+  .qr-pop { position: absolute; right: 0; bottom: calc(100% + 12px); z-index: 40; width: 244px; display: grid; justify-items: center; gap: 10px; padding: 16px; border-radius: 16px; background: var(--surface); border: 1px solid var(--line); box-shadow: 0 24px 60px rgba(3, 7, 18, 0.45); text-align: center; opacity: 0; visibility: hidden; transform: translate3d(0, 8px, 0) scale(0.97); transform-origin: bottom right; transition: opacity 0.16s ease, transform 0.16s ease, visibility 0s linear 0.16s; }
+  .qr-pop::after { content: ""; position: absolute; left: 0; right: 0; bottom: -14px; height: 14px; }
+  .qr-wrap.open .qr-pop { opacity: 1; visibility: visible; transform: none; transition: opacity 0.16s ease, transform 0.16s ease, visibility 0s; }
+  .qr-title { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 0.92rem; }
+  .qr-title .ic { width: 18px; height: 18px; }
+  .qr-box { display: block; padding: 12px; border-radius: 12px; background: #ffffff; }
+  .qr-box img { display: block; width: 188px; height: 188px; }
+  .qr-hint { font-size: 0.78rem; color: var(--muted); }
+  .qr-open { width: 100%; justify-content: center; }
+  @media (prefers-reduced-motion: reduce) { .qr-pop { transition: none; } }
   .addr code { flex: 1; min-width: 0; font: 400 0.82rem/1.5 var(--mono); word-break: break-all; }
   .copy { flex: none; display: inline-flex; align-items: center; gap: 6px; font: 600 0.75rem/1 var(--sans); padding: 7px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); cursor: pointer; }
   .copy .done-label, .copy .i-done { display: none; }
@@ -272,7 +289,6 @@
   @media (max-width: 960px) { .side { grid-template-columns: repeat(2, minmax(0, 1fr)); } .side > div, .side > div.wide { grid-column: auto; } }
   @media (max-width: 640px) { .side { grid-template-columns: 1fr; } }
 
-  .colophon { display: grid; gap: 4px; }
 
   /* The hero fits the first screen on desktop: sizes follow the viewport height as well as its width,
      and on short screens the wire cards drop their protocol line. */
@@ -322,7 +338,33 @@
     .facts { order: 3; margin: clamp(20px, 3svh, 30px) 0 0; }
   }
 
-  footer { border-top: 1px solid var(--line); padding-block: 28px 44px; color: var(--muted); font-size: 0.85rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; }
+  /* footer: a closing card, always dark (the scene is at night), over the hero's backdrop. The cartoon
+     scene fades into the band instead of ending in straight edges, so the band fills any width. */
+  .site-footer { color-scheme: dark; --bg: #060b1f; --surface: #0c1633; --ink: #f1f5f9; --muted: #94a3b8; --line: #1c2a4f; --warm: #f87934; --glow: rgba(0, 184, 255, 0.14); --warm-glow: rgba(248, 121, 52, 0.14); --grid: rgba(148, 163, 184, 0.06); --sun-text: linear-gradient(120deg, #f15c48 5%, #f87934 50%, #f9b233 95%);
+    position: relative; overflow: hidden; margin-top: 24px; color: var(--ink); border-top: 1px solid var(--line);
+    background: radial-gradient(55% 90% at 80% 35%, var(--glow), transparent 70%), radial-gradient(50% 80% at 5% 100%, var(--warm-glow), transparent 70%), var(--bg); }
+  .site-footer::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 32px 32px; pointer-events: none; }
+  .sf-scene { position: absolute; top: 0; right: 0; bottom: 0; width: min(60%, 940px); pointer-events: none;
+    -webkit-mask-image: radial-gradient(85% 90% at 58% 42%, #000 38%, transparent 76%); mask-image: radial-gradient(85% 90% at 58% 42%, #000 38%, transparent 76%); }
+  .sf-scene img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 48% 22%; }
+  .sf-body { position: relative; display: grid; align-content: center; justify-items: start; min-height: 440px; padding-block: 64px; }
+  .sf-name { margin: 0 0 14px; font-weight: 900; font-size: clamp(2.6rem, 5vw, 4.2rem); line-height: 0.95; letter-spacing: -0.045em; }
+  .sf-name .grad-text { display: block; }
+  .sf-roles { margin: 0 0 26px; max-width: 30em; color: var(--muted); }
+  .sf-social { display: flex; flex-wrap: wrap; gap: 10px; }
+  .sf-social a { display: grid; place-items: center; width: 52px; height: 52px; border-radius: 13px; font-size: 21px; color: var(--ink); background: rgba(12, 22, 51, 0.8); border: 1px solid var(--line); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s ease; }
+  .sf-social a:hover, .sf-social a:focus-visible { border-color: var(--warm); color: var(--warm); transform: translateY(-2px); }
+  .sf-bottom { position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; padding-block: 18px 26px; border-top: 1px solid var(--line); font-size: 0.85rem; color: var(--muted); }
+  .sf-bottom .mark { font-size: 0.95rem; }
+  .to-top { display: inline-flex; align-items: center; gap: 8px; padding: 10px 14px; border-radius: 8px; font: 600 0.86rem/1 var(--sans); color: var(--ink); background: var(--surface); border: 1px solid var(--line); cursor: pointer; }
+  .to-top:hover { border-color: var(--muted); }
+  @media (max-width: 760px) {
+    .sf-scene { position: relative; width: 100%; height: 320px; -webkit-mask-image: linear-gradient(#000 50%, transparent); mask-image: linear-gradient(#000 50%, transparent); }
+    .sf-scene img { object-position: 50% 18%; }
+    .sf-body { min-height: 0; margin-top: -56px; padding-block: 0 44px; justify-items: center; text-align: center; }
+    .sf-social { justify-content: center; }
+    .sf-bottom { justify-content: center; text-align: center; }
+  }
 </style>
 
 <!--ICON_SPRITE-->
@@ -340,11 +382,19 @@
         <a href="#stack">Stack</a>
         <a href="#contact"><span class="en">Contact</span><span class="pt">Contato</span></a>
         <a href="links/">Links</a>
+        <div class="menu-theme">
+          <span class="k"><span class="en">Theme</span><span class="pt">Tema</span></span>
+          <div class="lang theme" role="group" aria-label="Theme">
+            <button type="button" data-set-theme="light" aria-pressed="false"><svg class="ic"><use href="#lu-sun"/></svg><span class="en">Light</span><span class="pt">Claro</span></button>
+            <button type="button" data-set-theme="dark" aria-pressed="false"><svg class="ic"><use href="#lu-moon"/></svg><span class="en">Dark</span><span class="pt">Escuro</span></button>
+          </div>
+        </div>
       </div>
       <div class="lang" role="group" aria-label="Language">
         <button type="button" id="lang-en" data-set-lang="en" aria-pressed="true"><span class="flag" aria-hidden="true"><svg><use href="#flag-us"/></svg></span>EN</button>
         <button type="button" id="lang-pt" data-set-lang="pt" aria-pressed="false"><span class="flag" aria-hidden="true"><svg><use href="#flag-br"/></svg></span>PT</button>
       </div>
+      <button type="button" class="theme-btn desk-only" data-toggle-theme aria-pressed="false" aria-label="Switch theme"><svg class="ic i-moon"><use href="#lu-moon"/></svg><svg class="ic i-sun"><use href="#lu-sun"/></svg></button>
       <button type="button" class="menu-btn" aria-expanded="false" aria-controls="menu" aria-label="Menu"><span></span><span></span><span></span></button>
     </nav>
   </header>
@@ -360,7 +410,7 @@
           <div class="at">
             <span class="at-label"><span class="en">Currently at</span><span class="pt">Atualmente na</span></span>
             <div class="brands">
-              <span class="brand-chip"><img src="assets/outview-symbol.png" alt="" width="20" height="20">OutView</span>
+              <span class="brand-chip"><img src="assets/outview-symbol-light.png" alt="" width="20" height="20">OutView</span>
               <span class="brand-chip"><img src="assets/nexview-nx.png" alt="" width="28" height="14">NexView <small>ITSM</small></span>
             </div>
           </div>
@@ -783,22 +833,40 @@
             <div class="addr">
               <code id="btc-addr">bc1qlwrptn0jgnexylsycpecpqrekl7zert5hsrxv9</code>
               <button type="button" class="copy" id="copy-btc" data-copy="btc-addr"><svg class="ic i-idle"><use href="#lu-copy"/></svg><svg class="ic i-done"><use href="#lu-check"/></svg><span class="idle-label"><span class="en">Copy</span><span class="pt">Copiar</span></span><span class="done-label"><span class="en">Copied</span><span class="pt">Copiado</span></span></button>
-            </div>
+<!--INCLUDE:partials/qr-btc.html-->            </div>
           </div>
           <div class="btc-row">
             <span class="k"><img class="ic" src="assets/lightning.svg" alt="">Lightning</span>
             <div class="addr">
               <code id="ln-addr">satoshi@gabrielrcl.dev</code>
               <button type="button" class="copy" id="copy-ln" data-copy="ln-addr"><svg class="ic i-idle"><use href="#lu-copy"/></svg><svg class="ic i-done"><use href="#lu-check"/></svg><span class="idle-label"><span class="en">Copy</span><span class="pt">Copiar</span></span><span class="done-label"><span class="en">Copied</span><span class="pt">Copiado</span></span></button>
-            </div>
+<!--INCLUDE:partials/qr-ln.html-->            </div>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <footer><span>© 2026 Gabriel Lucas</span><span class="colophon"><span class="en">Built by hand: HTML, CSS and a few lines of JavaScript. No framework, no tracking, no cookies.</span><span class="pt">Feito à mão: HTML, CSS e poucas linhas de JavaScript. Sem framework, sem rastreamento, sem cookies.</span><span class="en">Colors from the OutView and NexView brands.</span><span class="pt">Cores das marcas OutView e NexView.</span></span></footer>
 </div>
+
+<footer class="site-footer">
+  <div class="sf-scene" aria-hidden="true"><img src="assets/footer-scene.jpg" alt="" width="1024" height="880" loading="lazy"></div>
+  <div class="wrap sf-body">
+    <p class="sf-name">Gabriel <span class="grad-text">Lucas</span></p>
+    <p class="sf-roles"><span class="en">Full Stack Developer · Odoo Developer · Computer Engineering</span><span class="pt">Desenvolvedor Full Stack · Desenvolvedor Odoo · Engenharia da Computação</span></p>
+    <nav class="sf-social" aria-label="Social">
+      <a href="https://github.com/GabrielRCL" aria-label="GitHub"><svg class="ic"><use href="#si-github"/></svg></a>
+      <a href="https://www.linkedin.com/in/gabrielrcl777/" aria-label="LinkedIn"><svg class="ic"><use href="#lu-linkedin"/></svg></a>
+      <a href="https://instagram.com/gabrielrcl_" aria-label="Instagram"><svg class="ic"><use href="#si-instagram"/></svg></a>
+      <a href="mailto:gabrielrcl@protonmail.com" aria-label="E-mail"><svg class="ic"><use href="#lu-mail"/></svg></a>
+    </nav>
+  </div>
+  <div class="wrap sf-bottom">
+    <a class="mark" href="#top"><span class="mark-glyph" aria-hidden="true">&gt;<i></i></span>Gabriel Lucas</a>
+    <span>© 2026 · gabrielrcl.dev</span>
+    <button type="button" class="to-top" id="to-top"><svg class="ic"><use href="#lu-arrow-up"/></svg><span class="en">Back to top</span><span class="pt">Voltar ao topo</span></button>
+  </div>
+</footer>
 
 <dialog class="lightbox" id="lightbox" aria-label="Screenshot">
   <img alt="">
@@ -814,6 +882,7 @@
 <script>
 (function () {
   var root = document.documentElement;
+<!--INCLUDE:partials/theme.js-->
   var viewers = [];
   var buttons = document.querySelectorAll('[data-set-lang]');
   function setLang(lang) {
@@ -888,6 +957,47 @@
   }
 
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // QR cards. A mouse opens them on hover and a click pins them. On touch screens only the click
+  // counts: browsers fire it for a tap (finger down and up in place), never at the end of a scroll.
+  var qrWraps = [].slice.call(document.querySelectorAll('.qr-wrap'));
+  function setQr(w, open) {
+    w.classList.toggle('open', open);
+    w.querySelector('.qr-btn').setAttribute('aria-expanded', String(open));
+    if (open) qrWraps.forEach(function (o) { if (o !== w) { o.pinned = false; o.classList.remove('open'); o.querySelector('.qr-btn').setAttribute('aria-expanded', 'false'); } });
+  }
+  qrWraps.forEach(function (w) {
+    var timer = null;
+    w.pinned = false;
+    w.hovered = false;
+    w.addEventListener('pointerenter', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      clearTimeout(timer);
+      w.hovered = true;
+      setQr(w, true);
+    });
+    w.addEventListener('pointerleave', function (e) {
+      if (e.pointerType !== 'mouse') return;
+      w.hovered = false;
+      timer = setTimeout(function () { if (!w.pinned) setQr(w, false); }, 200);
+    });
+    w.querySelector('.qr-btn').addEventListener('click', function () {
+      w.pinned = !w.pinned;
+      setQr(w, w.pinned || w.hovered);
+    });
+    w.addEventListener('focusout', function (e) { if (!w.contains(e.relatedTarget) && !w.pinned && !w.hovered) setQr(w, false); });
+  });
+  document.addEventListener('click', function (e) {
+    qrWraps.forEach(function (w) { if (w.classList.contains('open') && !w.contains(e.target)) { w.pinned = false; setQr(w, false); } });
+  });
+  document.addEventListener('keydown', function (e) {
+    if (e.key !== 'Escape') return;
+    qrWraps.forEach(function (w) { if (w.classList.contains('open')) { w.pinned = false; setQr(w, false); w.querySelector('.qr-btn').focus(); } });
+  });
+
+  document.getElementById('to-top').addEventListener('click', function () {
+    window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+  });
 
   // Screen viewers and the lightbox
   var lb = document.getElementById('lightbox');

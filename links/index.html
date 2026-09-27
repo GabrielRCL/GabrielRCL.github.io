@@ -2,6 +2,10 @@
 <html lang="en">
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f8fafc" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#060b1f" media="(prefers-color-scheme: dark)">
+<script>try { var t = localStorage.getItem('theme'); if (t === 'light' || t === 'dark') document.documentElement.setAttribute('data-theme', t); } catch (e) {}</script>
+
 <title>Gabriel Lucas · Links</title>
 <meta name="description" content="Full Stack Developer · Odoo Developer · Computer Engineering. Projects, CV and social links of Gabriel Lucas.">
 <meta property="og:type" content="profile">
@@ -133,6 +137,13 @@
   .flag svg { width: 100%; height: 100%; display: block; }
   .navlinks { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
   .menu-btn { display: none; }
+  /* theme: a sun/moon button in the header; on phones the main page moves it into the menu as a
+     Light | Dark switch shaped like the language one */
+  .theme-btn { display: inline-grid; place-items: center; width: 38px; height: 34px; padding: 0; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 17px; cursor: pointer; }
+  .theme-btn:hover { border-color: var(--muted); }
+  .theme-btn[aria-pressed="true"] .i-moon, .theme-btn[aria-pressed="false"] .i-sun { display: none; }
+  .menu-theme { display: none; }
+  .lang.theme button .ic { font-size: 14px; }
   /* phones and small tablets: the section links fold into a menu under three lines */
   @media (max-width: 900px) {
     .top { padding-block: 11px; }
@@ -149,6 +160,9 @@
     .top nav .navlinks a { display: flex; align-items: center; justify-content: space-between; padding: 15px 2px; border-bottom: 1px solid var(--line); font-size: 1.05rem; font-weight: 600; color: var(--ink); }
     .top nav .navlinks a::after { content: "›"; font-size: 1.3rem; line-height: 1; color: var(--muted); }
     .top nav .navlinks a:last-child { border-bottom: 0; }
+    .top nav .theme-btn.desk-only { display: none; }
+    .navlinks .menu-theme { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 2px 4px; }
+    .menu-theme .k { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
   }
   @keyframes menu-in { from { opacity: 0; transform: translate3d(0, -8px, 0); } }
   @media (prefers-reduced-motion: reduce) { .topbar.open .navlinks { animation: none; } .menu-btn span { transition: none; } }
@@ -332,7 +346,26 @@
   <path d="M14 2v2" />
   <path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1" />
   <path d="M6 2v2" /></g></symbol><symbol id="lu-arrow-up" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7" />
-  <path d="M12 19V5" /></g></symbol></svg>
+  <path d="M12 19V5" /></g></symbol><symbol id="lu-sun" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4" />
+  <path d="M12 2v2" />
+  <path d="M12 20v2" />
+  <path d="m4.93 4.93 1.41 1.41" />
+  <path d="m17.66 17.66 1.41 1.41" />
+  <path d="M2 12h2" />
+  <path d="M20 12h2" />
+  <path d="m6.34 17.66-1.41 1.41" />
+  <path d="m19.07 4.93-1.41 1.41" /></g></symbol><symbol id="lu-moon" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M20.985 12.486a9 9 0 1 1-9.473-9.472c.405-.022.617.46.402.803a6 6 0 0 0 8.268 8.268c.344-.215.825-.004.803.401" /></g></symbol><symbol id="lu-qr-code" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><rect width="5" height="5" x="3" y="3" rx="1" />
+  <rect width="5" height="5" x="16" y="3" rx="1" />
+  <rect width="5" height="5" x="3" y="16" rx="1" />
+  <path d="M21 16h-3a2 2 0 0 0-2 2v3" />
+  <path d="M21 21v.01" />
+  <path d="M12 7v3a2 2 0 0 1-2 2H7" />
+  <path d="M3 12h.01" />
+  <path d="M12 3h.01" />
+  <path d="M12 16v.01" />
+  <path d="M16 12h1" />
+  <path d="M21 12v.01" />
+  <path d="M12 21v-1" /></g></symbol></svg>
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
   <symbol id="flag-br" viewBox="0 0 20 14"><rect width="20" height="14" fill="#009b3a"/><polygon points="10,1.5 18.5,7 10,12.5 1.5,7" fill="#fedf00"/><circle cx="10" cy="7" r="3.5" fill="#002776"/><path d="M6.7 6.2 Q10 5.1 13.4 7.3" stroke="#ffffff" stroke-width="0.7" fill="none"/></symbol>
   <symbol id="flag-us" viewBox="0 0 20 14"><rect width="20" height="14" fill="#b22234"/><g fill="#ffffff"><rect y="1.08" width="20" height="1.08"/><rect y="3.23" width="20" height="1.08"/><rect y="5.38" width="20" height="1.08"/><rect y="7.54" width="20" height="1.08"/><rect y="9.69" width="20" height="1.08"/><rect y="11.85" width="20" height="1.08"/></g><rect width="8.6" height="7.54" fill="#3c3b6e"/><g fill="#ffffff"><circle cx="1.6" cy="1.4" r="0.45"/><circle cx="4.3" cy="1.4" r="0.45"/><circle cx="7" cy="1.4" r="0.45"/><circle cx="2.95" cy="3.1" r="0.45"/><circle cx="5.65" cy="3.1" r="0.45"/><circle cx="1.6" cy="4.8" r="0.45"/><circle cx="4.3" cy="4.8" r="0.45"/><circle cx="7" cy="4.8" r="0.45"/><circle cx="2.95" cy="6.4" r="0.45"/><circle cx="5.65" cy="6.4" r="0.45"/></g></symbol>
@@ -354,6 +387,7 @@
         <button type="button" id="lang-en" data-set-lang="en" aria-pressed="true"><span class="flag" aria-hidden="true"><svg><use href="#flag-us"/></svg></span>EN</button>
         <button type="button" id="lang-pt" data-set-lang="pt" aria-pressed="false"><span class="flag" aria-hidden="true"><svg><use href="#flag-br"/></svg></span>PT</button>
       </div>
+      <button type="button" class="theme-btn" data-toggle-theme aria-pressed="false" aria-label="Switch theme"><svg class="ic i-moon"><use href="#lu-moon"/></svg><svg class="ic i-sun"><use href="#lu-sun"/></svg></button>
     </nav>
   </header>
 </div>
@@ -364,7 +398,7 @@
     <section class="profile">
       <div class="avatar"><img src="../assets/avatar.jpg" alt="Illustrated portrait of Gabriel Lucas" width="168" height="168"></div>
       <h1>Gabriel Lucas</h1>
-      <p class="role"><span class="en">Full Stack Developer · Odoo Developer</span><span class="pt">Desenvolvedor Full Stack · Desenvolvedor Odoo</span></p>
+      <p class="role"><span class="en">Full Stack Developer · Odoo Developer · Computer Engineering</span><span class="pt">Desenvolvedor Full Stack · Desenvolvedor Odoo · Engenharia da Computação</span></p>
       <p class="stackline"><span class="en">Odoo 19, Python, FastAPI, React and more</span><span class="pt">Odoo 19, Python, FastAPI, React e mais</span></p>
     </section>
 
@@ -418,6 +452,40 @@
 <script>
 (function () {
   var root = document.documentElement;
+  // Theme: follows the system until the viewer picks one (saved, applied before paint by theme-head.html).
+  // Picking the system's own theme clears the choice, so the page follows the system again.
+  var themeQuery = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+  function systemTheme() { return themeQuery && themeQuery.matches ? 'dark' : 'light'; }
+  function currentTheme() { return root.getAttribute('data-theme') || systemTheme(); }
+  function paintTheme() {
+    var t = currentTheme();
+    // the browser bar (and the space above the page when it is pulled down) takes the page's color
+    document.querySelectorAll('meta[name="theme-color"]').forEach(function (m) { m.setAttribute('content', t === 'dark' ? '#060b1f' : '#f8fafc'); });
+    document.querySelectorAll('[data-set-theme]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-set-theme') === t)); });
+    document.querySelectorAll('[data-toggle-theme]').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(t === 'dark'));
+      b.setAttribute('aria-label', t === 'dark' ? 'Switch to the light theme' : 'Switch to the dark theme');
+    });
+  }
+  function setTheme(t) {
+    if (t === systemTheme()) {
+      root.removeAttribute('data-theme');
+      try { localStorage.removeItem('theme'); } catch (e) {}
+    } else {
+      root.setAttribute('data-theme', t);
+      try { localStorage.setItem('theme', t); } catch (e) {}
+    }
+    paintTheme();
+  }
+  document.querySelectorAll('[data-set-theme]').forEach(function (b) {
+    b.addEventListener('click', function () { setTheme(b.getAttribute('data-set-theme')); });
+  });
+  document.querySelectorAll('[data-toggle-theme]').forEach(function (b) {
+    b.addEventListener('click', function () { setTheme(currentTheme() === 'dark' ? 'light' : 'dark'); });
+  });
+  if (themeQuery && themeQuery.addEventListener) themeQuery.addEventListener('change', paintTheme);
+  paintTheme();
+
   var buttons = document.querySelectorAll('[data-set-lang]');
   function setLang(lang) {
     root.setAttribute('data-lang', lang);

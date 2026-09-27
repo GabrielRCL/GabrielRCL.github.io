@@ -109,6 +109,13 @@
   .flag svg { width: 100%; height: 100%; display: block; }
   .navlinks { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
   .menu-btn { display: none; }
+  /* theme: a sun/moon button in the header; on phones the main page moves it into the menu as a
+     Light | Dark switch shaped like the language one */
+  .theme-btn { display: inline-grid; place-items: center; width: 38px; height: 34px; padding: 0; border-radius: 999px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 17px; cursor: pointer; }
+  .theme-btn:hover { border-color: var(--muted); }
+  .theme-btn[aria-pressed="true"] .i-moon, .theme-btn[aria-pressed="false"] .i-sun { display: none; }
+  .menu-theme { display: none; }
+  .lang.theme button .ic { font-size: 14px; }
   /* phones and small tablets: the section links fold into a menu under three lines */
   @media (max-width: 900px) {
     .top { padding-block: 11px; }
@@ -125,6 +132,9 @@
     .top nav .navlinks a { display: flex; align-items: center; justify-content: space-between; padding: 15px 2px; border-bottom: 1px solid var(--line); font-size: 1.05rem; font-weight: 600; color: var(--ink); }
     .top nav .navlinks a::after { content: "›"; font-size: 1.3rem; line-height: 1; color: var(--muted); }
     .top nav .navlinks a:last-child { border-bottom: 0; }
+    .top nav .theme-btn.desk-only { display: none; }
+    .navlinks .menu-theme { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 2px 4px; }
+    .menu-theme .k { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
   }
   @keyframes menu-in { from { opacity: 0; transform: translate3d(0, -8px, 0); } }
   @media (prefers-reduced-motion: reduce) { .topbar.open .navlinks { animation: none; } .menu-btn span { transition: none; } }

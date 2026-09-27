@@ -26,7 +26,7 @@ landmark receipt-text file-text activity bot sparkles life-buoy database arrow-r
 linkedin copy check arrow-up-right server gamepad-2 cpu bitcoin zap graduation-cap languages
 globe map-pin code-xml terminal shield layers network credit-card key-round users user plug
 workflow wallet monitor-cog cloud headset store package briefcase-business house calendar
-refresh-cw lock message-square-text layout-dashboard x chevron-left chevron-right file-down book-open-text maximize-2 coffee arrow-up
+refresh-cw lock message-square-text layout-dashboard x chevron-left chevron-right file-down book-open-text maximize-2 coffee arrow-up sun moon qr-code
 """.split()
 
 

@@ -106,6 +106,10 @@
   .motion .contact-grid[data-p] .contact-list li { --e: clamp(0, calc((var(--p) - var(--f, 0) * 0.5) * 2), 1); opacity: var(--e); transform: translate3d(calc((1 - var(--e)) * -40px), 0, 0); }
   .motion .contact-grid[data-p] .btc { opacity: var(--p); transform: translate3d(0, calc((1 - var(--p)) * 60px), 0) rotate(calc((1 - var(--p)) * 3deg)); }
 
+  /* footer: the scene settles in and the text rises (range 0.35 so it completes at the end of the page) */
+  .motion .site-footer[data-p] .sf-scene img { opacity: calc(0.25 + var(--p) * 0.75); transform: scale(calc(1.14 - var(--p) * 0.14)); }
+  .motion .site-footer[data-p] .sf-body > * { opacity: var(--p); transform: translate3d(0, calc((1 - var(--p)) * 32px), 0); }
+
   /* progress bar, scene rail and timecode (built by motion.js) */
   .progress { position: fixed; top: 0; left: 0; right: 0; z-index: 80; height: 2px; background: var(--sun); transform-origin: left; transform: scaleX(var(--gp, 0)); pointer-events: none; }
   .rail, .hud { display: none; }

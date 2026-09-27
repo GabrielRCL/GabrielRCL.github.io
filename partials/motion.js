@@ -32,6 +32,7 @@
     mark('.tier', 'enter', 0.7);
     mark('.two', 'enter', 0.5);
     mark('.contact-grid', 'enter', 0.5);
+    mark('.site-footer', 'enter', 0.35);
     stagger('.stats', '.stat');
     stagger('.roles', 'li');
     stagger('.side', ':scope > div');
