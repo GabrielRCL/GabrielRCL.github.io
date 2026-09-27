@@ -346,7 +346,8 @@
   .btc-head .mug { width: 30px; height: 30px; flex: none; }
   .btc h3 { font-weight: 700; font-size: 1.05rem; margin: 0; }
   .btc-row { display: grid; gap: 6px; }
-  .btc-row .k { display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .btc-row .k { display: inline-flex; align-items: center; gap: 8px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .btc-row .k .ic { width: 18px; height: 18px; }
   .addr { display: flex; gap: 10px; align-items: flex-start; }
   .addr code { flex: 1; min-width: 0; font: 400 0.82rem/1.5 var(--mono); word-break: break-all; }
   .copy { flex: none; display: inline-flex; align-items: center; gap: 6px; font: 600 0.75rem/1 var(--sans); padding: 7px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); cursor: pointer; }
@@ -1190,7 +1191,7 @@
             </div>
           </div>
           <div class="btc-row">
-            <span class="k"><svg class="ic" style="color:#8b5cf6"><use href="#lu-zap"/></svg>Lightning</span>
+            <span class="k"><img class="ic" src="assets/lightning.svg" alt="">Lightning</span>
             <div class="addr">
               <code id="ln-addr">satoshi@gabrielrcl.dev</code>
               <button type="button" class="copy" id="copy-ln" data-copy="ln-addr"><svg class="ic i-idle"><use href="#lu-copy"/></svg><svg class="ic i-done"><use href="#lu-check"/></svg><span class="idle-label"><span class="en">Copy</span><span class="pt">Copiar</span></span><span class="done-label"><span class="en">Copied</span><span class="pt">Copiado</span></span></button>

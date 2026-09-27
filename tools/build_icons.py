@@ -6,6 +6,7 @@
 - assets/banks.png: Sicoob, Banco Inter and Itaú as a cluster of round logos.
 - assets/odoo-crm.svg: the Odoo CRM app icon, copied from the Odoo source.
 - assets/coffee.svg: a white mug of coffee.
+- assets/lightning.svg: a filled purple bolt for the Lightning address (the outline icon read as hollow).
 """
 import io
 import os
@@ -20,6 +21,11 @@ NFSE_URL = ("https://www.gov.br/nfse/pt-br/biblioteca/documentacao-tecnica/logos
             "Logo%20-%20NFS-e%20-%20Horizontal.png")
 ODOO_CRM_ICON = r"D:\GoNexView\workspace\src\odoo\addons\crm\static\description\icon.svg"
 BANKS = ["sicoob", "inter", "itau"]
+
+LIGHTNING_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-label="Lightning">
+  <path d="M13 2 4 14h7l-1 8 9-12h-7z" fill="#8B5CF6" stroke="#8B5CF6" stroke-width="1.6" stroke-linejoin="round"/>
+</svg>
+"""
 
 COFFEE_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Mug of coffee">
   <defs>
@@ -134,9 +140,10 @@ def main():
     build_nfse()
     build_banks()
     shutil.copyfile(ODOO_CRM_ICON, os.path.join(ASSETS, "odoo-crm.svg"))
-    with open(os.path.join(ASSETS, "coffee.svg"), "w", encoding="utf-8", newline="\n") as f:
-        f.write(COFFEE_SVG)
-    print("odoo-crm.svg, coffee.svg")
+    for name, svg in (("coffee.svg", COFFEE_SVG), ("lightning.svg", LIGHTNING_SVG)):
+        with open(os.path.join(ASSETS, name), "w", encoding="utf-8", newline="\n") as f:
+            f.write(svg)
+    print("odoo-crm.svg, coffee.svg, lightning.svg")
 
 
 if __name__ == "__main__":
