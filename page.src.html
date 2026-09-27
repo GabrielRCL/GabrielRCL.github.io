@@ -775,7 +775,7 @@
           <li><span class="tile"><svg class="ic"><use href="#si-github"/></svg></span><span><span class="k">GitHub</span><a href="https://github.com/GabrielRCL">github.com/GabrielRCL</a></span></li>
           <li><span class="tile"><svg class="ic"><use href="#lu-file-down"/></svg></span><span><span class="k"><span class="en">CV</span><span class="pt">Currículo</span></span><a href="assets/cv/Gabriel-Lucas-CV-EN.pdf" target="_blank" rel="noopener">English (PDF)</a> · <a href="assets/cv/Gabriel-Lucas-CV-PT.pdf" target="_blank" rel="noopener">Português (PDF)</a></span></li>
         </ul>
-        <div class="btc">
+        <div class="btc" id="coffee" data-center>
           <div class="btc-head"><img class="mug" src="assets/coffee.svg" alt="" width="30" height="30"><h3><span class="en">Buy me a coffee</span><span class="pt">Me pague um café</span></h3></div>
           <div class="btc-row">
             <span class="k"><svg class="ic" style="color:#f7931a"><use href="#si-bitcoin"/></svg>Bitcoin on-chain</span>
@@ -835,6 +835,17 @@
   function topHeight() { root.style.setProperty('--top-h', topbar.offsetHeight + 'px'); }
   topHeight();
   addEventListener('resize', topHeight);
+
+  // Anchors marked data-center (the coffee card, linked from /links) land in the middle of the screen
+  // instead of under the header. Again on load: fonts and images can still move it after the first jump.
+  function centerAnchor() {
+    var id = (location.hash || '').slice(1);
+    var el = id && id !== 'pt' && id !== 'en' ? document.getElementById(id) : null;
+    if (el && el.hasAttribute('data-center')) el.scrollIntoView({ block: 'center' });
+  }
+  centerAnchor();
+  addEventListener('load', centerAnchor);
+  addEventListener('hashchange', centerAnchor);
   function setMenu(open) {
     topbar.classList.toggle('open', open);
     menuBtn.setAttribute('aria-expanded', String(open));
