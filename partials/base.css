@@ -89,6 +89,21 @@
 
   .wrap { max-width: 1140px; margin: 0 auto; padding-inline: 20px; }
 
+  /* pull to refresh: the site's own (partials/pull-refresh.js). The browser's is off on touch screens,
+     where on the iPhone it could leave the page parked under a blank band; the cost is the bounce at the
+     top and the end of the page, there only. OutView's orange arrow in a NexView navy circle, which
+     fills with the sunset once a release will reload. It slides out from under the header (z 70). */
+  @media (pointer: coarse) { html, body { overscroll-behavior-y: none; } }
+  .ptr { position: fixed; left: 0; right: 0; top: 0; z-index: 65; display: flex; justify-content: center; pointer-events: none; opacity: 0; transform: translateY(-52px); transition: transform 0.2s ease-out, opacity 0.2s ease-out; }
+  .ptr.dragging { transition: none; }
+  .ptr-dot { display: grid; place-items: center; width: 44px; height: 44px; margin-top: 8px; border-radius: 50%; background: var(--navy); color: #f87934; border: 1.5px solid rgba(0, 184, 255, 0.55); box-shadow: 0 8px 22px rgba(0, 184, 255, 0.22), 0 4px 12px rgba(3, 7, 18, 0.35); transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease; }
+  .ptr-dot .ic { width: 20px; height: 20px; }
+  .ptr.armed .ptr-dot { background: var(--sun); color: var(--navy); border-color: transparent; }
+  .ptr.busy .ptr-dot .ic { animation: ptr-spin 0.8s linear infinite; }
+  @keyframes ptr-spin { to { transform: rotate(360deg); } }
+  @media (prefers-reduced-motion: reduce) { .ptr.busy .ptr-dot .ic { animation: none; } }
+  .ptr-msg { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
   /* top bar: stays at the top of the screen over a blurred band; anchors land below it */
   html { scroll-padding-top: calc(var(--top-h, 64px) + 8px); }
   .topbar { position: sticky; top: 0; z-index: 70; background: color-mix(in srgb, var(--bg) 82%, transparent); -webkit-backdrop-filter: saturate(140%) blur(14px); backdrop-filter: saturate(140%) blur(14px); border-bottom: 1px solid var(--line); }
