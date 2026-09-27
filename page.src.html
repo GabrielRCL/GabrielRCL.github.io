@@ -292,6 +292,7 @@
   .btc { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px; display: grid; gap: 16px; }
   .btc-head { display: flex; align-items: center; gap: 10px; }
   .btc-head .ic { font-size: 22px; color: #f7931a; }
+  .btc-head .ic.coffee { color: var(--warm); }
   .btc h3 { font-weight: 700; font-size: 1.05rem; margin: 0; }
   .btc-row { display: grid; gap: 6px; }
   .btc-row .k { display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
@@ -833,12 +834,19 @@
           <li><span class="tile"><svg class="ic"><use href="#lu-file-down"/></svg></span><span><span class="k"><span class="en">CV</span><span class="pt">Currículo</span></span><a href="assets/cv/Gabriel-Lucas-CV-EN.pdf" target="_blank" rel="noopener">English (PDF)</a> · <a href="assets/cv/Gabriel-Lucas-CV-PT.pdf" target="_blank" rel="noopener">Português (PDF)</a></span></li>
         </ul>
         <div class="btc">
-          <div class="btc-head"><svg class="ic"><use href="#si-bitcoin"/></svg><h3><span class="en">Bitcoin donations</span><span class="pt">Doações em bitcoin</span></h3></div>
+          <div class="btc-head"><svg class="ic coffee"><use href="#lu-coffee"/></svg><h3><span class="en">Buy me a coffee</span><span class="pt">Me pague um café</span></h3></div>
           <div class="btc-row">
-            <span class="k"><svg class="ic"><use href="#lu-wallet"/></svg>On-chain</span>
+            <span class="k"><svg class="ic" style="color:#f7931a"><use href="#si-bitcoin"/></svg>Bitcoin on-chain</span>
             <div class="addr">
               <code id="btc-addr">bc1qlwrptn0jgnexylsycpecpqrekl7zert5hsrxv9</code>
               <button type="button" class="copy" id="copy-btc" data-copy="btc-addr"><svg class="ic i-idle"><use href="#lu-copy"/></svg><svg class="ic i-done"><use href="#lu-check"/></svg><span class="idle-label"><span class="en">Copy</span><span class="pt">Copiar</span></span><span class="done-label"><span class="en">Copied</span><span class="pt">Copiado</span></span></button>
+            </div>
+          </div>
+          <div class="btc-row">
+            <span class="k"><svg class="ic" style="color:#8b5cf6"><use href="#lu-zap"/></svg>Lightning</span>
+            <div class="addr">
+              <code id="ln-addr">satoshi@gabrielrcl.dev</code>
+              <button type="button" class="copy" id="copy-ln" data-copy="ln-addr"><svg class="ic i-idle"><use href="#lu-copy"/></svg><svg class="ic i-done"><use href="#lu-check"/></svg><span class="idle-label"><span class="en">Copy</span><span class="pt">Copiar</span></span><span class="done-label"><span class="en">Copied</span><span class="pt">Copiado</span></span></button>
             </div>
           </div>
         </div>

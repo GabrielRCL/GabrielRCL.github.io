@@ -294,6 +294,7 @@
   .btc { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px; display: grid; gap: 16px; }
   .btc-head { display: flex; align-items: center; gap: 10px; }
   .btc-head .ic { font-size: 22px; color: #f7931a; }
+  .btc-head .ic.coffee { color: var(--warm); }
   .btc h3 { font-weight: 700; font-size: 1.05rem; margin: 0; }
   .btc-row { display: grid; gap: 6px; }
   .btc-row .k { display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
@@ -528,7 +529,10 @@
   <path d="M6 8h2" /></g></symbol><symbol id="lu-maximize-2" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M15 3h6v6" />
   <path d="m21 3-7 7" />
   <path d="m3 21 7-7" />
-  <path d="M9 21H3v-6" /></g></symbol></svg>
+  <path d="M9 21H3v-6" /></g></symbol><symbol id="lu-coffee" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="square" stroke-linejoin="miter"><path d="M10 2v2" />
+  <path d="M14 2v2" />
+  <path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1" />
+  <path d="M6 2v2" /></g></symbol></svg>
 <svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
   <symbol id="flag-br" viewBox="0 0 20 14"><rect width="20" height="14" fill="#009b3a"/><polygon points="10,1.5 18.5,7 10,12.5 1.5,7" fill="#fedf00"/><circle cx="10" cy="7" r="3.5" fill="#002776"/><path d="M6.7 6.2 Q10 5.1 13.4 7.3" stroke="#ffffff" stroke-width="0.7" fill="none"/></symbol>
   <symbol id="flag-us" viewBox="0 0 20 14"><rect width="20" height="14" fill="#b22234"/><g fill="#ffffff"><rect y="1.08" width="20" height="1.08"/><rect y="3.23" width="20" height="1.08"/><rect y="5.38" width="20" height="1.08"/><rect y="7.54" width="20" height="1.08"/><rect y="9.69" width="20" height="1.08"/><rect y="11.85" width="20" height="1.08"/></g><rect width="8.6" height="7.54" fill="#3c3b6e"/><g fill="#ffffff"><circle cx="1.6" cy="1.4" r="0.45"/><circle cx="4.3" cy="1.4" r="0.45"/><circle cx="7" cy="1.4" r="0.45"/><circle cx="2.95" cy="3.1" r="0.45"/><circle cx="5.65" cy="3.1" r="0.45"/><circle cx="1.6" cy="4.8" r="0.45"/><circle cx="4.3" cy="4.8" r="0.45"/><circle cx="7" cy="4.8" r="0.45"/><circle cx="2.95" cy="6.4" r="0.45"/><circle cx="5.65" cy="6.4" r="0.45"/></g></symbol>
@@ -1084,12 +1088,19 @@
           <li><span class="tile"><svg class="ic"><use href="#lu-file-down"/></svg></span><span><span class="k"><span class="en">CV</span><span class="pt">Currículo</span></span><a href="assets/cv/Gabriel-Lucas-CV-EN.pdf" target="_blank" rel="noopener">English (PDF)</a> · <a href="assets/cv/Gabriel-Lucas-CV-PT.pdf" target="_blank" rel="noopener">Português (PDF)</a></span></li>
         </ul>
         <div class="btc">
-          <div class="btc-head"><svg class="ic"><use href="#si-bitcoin"/></svg><h3><span class="en">Bitcoin donations</span><span class="pt">Doações em bitcoin</span></h3></div>
+          <div class="btc-head"><svg class="ic coffee"><use href="#lu-coffee"/></svg><h3><span class="en">Buy me a coffee</span><span class="pt">Me pague um café</span></h3></div>
           <div class="btc-row">
-            <span class="k"><svg class="ic"><use href="#lu-wallet"/></svg>On-chain</span>
+            <span class="k"><svg class="ic" style="color:#f7931a"><use href="#si-bitcoin"/></svg>Bitcoin on-chain</span>
             <div class="addr">
               <code id="btc-addr">bc1qlwrptn0jgnexylsycpecpqrekl7zert5hsrxv9</code>
               <button type="button" class="copy" id="copy-btc" data-copy="btc-addr"><svg class="ic i-idle"><use href="#lu-copy"/></svg><svg class="ic i-done"><use href="#lu-check"/></svg><span class="idle-label"><span class="en">Copy</span><span class="pt">Copiar</span></span><span class="done-label"><span class="en">Copied</span><span class="pt">Copiado</span></span></button>
+            </div>
+          </div>
+          <div class="btc-row">
+            <span class="k"><svg class="ic" style="color:#8b5cf6"><use href="#lu-zap"/></svg>Lightning</span>
+            <div class="addr">
+              <code id="ln-addr">satoshi@gabrielrcl.dev</code>
+              <button type="button" class="copy" id="copy-ln" data-copy="ln-addr"><svg class="ic i-idle"><use href="#lu-copy"/></svg><svg class="ic i-done"><use href="#lu-check"/></svg><span class="idle-label"><span class="en">Copy</span><span class="pt">Copiar</span></span><span class="done-label"><span class="en">Copied</span><span class="pt">Copiado</span></span></button>
             </div>
           </div>
         </div>
