@@ -1,118 +1,26 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Gabriel Lucas</title>
-<meta name="description" content="Odoo developer connecting ERPs to banks, the Brazilian tax authority, WhatsApp and monitoring. Built and ran my own software product.">
+<meta name="description" content="Full Stack Developer · Odoo Developer · Computer Engineering. I connect ERPs to banks, e-invoicing, WhatsApp and monitoring, and I built and ran my own software product.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Gabriel Lucas">
+<meta property="og:title" content="Gabriel Lucas · Full Stack & Odoo Developer">
+<meta property="og:description" content="Full Stack Developer · Odoo Developer · Computer Engineering. I connect ERPs to banks, e-invoicing, WhatsApp and monitoring, and I built and ran my own software product.">
+<meta property="og:url" content="https://gabrielrcl.dev/">
+<meta property="og:image" content="https://gabrielrcl.dev/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Gabriel Lucas: Full Stack Developer, Odoo Developer, Computer Engineering">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://gabrielrcl.dev/">
 <link rel="icon" href="assets/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" href="assets/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
 <style>
-  /* Blue, type and icons follow the NexView ITSM brand manual (navy + blue→cyan, Inter, Lucide outline).
-     The warm accent is OutView's sunset (sampled from its logo): it marks the person and the results,
-     blue marks the systems. */
-  :root {
-    --sun: linear-gradient(120deg, #f15c48 0%, #f87934 45%, #f9992b 75%, #f3b44a 100%);
-    --sun-text: linear-gradient(120deg, #d9412e 5%, #e8641e 55%, #d97706 95%);
-    --warm: #c2410c;
-    --warm-glow: rgba(248, 121, 52, 0.10);
-    --bg: #f8fafc;
-    --surface: #ffffff;
-    --surface-2: #eef2f8;
-    --ink: #0f172a;
-    --muted: #475569;
-    --line: #e2e8f0;
-    --accent: #1b4fd8;
-    --accent-ink: #ffffff;
-    --accent-soft: #e7eefc;
-    --tile: #eaf1fd;
-    --tile-ink: #1b4fd8;
-    --navy: #0b1530;
-    --grad: linear-gradient(135deg, #1b4fd8, #00b8ff);
-    --grad-text: linear-gradient(120deg, #1b4fd8 10%, #0a8fd6 90%);
-    --glow: rgba(27, 79, 216, 0.10);
-    --grid: rgba(15, 23, 42, 0.05);
-    --todo: #b45309;
-    --todo-soft: #fef3c7;
-    --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-    --mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      color-scheme: dark;
-      --sun-text: linear-gradient(120deg, #f15c48 5%, #f87934 50%, #f9b233 95%);
-      --warm: #f87934;
-      --warm-glow: rgba(248, 121, 52, 0.12);
-      --bg: #060b1f;
-      --surface: #0c1633;
-      --surface-2: #101c3f;
-      --ink: #f1f5f9;
-      --muted: #94a3b8;
-      --line: #1c2a4f;
-      --accent: #00b8ff;
-      --accent-ink: #04122b;
-      --accent-soft: #0b2147;
-      --tile: #10214a;
-      --tile-ink: #38c6f4;
-      --grad-text: linear-gradient(120deg, #5b8cff 10%, #00b8ff 90%);
-      --glow: rgba(0, 184, 255, 0.14);
-      --grid: rgba(148, 163, 184, 0.06);
-      --todo: #f59e0b;
-      --todo-soft: #2a2110;
-    }
-  }
-  :root[data-theme="dark"] {
-    color-scheme: dark;
-    --sun-text: linear-gradient(120deg, #f15c48 5%, #f87934 50%, #f9b233 95%);
-    --warm: #f87934;
-    --warm-glow: rgba(248, 121, 52, 0.12);
-    --bg: #060b1f;
-    --surface: #0c1633;
-    --surface-2: #101c3f;
-    --ink: #f1f5f9;
-    --muted: #94a3b8;
-    --line: #1c2a4f;
-    --accent: #00b8ff;
-    --accent-ink: #04122b;
-    --accent-soft: #0b2147;
-    --tile: #10214a;
-    --tile-ink: #38c6f4;
-    --grad-text: linear-gradient(120deg, #5b8cff 10%, #00b8ff 90%);
-    --glow: rgba(0, 184, 255, 0.14);
-    --grid: rgba(148, 163, 184, 0.06);
-    --todo: #f59e0b;
-    --todo-soft: #2a2110;
-  }
-
-  :root:not([data-lang="pt"]) .pt { display: none !important; }
-  :root[data-lang="pt"] .en { display: none !important; }
-
-  *, *::before, *::after { box-sizing: border-box; }
-  [hidden] { display: none !important; }
-  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
-  a { color: var(--accent); text-underline-offset: 3px; }
-  a:hover { text-decoration-thickness: 2px; }
-  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
-
-  .ic { width: 1em; height: 1em; flex: none; display: inline-block; vertical-align: -0.125em; }
-  img.ic { object-fit: contain; }
-
-  .wrap { max-width: 1140px; margin: 0 auto; padding-inline: 20px; }
-
-  /* top bar */
-  .top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 18px; }
-  .mark { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; }
-  .mark-dot { width: 10px; height: 10px; border-radius: 3px; background: var(--sun); }
-  .top nav { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; justify-content: flex-end; }
-  .top nav a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
-  .top nav a:hover { color: var(--ink); }
-  .lang { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--surface); }
-  .lang button { display: inline-flex; align-items: center; gap: 7px; font: 600 0.74rem/1 var(--sans); letter-spacing: 0.06em; color: var(--muted); background: none; border: 0; padding: 6px 10px; border-radius: 999px; cursor: pointer; }
-  .lang button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
-  .flag { display: inline-flex; width: 18px; height: 12.6px; border-radius: 2px; overflow: hidden; flex: none; box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.12); }
-  .flag svg { width: 100%; height: 100%; display: block; }
-  @media (max-width: 680px) { .top nav .navlink { display: none; } }
+<!--INCLUDE:partials/base.css-->
 
   /* hero */
   .hero-band { position: relative; border-block: 1px solid var(--line); background: radial-gradient(55% 75% at 82% 30%, var(--glow), transparent 70%), radial-gradient(45% 60% at 8% 95%, var(--warm-glow), transparent 70%), var(--bg); overflow: hidden; }
@@ -140,6 +48,7 @@
   .facts { list-style: none; margin: 0 0 30px; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 0.88rem; color: var(--muted); }
   .facts li { display: inline-flex; gap: 8px; align-items: center; }
   .facts .ic { color: var(--warm); font-size: 1rem; }
+  .facts b { color: var(--ink); font-weight: 600; }
   .cta { display: flex; flex-wrap: wrap; gap: 10px; }
   .btn { display: inline-flex; align-items: center; gap: 9px; font: 600 0.92rem/1 var(--sans); padding: 12px 16px; border-radius: 8px; text-decoration: none; border: 1px solid var(--line); color: var(--ink); background: var(--surface); }
   .btn .ic { font-size: 1.05rem; }
@@ -186,7 +95,7 @@
   .company { display: flex; align-items: center; gap: 12px; }
   .company .tile { width: 48px; height: 48px; border-radius: 11px; }
   .company .tile.white img { width: 38px; height: 38px; }
-  .company .tile.nx img { width: 36px; height: 17px; }
+  .company .tile.nx img { width: 34px; height: 17px; }
   .company b { display: block; font-weight: 700; }
   .company > div > span { display: block; font-size: 0.86rem; color: var(--muted); }
 
@@ -196,7 +105,16 @@
   .case { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; padding-block: 24px 28px; border-top: 1px solid var(--line); }
   .case .tile { width: 44px; height: 44px; font-size: 21px; }
   .case .tile img { width: 28px; height: 28px; }
-  .case .tile.nx img { width: 34px; height: 16px; }
+  .case .tile.nx img { width: 32px; height: 16px; }
+  /* Logo tiles: .full and .banks images carry their own shape and fill the tile; .mark is a
+     wordmark on white (NFS-e), .app an Odoo app icon on white. */
+  .tile.full { background: none; }
+  .tile.full img, .tile.banks img { width: 100%; height: 100%; }
+  .case .tile.full img, .case .tile.banks img { width: 44px; height: 44px; }
+  .case .tile.mark img { width: 36px; height: auto; }
+  .case .tile.app img { width: 30px; height: 30px; }
+  .link .tile.nx img { width: 28px; height: 14px; }
+  .link .tile.mark img { width: 31px; height: auto; }
   .case-body { display: grid; gap: 8px; align-content: start; min-width: 0; }
   .case h3 { font-weight: 700; font-size: 1.14rem; line-height: 1.3; letter-spacing: -0.015em; margin: 0; }
   .case p { margin: 0; color: var(--muted); max-width: 38em; }
@@ -228,8 +146,8 @@
   .roles { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
   @media (max-width: 440px) { .roles { grid-template-columns: 1fr; } }
   .roles li:last-child:nth-child(odd) { grid-column: 1 / -1; }
-  .roles li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 10px; align-items: start; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 11px 12px; font-size: 0.9rem; font-weight: 600; line-height: 1.3; }
-  .roles li .ic { font-size: 18px; color: var(--accent); margin-top: 1px; }
+  .roles li { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 12px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 11px 12px; font-size: 0.9rem; font-weight: 600; line-height: 1.3; }
+  .roles li .ic { box-sizing: content-box; width: 18px; height: 18px; padding: 7px; border-radius: 9px; color: var(--tile-ink); background: linear-gradient(145deg, rgba(27, 79, 216, 0.22), rgba(0, 184, 255, 0.08)); box-shadow: inset 0 0 0 1px rgba(56, 198, 244, 0.22); }
   .roles li small { display: block; font: 400 0.72rem/1.4 var(--mono); color: var(--muted); margin-top: 3px; }
 
   .side { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px 40px; margin-top: 52px; padding-top: 40px; border-top: 1px dashed var(--line); }
@@ -292,7 +210,7 @@
   .btc { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px; display: grid; gap: 16px; }
   .btc-head { display: flex; align-items: center; gap: 10px; }
   .btc-head .ic { font-size: 22px; color: #f7931a; }
-  .btc-head .ic.coffee { color: var(--warm); }
+  .btc-head .mug { width: 30px; height: 30px; flex: none; }
   .btc h3 { font-weight: 700; font-size: 1.05rem; margin: 0; }
   .btc-row { display: grid; gap: 6px; }
   .btc-row .k { display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
@@ -307,46 +225,9 @@
   .todo { color: var(--todo); background: var(--todo-soft); border: 1px dashed var(--todo); border-radius: 4px; padding: 0 5px; font: 500 0.85em/1.5 var(--mono); }
 
 
-  /* v11: orange for what is active or personal, interactive wire, screens, case studies */
+  /* v11: orange for what is active or personal, screens, case studies */
   .pulse { background: #f87934; box-shadow: 0 0 0 4px var(--warm-glow), 0 0 12px #f87934; }
-  .link { cursor: pointer; transition: border-color 0.2s ease; }
-  .link:hover, .link:focus-visible, .link.active { border-color: var(--warm); }
-  .link:hover code, .link:focus-visible code, .link.active code { color: var(--warm); }
-  .link:hover::before, .link:focus-visible::before, .link.active::before { background: var(--warm); }
   .timeline time { color: var(--warm); }
-
-  .wire-tabs { display: flex; flex-wrap: wrap; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 22px; }
-  .wire-tabs button { display: inline-flex; align-items: center; gap: 8px; font: 600 0.88rem/1 var(--sans); color: var(--muted); background: none; border: 0; border-bottom: 2px solid transparent; padding: 12px 12px 11px; margin-bottom: -1px; cursor: pointer; }
-  .wire-tabs button:hover { color: var(--ink); }
-  .wire-tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--warm); }
-  .wire-tabs .ic { font-size: 1rem; color: var(--accent); }
-  .wire-panel { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr); gap: 28px; align-items: start; }
-  @media (max-width: 900px) { .wire-panel { grid-template-columns: 1fr; } }
-  .wire-body { min-width: 0; }
-  .wire-code { background: #050a1a; border: 1px solid #1c2a4f; border-radius: 12px; overflow: auto; max-height: 540px; }
-  .wire-code pre { margin: 0; padding: 18px 20px; font: 400 0.78rem/1.65 var(--mono); color: #cbd5e1; white-space: pre; tab-size: 2; }
-  .wire-code .t { color: #7dd3fc; }
-  .wire-code .a { color: #93c5fd; }
-  .wire-code .s { color: #fdba74; }
-  .wire-code .v { color: #f1f5f9; }
-  .wire-code .dir { color: #f87934; font-weight: 700; }
-  .cnab pre { font-size: 0.8rem; }
-  .cnab .fld { border-radius: 3px; color: #f8fafc; }
-  .cnab .f0 { background: rgba(0, 184, 255, 0.22); }
-  .cnab .f1 { background: rgba(248, 121, 52, 0.26); }
-  .cnab .f2 { background: rgba(16, 185, 129, 0.24); }
-  .cnab .f3 { background: rgba(168, 85, 247, 0.26); }
-  .cnab .f4 { background: rgba(245, 158, 11, 0.24); }
-  .cnab .f5 { background: rgba(59, 130, 246, 0.28); }
-  .cnab .gap { color: #475569; }
-  .fields { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 0.84rem; }
-  .fields th { text-align: left; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); padding: 6px 8px; border-bottom: 1px solid var(--line); }
-  .fields td { padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
-  .fields td:first-child { font: 400 0.76rem/1.6 var(--mono); color: var(--muted); white-space: nowrap; }
-  .fields code { font: 400 0.78rem/1.6 var(--mono); }
-  .wire-notes { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; }
-  .wire-notes li { position: relative; padding-left: 20px; color: var(--muted); }
-  .wire-notes li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 8px; border-radius: 2px; background: var(--warm); }
 
   .viewer { margin: 40px 0 0; display: grid; gap: 12px; }
   .viewer.compact { max-width: 760px; }
@@ -392,19 +273,45 @@
 
   .colophon { display: grid; gap: 4px; }
 
+  /* The hero fits the first screen on desktop: sizes follow the viewport height as well as its width,
+     and on short screens the wire cards drop their protocol line. */
+  @media (min-width: 941px) {
+    .hero { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 44px; padding-block: clamp(22px, 4vh, 48px) clamp(26px, 4.5vh, 52px); }
+    .who { margin-bottom: clamp(12px, 2.2vh, 22px); }
+    .avatar { width: clamp(76px, 10.5vh, 104px); height: clamp(76px, 10.5vh, 104px); }
+    .eyebrow { letter-spacing: 0.1em; margin-bottom: clamp(8px, 1.4vh, 14px); }
+    h1 { font-size: clamp(3rem, min(7vw, 9.2vh), 5.6rem); margin-bottom: clamp(12px, 2.2vh, 22px); }
+    .hero .cta { gap: 8px; }
+    .hero .cta .btn { padding: 11px 13px; }
+    .lead { font-size: clamp(1rem, min(1.4vw, 2.05vh), 1.16rem); margin-bottom: clamp(14px, 2.4vh, 24px); }
+    .facts { margin-bottom: clamp(16px, 2.8vh, 28px); }
+    .wire-head { margin-bottom: 12px; }
+    .links { gap: 8px; }
+    .link { padding: 10px 12px 11px 11px; }
+    .link p { font-size: 0.86rem; }
+  }
+  @media (min-width: 941px) and (max-height: 800px) { .link code { display: none; } }
+
+  /* numbers */
+  .stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px; }
+  @media (max-width: 900px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; } }
+  .stat { display: grid; gap: 10px; align-content: start; padding-top: 18px; border-top: 1px solid var(--line); }
+  .stat b { font-weight: 900; font-size: clamp(2.8rem, 6vw, 4.8rem); line-height: 0.95; letter-spacing: -0.05em; font-variant-numeric: tabular-nums; background: var(--sun-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .stat > span { color: var(--muted); max-width: 24ch; }
+
+<!--INCLUDE:partials/motion.css-->
+  /* scenes added with the motion pass */
+  .motion .stats[data-p] .stat { --e: clamp(0, calc((var(--p) - var(--f, 0) * 0.5) * 2), 1); opacity: var(--e); transform: translate3d(0, calc((1 - var(--e)) * 44px), 0) scale(calc(0.88 + var(--e) * 0.12)); }
+
   footer { border-top: 1px solid var(--line); padding-block: 28px 44px; color: var(--muted); font-size: 0.85rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; }
 </style>
 
 <!--ICON_SPRITE-->
-<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
-  <symbol id="flag-br" viewBox="0 0 20 14"><rect width="20" height="14" fill="#009b3a"/><polygon points="10,1.5 18.5,7 10,12.5 1.5,7" fill="#fedf00"/><circle cx="10" cy="7" r="3.5" fill="#002776"/><path d="M6.7 6.2 Q10 5.1 13.4 7.3" stroke="#ffffff" stroke-width="0.7" fill="none"/></symbol>
-  <symbol id="flag-us" viewBox="0 0 20 14"><rect width="20" height="14" fill="#b22234"/><g fill="#ffffff"><rect y="1.08" width="20" height="1.08"/><rect y="3.23" width="20" height="1.08"/><rect y="5.38" width="20" height="1.08"/><rect y="7.54" width="20" height="1.08"/><rect y="9.69" width="20" height="1.08"/><rect y="11.85" width="20" height="1.08"/></g><rect width="8.6" height="7.54" fill="#3c3b6e"/><g fill="#ffffff"><circle cx="1.6" cy="1.4" r="0.45"/><circle cx="4.3" cy="1.4" r="0.45"/><circle cx="7" cy="1.4" r="0.45"/><circle cx="2.95" cy="3.1" r="0.45"/><circle cx="5.65" cy="3.1" r="0.45"/><circle cx="1.6" cy="4.8" r="0.45"/><circle cx="4.3" cy="4.8" r="0.45"/><circle cx="7" cy="4.8" r="0.45"/><circle cx="2.95" cy="6.4" r="0.45"/><circle cx="5.65" cy="6.4" r="0.45"/></g></symbol>
-  <symbol id="flag-es" viewBox="0 0 20 14"><rect width="20" height="14" fill="#aa151b"/><rect y="3.5" width="20" height="7" fill="#f1bf00"/></symbol>
-</svg>
+<!--INCLUDE:partials/flags.svg-->
 
 <div class="wrap">
   <header class="top">
-    <a class="mark" href="#top"><span class="mark-dot" aria-hidden="true"></span>Gabriel Lucas</a>
+    <a class="mark" href="#top"><span class="mark-glyph" aria-hidden="true">&gt;<i></i></span>Gabriel Lucas</a>
     <nav aria-label="Sections">
       <a class="navlink" href="#work"><span class="en">Work</span><span class="pt">Trabalho</span></a>
       <a class="navlink" href="#freelance">Freelance</a>
@@ -419,7 +326,7 @@
   </header>
 </div>
 
-<div class="hero-band" id="top">
+<div class="hero-band" id="top" data-label-en="Start" data-label-pt="Início">
   <div class="wrap">
     <div class="hero">
       <div>
@@ -429,16 +336,16 @@
             <span class="at-label"><span class="en">Currently at</span><span class="pt">Atualmente na</span></span>
             <div class="brands">
               <span class="brand-chip"><img src="assets/outview-symbol.png" alt="" width="20" height="20">OutView</span>
-              <span class="brand-chip"><img src="assets/nexview-nx.png" alt="" width="30" height="14">NexView <small>ITSM</small></span>
+              <span class="brand-chip"><img src="assets/nexview-nx.png" alt="" width="28" height="14">NexView <small>ITSM</small></span>
             </div>
           </div>
         </div>
         <p class="eyebrow"><span class="en">Odoo developer · ERP integrations · Computer Engineering</span><span class="pt">Desenvolvedor Odoo · Integrações de ERP · Engenharia da Computação</span></p>
-        <h1>Gabriel <span class="grad-text">Lucas</span></h1>
+        <h1><span class="line"><span>Gabriel</span></span> <span class="line"><span class="grad-text">Lucas</span></span></h1>
         <p class="lead en">I connect Odoo to the systems a business depends on: <strong>monitoring and ITSM, WhatsApp, AI assistants, the tax authority and banks</strong>. Before that, I built and ran my own software product, from the code to the servers, billing and support.</p>
         <p class="lead pt">Conecto o Odoo aos sistemas de que uma empresa depende: <strong>monitoramento e ITSM, WhatsApp, assistentes de IA, fisco e bancos</strong>. Antes disso, criei e mantive meu próprio software, do código aos servidores, à cobrança e ao suporte.</p>
         <ul class="facts">
-          <li><svg class="ic"><use href="#lu-code-xml"/></svg><span class="en">1,400+ GitHub contributions in the last year</span><span class="pt">1.400+ contribuições no GitHub no último ano</span></li>
+          <li id="contrib" hidden><svg class="ic"><use href="#lu-code-xml"/></svg><span class="en"><b data-contrib="en-US"></b> GitHub contributions in the last year</span><span class="pt"><b data-contrib="pt-BR"></b> contribuições no GitHub no último ano</span></li>
           <li><svg class="ic"><use href="#si-meta"/></svg><span class="en">Meta Tech Provider accreditation</span><span class="pt">Credenciamento de Tech Provider na Meta</span></li>
           <li><svg class="ic"><use href="#lu-users"/></svg><span class="en">Founded a software product with 200+ monthly users</span><span class="pt">Fundei um software com 200+ usuários por mês</span></li>
           <li><svg class="ic"><use href="#lu-globe"/></svg><span class="en">Clients in Brazil and the US</span><span class="pt">Clientes no Brasil e nos EUA</span></li>
@@ -455,40 +362,40 @@
         <span class="pulse" aria-hidden="true"></span>
         <div class="wire-head"><span class="port" aria-hidden="true"></span><strong><img src="assets/odoo.png" alt="">ODOO 19</strong><span class="en">what I have connected it to</span><span class="pt">ao que já conectei</span></div>
         <ul class="links">
-          <li class="link" tabindex="0" role="button" data-wire="zabbix">
-            <span class="tile"><svg class="ic"><use href="#lu-activity"/></svg></span>
+          <li class="link">
+            <span class="tile dark nx"><img src="assets/nexview-nx.png" alt=""></span>
             <div>
               <div class="link-top"><b><span class="en">Monitoring and ITSM</span><span class="pt">Monitoramento e ITSM</span></b><i>Zabbix · Bitdefender · NexView ITSM</i></div>
               <p><span class="en">hosts and licenses into the CMDB; ITIL incidents, problems and changes</span><span class="pt">hosts e licenças no CMDB; incidentes, problemas e mudanças no padrão ITIL</span></p>
               <code><span class="en">JSON-RPC · scheduled sync · ITIL</span><span class="pt">JSON-RPC · sincronização agendada · ITIL</span></code>
             </div>
           </li>
-          <li class="link" tabindex="0" role="button" data-wire="meta">
-            <span class="tile"><svg class="ic"><use href="#si-meta"/></svg></span>
+          <li class="link">
+            <span class="tile full"><img src="assets/stack/meta.svg" alt=""></span>
             <div>
               <div class="link-top"><b>Meta</b><i><span class="en">Tech Provider · WhatsApp Cloud API</span><span class="pt">Tech Provider · WhatsApp Cloud API</span></i></div>
               <p><span class="en">Tech Provider accreditation, client onboarding, conversations</span><span class="pt">credenciamento de Tech Provider, cadastro do cliente, conversas</span></p>
               <code>App Review · Embedded Signup · webhooks</code>
             </div>
           </li>
-          <li class="link" tabindex="0" role="button" data-wire="mcp">
-            <span class="tile"><svg class="ic"><use href="#si-modelcontextprotocol"/></svg></span>
+          <li class="link">
+            <span class="tile full"><img src="assets/stack/claude.svg" alt=""></span>
             <div>
               <div class="link-top"><b><span class="en">AI assistants</span><span class="pt">Assistentes de IA</span></b><i>Claude · MCP</i></div>
               <p><span class="en">read and act on Odoo data</span><span class="pt">leem e agem nos dados do Odoo</span></p>
               <code><span class="en">access scoped per model and operation</span><span class="pt">acesso limitado por modelo e operação</span></code>
             </div>
           </li>
-          <li class="link" tabindex="0" role="button" data-wire="nfse">
-            <span class="tile"><svg class="ic"><use href="#lu-receipt-text"/></svg></span>
+          <li class="link">
+            <span class="tile white mark"><img src="assets/nfse.png" alt=""></span>
             <div>
               <div class="link-top"><b>Receita Federal</b><i>NFS-e Nacional · NF-e</i></div>
               <p><span class="en">service and product invoices</span><span class="pt">notas de serviço e de produto</span></p>
               <code><span class="en">XML signed with an A1 certificate</span><span class="pt">XML assinado com certificado A1</span></code>
             </div>
           </li>
-          <li class="link" tabindex="0" role="button" data-wire="cnab">
-            <span class="tile"><svg class="ic"><use href="#lu-landmark"/></svg></span>
+          <li class="link">
+            <span class="tile banks"><img src="assets/banks.png" alt=""></span>
             <div>
               <div class="link-top"><b><span class="en">Banks</span><span class="pt">Bancos</span></b><i>Sicoob · Banco Inter · Itaú</i></div>
               <p><span class="en">boletos, statements, balances</span><span class="pt">boletos, extratos, saldos</span></p>
@@ -499,6 +406,7 @@
       </div>
     </div>
   </div>
+  <a class="cue" href="#work"><span class="en">Scroll</span><span class="pt">Role</span><i aria-hidden="true"></i></a>
 </div>
 
 <div class="wrap">
@@ -520,7 +428,7 @@
       </div>
       <div class="cases">
         <article class="case">
-          <span class="tile"><svg class="ic"><use href="#lu-landmark"/></svg></span>
+          <span class="tile banks"><img src="assets/banks.png" alt=""></span>
           <div class="case-body">
             <h3><span class="en">Bank integration layer</span><span class="pt">Camada de integração bancária</span></h3>
             <p class="en">A FastAPI service between Odoo and three Brazilian banks. Each bank is a provider that declares what it supports, and the routes are shared. On the Odoo side: boleto issuing and reissue, CNAB 240 files and statement import.</p>
@@ -529,7 +437,7 @@
           </div>
         </article>
         <article class="case">
-          <span class="tile"><svg class="ic"><use href="#lu-receipt-text"/></svg></span>
+          <span class="tile white mark"><img src="assets/nfse.png" alt=""></span>
           <div class="case-body">
             <h3><span class="en">Brazilian e-invoicing</span><span class="pt">Nota fiscal eletrônica</span></h3>
             <p class="en">Co-developed a Python SDK and REST API for the national service invoice (NFS-e Nacional) and NF-e. It builds the XML, signs it with the company's A1 certificate, sends it to the government and returns the XML and PDF to Odoo.</p>
@@ -538,7 +446,7 @@
           </div>
         </article>
         <article class="case">
-          <span class="tile"><svg class="ic"><use href="#si-meta"/></svg></span>
+          <span class="tile full"><img src="assets/stack/meta.svg" alt=""></span>
           <div class="case-body">
             <h3><span class="en">Meta Tech Provider, end to end</span><span class="pt">Tech Provider da Meta, do zero à produção</span></h3>
             <p class="en">Took OutView through Meta's Tech Provider accreditation: created the Meta app and linked it to the Business Manager, gathered the company documents for business verification, submitted App Review and built the required public pages (LGPD privacy policy, terms of use and service, data deletion request). Then built the Odoo side: Embedded Signup so each client connects its own WhatsApp Business number, message echoes to coexist with the WhatsApp Business app, and a webhook log for support.</p>
@@ -560,7 +468,7 @@
           </div>
         </article>
         <article class="case">
-          <span class="tile"><svg class="ic"><use href="#lu-arrow-right-left"/></svg></span>
+          <span class="tile white app"><img src="assets/odoo-crm.svg" alt=""></span>
           <div class="case-body">
             <h3><span class="en">CRM migration</span><span class="pt">Migração de CRM</span></h3>
             <p class="en">Moved a US retailer from HighLevel to Odoo: about 8,500 contacts and 66,000 WhatsApp messages, with resumable extraction, idempotent loaders and rehearsals on a copy of production before the cutover.</p>
@@ -569,7 +477,7 @@
           </div>
         </article>
         <article class="case">
-          <span class="tile"><svg class="ic"><use href="#lu-sparkles"/></svg></span>
+          <span class="tile full"><img src="assets/stack/claude.svg" alt=""></span>
           <div class="case-body">
             <h3><span class="en">AI in the ERP and in the workflow</span><span class="pt">IA no ERP e no fluxo de trabalho</span></h3>
             <p class="en">An MCP connector that gives AI assistants access to Odoo limited per model and operation. I also maintain the team's Claude Code setup: hooks, commit gates and skills that turn our rules into checks.</p>
@@ -582,7 +490,17 @@
       <p class="note pt">Consultoria de implantação: Vendas, CRM, Helpdesk, Assinaturas, Contabilidade e e-commerce, com PDV e estoque nos projetos atuais. Também dou suporte a um desenvolvedor júnior nas integrações com os marketplaces Wayfair e Walmart de um cliente dos EUA. Reuniões com clientes em português, inglês e espanhol.</p>
     </section>
 
-<!--INCLUDE:partials/wire.html-->
+    <section id="numbers">
+      <div class="rule" aria-hidden="true"></div>
+      <h2><span class="en">By the numbers</span><span class="pt">Em números</span></h2>
+      <div class="stats">
+        <div class="stat"><b data-count="379">379</b><span class="en">of the 513 commits in NexView ITSM are mine</span><span class="pt">dos 513 commits da NexView ITSM são meus</span></div>
+        <div class="stat"><b><span data-count="200">200</span>+</b><span class="en">monthly users of Tibia Macros, the product I founded</span><span class="pt">usuários por mês no Tibia Macros, o produto que fundei</span></div>
+        <div class="stat"><b><span class="en" data-count="66000">66,000</span><span class="pt" data-count="66000">66.000</span></b><span class="en">WhatsApp messages migrated from HighLevel to Odoo</span><span class="pt">mensagens de WhatsApp migradas do HighLevel para o Odoo</span></div>
+        <div class="stat"><b data-count="3">3</b><span class="en">banks integrated with Odoo: Sicoob, Banco Inter and Itaú</span><span class="pt">bancos integrados ao Odoo: Sicoob, Banco Inter e Itaú</span></div>
+      </div>
+    </section>
+
     <section id="freelance">
       <div class="rule" aria-hidden="true"></div>
       <h2>Freelance</h2>
@@ -638,10 +556,10 @@
           <ul class="roles">
             <li><svg class="ic"><use href="#lu-monitor-cog"/></svg><span><span class="en">Desktop client</span><span class="pt">Cliente desktop</span><small>AutoHotkey · OCR</small></span></li>
             <li><svg class="ic"><use href="#lu-key-round"/></svg><span><span class="en">License and trial API</span><span class="pt">API de licença e trial</span><small>Flask · SQLAlchemy · MySQL</small></span></li>
-            <li><svg class="ic"><use href="#si-stripe"/></svg><span><span class="en">Automated billing with e-mail delivery</span><span class="pt">Cobrança automática com envio por e-mail</span><small>Stripe webhooks · e-mail</small></span></li>
+            <li><svg class="ic"><use href="#lu-credit-card"/></svg><span><span class="en">Automated billing with e-mail delivery</span><span class="pt">Cobrança automática com envio por e-mail</span><small>Stripe webhooks · e-mail</small></span></li>
             <li><svg class="ic"><use href="#lu-refresh-cw"/></svg><span><span class="en">Auto-update</span><span class="pt">Atualização automática</span><small>CDN</small></span></li>
             <li><svg class="ic"><use href="#lu-globe"/></svg><span><span class="en">Website</span><span class="pt">Site</span><small>HTML · CSS · JS</small></span></li>
-            <li><svg class="ic"><use href="#si-discord"/></svg><span><span class="en">Customer support</span><span class="pt">Suporte ao cliente</span><small>Discord</small></span></li>
+            <li><svg class="ic"><use href="#lu-headset"/></svg><span><span class="en">Customer support</span><span class="pt">Suporte ao cliente</span><small>Discord</small></span></li>
             <li><svg class="ic"><use href="#lu-server"/></svg><span><span class="en">Servers and deploys</span><span class="pt">Servidores e deploys</span><small>Railway · Vercel · Linux</small></span></li>
           </ul>
         </div>
@@ -834,7 +752,7 @@
           <li><span class="tile"><svg class="ic"><use href="#lu-file-down"/></svg></span><span><span class="k"><span class="en">CV</span><span class="pt">Currículo</span></span><a href="assets/cv/Gabriel-Lucas-CV-EN.pdf" target="_blank" rel="noopener">English (PDF)</a> · <a href="assets/cv/Gabriel-Lucas-CV-PT.pdf" target="_blank" rel="noopener">Português (PDF)</a></span></li>
         </ul>
         <div class="btc">
-          <div class="btc-head"><svg class="ic coffee"><use href="#lu-coffee"/></svg><h3><span class="en">Buy me a coffee</span><span class="pt">Me pague um café</span></h3></div>
+          <div class="btc-head"><img class="mug" src="assets/coffee.svg" alt="" width="30" height="30"><h3><span class="en">Buy me a coffee</span><span class="pt">Me pague um café</span></h3></div>
           <div class="btc-row">
             <span class="k"><svg class="ic" style="color:#f7931a"><use href="#si-bitcoin"/></svg>Bitcoin on-chain</span>
             <div class="addr">
@@ -901,38 +819,20 @@
     });
   });
 
-  // What goes over the wire: tabs, and the hero cards that open them
-  var wireTabs = Array.prototype.slice.call(document.querySelectorAll('.wire-tabs [role="tab"]'));
-  function selectWire(key, focus) {
-    wireTabs.forEach(function (t) {
-      var on = t.getAttribute('data-wire') === key;
-      t.setAttribute('aria-selected', String(on));
-      t.tabIndex = on ? 0 : -1;
-      var p = document.getElementById(t.getAttribute('aria-controls'));
-      if (p) p.hidden = !on;
-      if (on && focus) t.focus();
-    });
-    document.querySelectorAll('.link[data-wire]').forEach(function (l) { l.classList.toggle('active', l.getAttribute('data-wire') === key); });
+  // Contribution count, written every hour by the profile repo's workflow. Without it the line stays hidden.
+  var contrib = document.getElementById('contrib');
+  if (contrib && window.fetch) {
+    fetch('https://raw.githubusercontent.com/GabrielRCL/GabrielRCL/output/contributions.json', { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .then(function (d) {
+        if (!d || typeof d.total !== 'number') return;
+        contrib.querySelectorAll('[data-contrib]').forEach(function (b) { b.textContent = d.total.toLocaleString(b.getAttribute('data-contrib')); });
+        contrib.hidden = false;
+      })
+      .catch(function () {});
   }
-  wireTabs.forEach(function (t, i) {
-    t.addEventListener('click', function () { selectWire(t.getAttribute('data-wire')); });
-    t.addEventListener('keydown', function (e) {
-      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
-      var n = (i + (e.key === 'ArrowRight' ? 1 : wireTabs.length - 1)) % wireTabs.length;
-      selectWire(wireTabs[n].getAttribute('data-wire'), true);
-      e.preventDefault();
-    });
-  });
+
   var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  document.querySelectorAll('.link[data-wire]').forEach(function (l) {
-    function go() {
-      selectWire(l.getAttribute('data-wire'));
-      var s = document.getElementById('wire');
-      if (s) s.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
-    }
-    l.addEventListener('click', go);
-    l.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
-  });
 
   // Screen viewers and the lightbox
   var lb = document.getElementById('lightbox');
@@ -990,5 +890,6 @@
     d.querySelector('[data-close]').addEventListener('click', function () { d.close(); });
     d.addEventListener('click', function (e) { if (e.target === d) d.close(); });
   });
+<!--INCLUDE:partials/motion.js-->
 })();
 </script>

@@ -1,11 +1,11 @@
-"""Build the site from page.src.html.
+"""Build the site pages.
 
-- page.html: the page with the icon sprite inlined (what the Claude artifact preview serves).
-- index.html: the same page with a doctype, for GitHub Pages.
+- page.src.html -> index.html (GitHub Pages) and page.html (the Claude artifact preview, images inlined).
+- links.src.html -> links/index.html (gabrielrcl.dev/links/, the link-in-bio page).
 - --stage DIR: also copy page.html and assets/ into DIR (the artifact tool only publishes from
   the workspace or the session scratchpad).
 
-Fails if the page references an icon id the sprite does not define.
+Fails if a page references an icon id the sprite does not define, or a local file that does not exist.
 """
 import argparse
 import base64
@@ -15,6 +15,8 @@ import shutil
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# (source, output, also write the inlined artifact preview)
+PAGES = [("page.src.html", "index.html", True), ("links.src.html", os.path.join("links", "index.html"), False)]
 
 
 def read(path):
@@ -32,37 +34,48 @@ def data_uri(rel):
 
 
 def write(path, text):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, "w", encoding="utf-8", newline="\n") as f:
         f.write(text)
+
+
+def build(src_name, out_name, sprite):
+    src = read(os.path.join(ROOT, src_name))
+    src = re.sub(r"<!--INCLUDE:([^>]+?)-->", lambda m: read(os.path.join(ROOT, m.group(1).strip())), src)
+
+    defined = set(re.findall(r'<symbol id="([^"]+)"', sprite)) | set(re.findall(r'<symbol id="([^"]+)"', src))
+    used = set(re.findall(r'href="#((?:si|lu|flag)-[^"]+)"', src))
+    missing = sorted(used - defined)
+    if missing:
+        sys.exit(f"{src_name}: missing icons: " + ", ".join(missing))
+
+    # local files, resolved from where the built page is served
+    base = os.path.dirname(os.path.join(ROOT, out_name))
+    refs = set(re.findall(r'(?:src|href)="((?:\.\./)?assets/[^"#]+)"', src))
+    absent = sorted(r for r in refs if not os.path.exists(os.path.normpath(os.path.join(base, r))))
+    if absent:
+        sys.exit(f"{src_name}: missing files: " + ", ".join(absent))
+
+    page = src.replace("<!--ICON_SPRITE-->", sprite)
+    write(os.path.join(ROOT, out_name), '<!doctype html>\n<html lang="en">\n' + page + "\n</html>\n")
+    print(f"{out_name} {len(page)} bytes, {len(used)} icons, {len(refs)} local files")
+    return page
 
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--stage")
     args = parser.parse_args()
-
-    src = read(os.path.join(ROOT, "page.src.html"))
-    src = re.sub(r"<!--INCLUDE:([^>]+?)-->", lambda m: read(os.path.join(ROOT, m.group(1).strip())), src)
     sprite = read(os.path.join(ROOT, "tools", "sprite.svg"))
 
-    defined = set(re.findall(r'<symbol id="([^"]+)"', sprite)) | set(re.findall(r'<symbol id="([^"]+)"', src))
-    used = set(re.findall(r'href="#((?:si|lu|flag)-[^"]+)"', src))
-    missing = sorted(used - defined)
-    if missing:
-        sys.exit("missing icons: " + ", ".join(missing))
-
-    assets = set(re.findall(r'src="(assets/[^"]+)"', src))
-    absent = sorted(a for a in assets if not os.path.exists(os.path.join(ROOT, a)))
-    if absent:
-        sys.exit("missing assets: " + ", ".join(absent))
-
-    page = src.replace("<!--ICON_SPRITE-->", sprite)
-    # GitHub Pages serves assets/ next to index.html. The artifact preview inlines every image:
-    # its phone viewer does not resolve the supporting files, and a self-contained page renders anywhere.
-    write(os.path.join(ROOT, "index.html"), '<!doctype html>\n<html lang="en">\n' + page + "\n</html>\n")
-    inlined = re.sub(r'src="(assets/[^"]+)"', lambda m: f'src="{data_uri(m.group(1))}"', page)
-    write(os.path.join(ROOT, "page.html"), inlined)
-    print(f"page.html {len(inlined)} bytes (images inlined), index.html {len(page)} bytes, {len(used)} icons, {len(assets)} assets")
+    for src_name, out_name, preview in PAGES:
+        page = build(src_name, out_name, sprite)
+        if preview:
+            # GitHub Pages serves assets/ next to index.html. The artifact preview inlines every image:
+            # its phone viewer does not resolve the supporting files, and a self-contained page renders anywhere.
+            inlined = re.sub(r'src="(assets/[^"]+)"', lambda m: f'src="{data_uri(m.group(1))}"', page)
+            write(os.path.join(ROOT, "page.html"), inlined)
+            print(f"page.html {len(inlined)} bytes (images inlined)")
 
     if args.stage:
         os.makedirs(args.stage, exist_ok=True)

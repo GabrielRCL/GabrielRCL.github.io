@@ -18,7 +18,7 @@ python odoo postgresql fastapi linux docker git claude anthropic stripe bitdefen
 whatsapp meta django flask sqlalchemy nextdotjs react nodedotjs javascript tailwindcss mysql
 mongodb selenium autohotkey cloudflare railway vercel hetzner googlecloud raspberrypi tailscale
 vmware c bitcoin kubernetes argo terraform redis lua xampp openjdk umbrel modelcontextprotocol
-github discord gnubash resend pydantic vite express sqlite
+github discord gnubash resend pydantic vite express sqlite instagram
 """.split()
 
 UI = """
@@ -26,7 +26,7 @@ landmark receipt-text file-text activity bot sparkles life-buoy database arrow-r
 linkedin copy check arrow-up-right server gamepad-2 cpu bitcoin zap graduation-cap languages
 globe map-pin code-xml terminal shield layers network credit-card key-round users user plug
 workflow wallet monitor-cog cloud headset store package briefcase-business house calendar
-refresh-cw lock message-square-text layout-dashboard x chevron-left chevron-right file-down book-open-text maximize-2 coffee
+refresh-cw lock message-square-text layout-dashboard x chevron-left chevron-right file-down book-open-text maximize-2 coffee arrow-up
 """.split()
 
 
@@ -58,7 +58,7 @@ def main():
         body = inner(svg)
         symbols.append(
             f'<symbol id="lu-{name}" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" '
-            f'stroke-width="2" stroke-linecap="square" stroke-linejoin="miter">{body}</g></symbol>'
+            f'stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">{body}</g></symbol>'
         )
     sprite = '<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">' + "".join(symbols) + "</svg>"
     path = os.path.join(HERE, "sprite.svg")

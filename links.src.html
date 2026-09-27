@@ -1,0 +1,160 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gabriel Lucas · Links</title>
+<meta name="description" content="Full Stack Developer · Odoo Developer · Computer Engineering. Projects, CV and social links of Gabriel Lucas.">
+<meta property="og:type" content="profile">
+<meta property="og:site_name" content="Gabriel Lucas">
+<meta property="og:title" content="Gabriel Lucas · Links">
+<meta property="og:description" content="Full Stack Developer · Odoo Developer · Computer Engineering. Projects, CV and social links.">
+<meta property="og:url" content="https://gabrielrcl.dev/links/">
+<meta property="og:image" content="https://gabrielrcl.dev/assets/og.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Gabriel Lucas: Full Stack Developer, Odoo Developer, Computer Engineering">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://gabrielrcl.dev/links/">
+<link rel="icon" href="../assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="../assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
+<style>
+<!--INCLUDE:partials/base.css-->
+
+  /* links page: one narrow column, like a link-in-bio page */
+  body { background: radial-gradient(60% 40% at 50% 0%, var(--glow), transparent 70%), var(--bg); min-height: 100vh; }
+  .wrap.narrow { max-width: 760px; }
+  .crumbs { display: flex; align-items: center; gap: 6px; color: var(--muted); font-size: 0.9rem; }
+  .crumbs a { color: var(--muted); }
+  .crumbs a:hover { color: var(--ink); }
+  @media (max-width: 560px) { .crumbs { display: none; } }
+
+  .profile { display: grid; justify-items: center; text-align: center; padding-block: 24px 6px; }
+  .avatar { width: 168px; height: 168px; border-radius: 50%; padding: 4px; background: var(--sun); }
+  .avatar img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+  .profile h1 { font-weight: 800; font-size: 1.45rem; letter-spacing: -0.02em; margin: 18px 0 4px; }
+  .role { font-weight: 600; margin: 0 0 4px; }
+  .stackline { color: var(--muted); margin: 0; }
+
+  .socials { display: flex; justify-content: center; gap: 10px; margin: 24px 0 36px; }
+  .socials a { display: grid; place-items: center; width: 54px; height: 54px; border-radius: 12px; background: var(--surface); border: 1px solid var(--line); color: var(--ink); font-size: 22px; transition: border-color 0.2s ease, color 0.2s ease; }
+  .socials a:hover, .socials a:focus-visible { border-color: var(--warm); color: var(--warm); }
+
+  .group { font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; margin: 0 0 12px; }
+  .cards { list-style: none; margin: 0 0 32px; padding: 0; display: grid; gap: 10px; }
+  .cards a { display: grid; grid-template-columns: 44px minmax(0, 1fr) 20px; gap: 14px; align-items: center; padding: 14px 16px; border-radius: 12px; background: var(--surface); border: 1px solid var(--line); color: var(--ink); text-decoration: none; transition: border-color 0.2s ease; }
+  .cards a:hover, .cards a:focus-visible { border-color: var(--warm); }
+  .cards a:hover .chev, .cards a:focus-visible .chev { color: var(--warm); transform: translateX(2px); }
+  .cards b { display: block; font-weight: 700; letter-spacing: -0.01em; }
+  .cards .d { display: block; color: var(--muted); font-size: 0.92rem; line-height: 1.45; }
+  .cards .chev { font-size: 20px; color: var(--muted); transition: transform 0.2s ease, color 0.2s ease; }
+  .logo { width: 44px; height: 44px; border-radius: 10px; overflow: hidden; display: grid; place-items: center; background: var(--tile); color: var(--tile-ink); font-size: 20px; }
+  .logo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .logo.nx { background: var(--navy); }
+  .logo.nx img { width: 32px; height: 16px; object-fit: contain; }
+  .logo.fit img { width: 34px; height: 34px; object-fit: contain; }
+  .logo.round img { border-radius: 50%; }
+  .cards .flag { width: 20px; height: 14px; margin-left: 6px; vertical-align: -1px; }
+
+  .end { display: flex; justify-content: flex-end; margin: -8px 0 40px; }
+  .to-top { display: inline-flex; align-items: center; gap: 8px; font: 600 0.88rem/1 var(--sans); padding: 10px 14px; border-radius: 8px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); cursor: pointer; }
+  .to-top:hover { border-color: var(--muted); }
+  footer { border-top: 1px solid var(--line); padding-block: 22px 36px; color: var(--muted); font-size: 0.85rem; text-align: center; }
+</style>
+
+<!--ICON_SPRITE-->
+<!--INCLUDE:partials/flags.svg-->
+
+<div class="wrap narrow">
+  <header class="top">
+    <a class="mark" href="../"><span class="mark-glyph" aria-hidden="true">&gt;<i></i></span>Gabriel Lucas</a>
+    <nav aria-label="Pages">
+      <span class="crumbs">
+        <a href="../"><span class="en">site</span><span class="pt">site</span></a> /
+        <a href="../#work"><span class="en">work</span><span class="pt">trabalho</span></a> /
+        <a class="en" href="../assets/cv/Gabriel-Lucas-CV-EN.pdf" target="_blank" rel="noopener">cv.pdf</a><a class="pt" href="../assets/cv/Gabriel-Lucas-CV-PT.pdf" target="_blank" rel="noopener">curriculo.pdf</a>
+      </span>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" id="lang-en" data-set-lang="en" aria-pressed="true"><span class="flag" aria-hidden="true"><svg><use href="#flag-us"/></svg></span>EN</button>
+        <button type="button" id="lang-pt" data-set-lang="pt" aria-pressed="false"><span class="flag" aria-hidden="true"><svg><use href="#flag-br"/></svg></span>PT</button>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="profile">
+      <div class="avatar"><img src="../assets/avatar.jpg" alt="Illustrated portrait of Gabriel Lucas" width="168" height="168"></div>
+      <h1>Gabriel Lucas</h1>
+      <p class="role"><span class="en">Full Stack Developer · Odoo Developer</span><span class="pt">Desenvolvedor Full Stack · Desenvolvedor Odoo</span></p>
+      <p class="stackline"><span class="en">Odoo 19, Python, FastAPI, React and more</span><span class="pt">Odoo 19, Python, FastAPI, React e mais</span></p>
+    </section>
+
+    <nav class="socials" aria-label="Social">
+      <a href="https://github.com/GabrielRCL" aria-label="GitHub"><svg class="ic"><use href="#si-github"/></svg></a>
+      <a href="https://www.linkedin.com/in/gabrielrcl777/" aria-label="LinkedIn"><svg class="ic"><use href="#lu-linkedin"/></svg></a>
+      <a href="https://instagram.com/gabrielrcl_" aria-label="Instagram"><svg class="ic"><use href="#si-instagram"/></svg></a>
+    </nav>
+
+    <h2 class="group"><span class="en">Projects</span><span class="pt">Projetos</span></h2>
+    <ul class="cards">
+      <li><a href="https://gonexview.com">
+        <span class="logo nx"><img src="../assets/nexview-nx.png" alt=""></span>
+        <span><b>NexView ITSM</b><span class="d en">ITIL-based ITSM suite on Odoo.</span><span class="d pt">Suíte de ITSM no padrão ITIL sobre o Odoo.</span></span>
+        <svg class="ic chev"><use href="#lu-chevron-right"/></svg></a></li>
+      <li><a href="https://mareminas.com.br">
+        <span class="logo"><img src="../assets/mareminas-logo.jpg" alt=""></span>
+        <span><b>Mar &amp; Minas</b><span class="d en">Point of sale and 24-hour delivery for a convenience store.</span><span class="d pt">PDV e delivery 24h de uma loja de conveniência.</span></span>
+        <svg class="ic chev"><use href="#lu-chevron-right"/></svg></a></li>
+      <li><a href="https://github.com/GabrielRCL/tibia-macros">
+        <span class="logo fit"><img src="../assets/tibiamacros.png" alt=""></span>
+        <span><b>tibia-macros</b><span class="d en">My own product: 200+ monthly users, now open source.</span><span class="d pt">Meu produto: 200+ usuários por mês, hoje open source.</span></span>
+        <svg class="ic chev"><use href="#lu-chevron-right"/></svg></a></li>
+      <li><a href="../">
+        <span class="logo round"><img src="../assets/avatar.jpg" alt=""></span>
+        <span><b>gabrielrcl.dev</b><span class="d en">Portfolio: work, integrations and stack.</span><span class="d pt">Portfólio: trabalho, integrações e stack.</span></span>
+        <svg class="ic chev"><use href="#lu-chevron-right"/></svg></a></li>
+    </ul>
+
+    <ul class="cards">
+      <li><a href="../assets/cv/Gabriel-Lucas-CV-EN.pdf" target="_blank" rel="noopener">
+        <span class="logo"><svg class="ic"><use href="#lu-file-down"/></svg></span>
+        <span><b>CV (EN)<span class="flag" aria-hidden="true"><svg><use href="#flag-us"/></svg></span></b><span class="d en">One page, PDF.</span><span class="d pt">Uma página, PDF.</span></span>
+        <svg class="ic chev"><use href="#lu-chevron-right"/></svg></a></li>
+      <li><a href="../assets/cv/Gabriel-Lucas-CV-PT.pdf" target="_blank" rel="noopener">
+        <span class="logo"><svg class="ic"><use href="#lu-file-down"/></svg></span>
+        <span><b><span class="en">CV (PT)</span><span class="pt">Currículo (PT)</span><span class="flag" aria-hidden="true"><svg><use href="#flag-br"/></svg></span></b><span class="d en">One page, PDF, in Portuguese.</span><span class="d pt">Uma página, PDF.</span></span>
+        <svg class="ic chev"><use href="#lu-chevron-right"/></svg></a></li>
+      <li><a href="../#contact">
+        <span class="logo fit"><img src="../assets/coffee.svg" alt=""></span>
+        <span><b><span class="en">Buy me a coffee</span><span class="pt">Me pague um café</span></b><span class="d">Bitcoin on-chain · Lightning</span></span>
+        <svg class="ic chev"><use href="#lu-chevron-right"/></svg></a></li>
+    </ul>
+
+    <div class="end"><button type="button" class="to-top" id="to-top"><svg class="ic"><use href="#lu-arrow-up"/></svg><span class="en">Back to top</span><span class="pt">Voltar ao topo</span></button></div>
+  </main>
+
+  <footer>© 2026 Gabriel Lucas</footer>
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var buttons = document.querySelectorAll('[data-set-lang]');
+  function setLang(lang) {
+    root.setAttribute('data-lang', lang);
+    root.lang = lang === 'pt' ? 'pt-BR' : 'en';
+    buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-set-lang') === lang)); });
+    try { localStorage.setItem('lang', lang); } catch (e) {}
+  }
+  var saved = null;
+  try { saved = localStorage.getItem('lang'); } catch (e) {}
+  var hash = (location.hash || '').slice(1);
+  var browserPt = (navigator.language || '').toLowerCase().indexOf('pt') === 0;
+  setLang(hash === 'pt' || hash === 'en' ? hash : (saved === 'pt' || saved === 'en' ? saved : (browserPt ? 'pt' : 'en')));
+  buttons.forEach(function (b) { b.addEventListener('click', function () { setLang(b.getAttribute('data-set-lang')); }); });
+
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.getElementById('to-top').addEventListener('click', function () { window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' }); });
+})();
+</script>

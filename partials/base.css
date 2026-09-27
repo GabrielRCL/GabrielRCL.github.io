@@ -1,0 +1,108 @@
+  /* Blue, type and icons follow the NexView ITSM brand manual (navy + blue→cyan, Inter, Lucide outline).
+     The warm accent is OutView's sunset (sampled from its logo): it marks the person and the results,
+     blue marks the systems. */
+  :root {
+    --sun: linear-gradient(120deg, #f15c48 0%, #f87934 45%, #f9992b 75%, #f3b44a 100%);
+    --sun-text: linear-gradient(120deg, #d9412e 5%, #e8641e 55%, #d97706 95%);
+    --warm: #c2410c;
+    --warm-glow: rgba(248, 121, 52, 0.10);
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --surface-2: #eef2f8;
+    --ink: #0f172a;
+    --muted: #475569;
+    --line: #e2e8f0;
+    --accent: #1b4fd8;
+    --accent-ink: #ffffff;
+    --accent-soft: #e7eefc;
+    --tile: #eaf1fd;
+    --tile-ink: #1b4fd8;
+    --navy: #0b1530;
+    --grad: linear-gradient(135deg, #1b4fd8, #00b8ff);
+    --grad-text: linear-gradient(120deg, #1b4fd8 10%, #0a8fd6 90%);
+    --glow: rgba(27, 79, 216, 0.10);
+    --grid: rgba(15, 23, 42, 0.05);
+    --todo: #b45309;
+    --todo-soft: #fef3c7;
+    --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --sun-text: linear-gradient(120deg, #f15c48 5%, #f87934 50%, #f9b233 95%);
+      --warm: #f87934;
+      --warm-glow: rgba(248, 121, 52, 0.12);
+      --bg: #060b1f;
+      --surface: #0c1633;
+      --surface-2: #101c3f;
+      --ink: #f1f5f9;
+      --muted: #94a3b8;
+      --line: #1c2a4f;
+      --accent: #00b8ff;
+      --accent-ink: #04122b;
+      --accent-soft: #0b2147;
+      --tile: #10214a;
+      --tile-ink: #38c6f4;
+      --grad-text: linear-gradient(120deg, #5b8cff 10%, #00b8ff 90%);
+      --glow: rgba(0, 184, 255, 0.14);
+      --grid: rgba(148, 163, 184, 0.06);
+      --todo: #f59e0b;
+      --todo-soft: #2a2110;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --sun-text: linear-gradient(120deg, #f15c48 5%, #f87934 50%, #f9b233 95%);
+    --warm: #f87934;
+    --warm-glow: rgba(248, 121, 52, 0.12);
+    --bg: #060b1f;
+    --surface: #0c1633;
+    --surface-2: #101c3f;
+    --ink: #f1f5f9;
+    --muted: #94a3b8;
+    --line: #1c2a4f;
+    --accent: #00b8ff;
+    --accent-ink: #04122b;
+    --accent-soft: #0b2147;
+    --tile: #10214a;
+    --tile-ink: #38c6f4;
+    --grad-text: linear-gradient(120deg, #5b8cff 10%, #00b8ff 90%);
+    --glow: rgba(0, 184, 255, 0.14);
+    --grid: rgba(148, 163, 184, 0.06);
+    --todo: #f59e0b;
+    --todo-soft: #2a2110;
+  }
+
+  :root:not([data-lang="pt"]) .pt { display: none !important; }
+  :root[data-lang="pt"] .en { display: none !important; }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:hover { text-decoration-thickness: 2px; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+  .ic { width: 1em; height: 1em; flex: none; display: inline-block; vertical-align: -0.125em; }
+  img.ic { object-fit: contain; }
+
+  .wrap { max-width: 1140px; margin: 0 auto; padding-inline: 20px; }
+
+  /* top bar */
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 18px; }
+  .mark { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; }
+  /* >_ with a blinking cursor: the same prompt the GitHub banner types after */
+  .mark-glyph { display: inline-flex; align-items: center; justify-content: center; gap: 1px; width: 30px; height: 25px; border-radius: 7px; background: var(--navy); box-shadow: inset 0 0 0 1px rgba(248, 121, 52, 0.5); color: #f87934; font: 700 12px/1 var(--mono); }
+  .mark-glyph i { width: 7px; height: 2px; margin-top: 8px; background: currentColor; animation: cursor 1.1s steps(1) infinite; }
+  @keyframes cursor { 50% { opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .mark-glyph i { animation: none; } }
+  .top nav { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; justify-content: flex-end; }
+  .top nav a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+  .top nav a:hover { color: var(--ink); }
+  .lang { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--surface); }
+  .lang button { display: inline-flex; align-items: center; gap: 7px; font: 600 0.74rem/1 var(--sans); letter-spacing: 0.06em; color: var(--muted); background: none; border: 0; padding: 6px 10px; border-radius: 999px; cursor: pointer; }
+  .lang button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+  .flag { display: inline-flex; width: 18px; height: 12.6px; border-radius: 2px; overflow: hidden; flex: none; box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.12); }
+  .flag svg { width: 100%; height: 100%; display: block; }
+  @media (max-width: 680px) { .top nav .navlink { display: none; } }
