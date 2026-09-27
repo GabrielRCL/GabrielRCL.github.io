@@ -1,0 +1,25 @@
+@page { size: A4; margin: 9mm 13mm 6mm 13mm; }
+* { box-sizing: border-box; }
+html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+body { margin: 0; font: 400 8.9pt/1.33 "Inter", "Segoe UI", Arial, sans-serif; color: #0f172a; }
+header { display: grid; grid-template-columns: 1fr auto; gap: 4mm; align-items: end; padding-bottom: 3mm; border-bottom: 2px solid #0b1530; }
+h1 { margin: 0; font-size: 20pt; font-weight: 800; letter-spacing: -0.02em; line-height: 1; }
+h1 span { color: #e8641e; }
+.role { margin: 2mm 0 0; font-size: 10.5pt; font-weight: 600; color: #1b4fd8; }
+.contact { text-align: right; font-size: 8.6pt; line-height: 1.55; color: #334155; }
+.contact a { color: #334155; text-decoration: none; }
+.summary { margin: 3mm 0 0; font-size: 9.2pt; color: #1e293b; }
+h2 { margin: 3.2mm 0 1.3mm; font-size: 8.6pt; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #0b1530; display: flex; align-items: center; gap: 2.5mm; }
+h2::before { content: ""; width: 7mm; height: 2px; background: linear-gradient(90deg, #f15c48, #f9992b); }
+.job { margin: 0 0 1.9mm; break-inside: avoid; }
+.job-head { display: flex; justify-content: space-between; gap: 4mm; align-items: baseline; }
+.job-head b { font-size: 10pt; font-weight: 700; }
+.job-head span { font-size: 8.6pt; color: #475569; white-space: nowrap; }
+.job-sub { font-size: 8.8pt; color: #1b4fd8; font-weight: 600; margin: 0.3mm 0 1mm; }
+ul { margin: 0; padding-left: 4.2mm; }
+li { margin: 0 0 0.25mm; }
+.skills { display: grid; grid-template-columns: 34mm 1fr; gap: 0.9mm 4mm; font-size: 8.6pt; }
+.skills dt { font-weight: 700; color: #0b1530; }
+.skills dd { margin: 0; color: #1e293b; }
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 6mm; }
+.muted { color: #475569; }

@@ -1,0 +1,6 @@
+# artifact preview build (images inlined), not served by GitHub Pages
+page.html
+# one-off revision scripts used while drafting
+tools/revise_*.py
+__pycache__/
+tools/build_screens.py

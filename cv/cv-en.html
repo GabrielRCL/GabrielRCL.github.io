@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Gabriel Lucas · CV</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="cv.css">
+</head>
+<body>
+<header>
+  <div>
+    <h1>Gabriel <span>Lucas</span></h1>
+    <p class="role">Odoo Developer · ERP Integrations · Computer Engineering student</p>
+  </div>
+  <div class="contact">
+    Vila Velha, ES, Brazil · open to remote<br>
+    gabrielrcl@protonmail.com<br>
+    <a href="https://www.linkedin.com/in/gabrielrcl777/">linkedin.com/in/gabrielrcl777</a> · <a href="https://github.com/GabrielRCL">github.com/GabrielRCL</a><br>
+    <a href="https://gabrielrcl.github.io">gabrielrcl.github.io</a>
+  </div>
+</header>
+
+<p class="summary">Odoo developer who connects the ERP to the systems a business depends on: Brazilian banks, the national e-invoice, Meta's WhatsApp platform, monitoring tools and AI assistants. Founder of Tibia Macros, a subscription software product I built and ran end to end from 2020 to 2026. Client work in Portuguese, English and Spanish, for companies in Brazil and the US.</p>
+
+<h2>Experience</h2>
+
+<div class="job">
+  <div class="job-head"><b>OutView</b><span>Jan 2025 – present · Remote</span></div>
+  <p class="job-sub">Odoo Developer &amp; Implementation Consultant (contract)</p>
+  <ul>
+    <li>Took OutView through Meta's Tech Provider accreditation end to end (Meta app, Business Manager, business verification, App Review approved Sep 2026, LGPD legal pages), then built WhatsApp Embedded Signup and coexistence on Odoo; in production since Sep 2026.</li>
+    <li>Built a FastAPI integration service between Odoo and Sicoob, Banco Inter and Itaú (mTLS, OAuth2): boleto registration and reissue, statements, balances, CNAB 240.</li>
+    <li>Co-developed a Python SDK and API for NFS-e Nacional and NF-e (XML signed with A1 certificates).</li>
+    <li>Main contributor to NexView ITSM, an ITIL-based ITSM suite for Odoo (379 of 513 commits): priority matrix, problem and change management, CMDB, subscriptions, customer portal; Zabbix, Bitdefender GravityZone and Discord integrations.</li>
+    <li>Migrated a US retailer from HighLevel to Odoo: about 8,500 contacts and 66,000 WhatsApp messages, with resumable extraction and a rehearsed cutover.</li>
+    <li>Built an MCP connector that gives AI assistants scoped access to Odoo; maintain the team's Claude Code guardrails. Implementation consulting (Sales, CRM, Helpdesk, Subscriptions, Accounting, e-commerce, POS, inventory).</li>
+  </ul>
+</div>
+
+<div class="job">
+  <div class="job-head"><b>Mar &amp; Minas · Posto Colorado</b><span>Jul 2026 – present · Vila Velha</span></div>
+  <p class="job-sub">Freelance Full-stack Developer</p>
+  <ul>
+    <li>Built from scratch the system a 24-hour convenience store runs on: point of sale, tabs, cash register, bills, reports and a delivery website (mareminas.com.br). React, Node.js, Express, SQLite, Cloudflare Workers and Tunnel.</li>
+    <li>Mirrors the gas station's WebPosto ERP through its API and flags fiscal registration errors (NCM, CEST, ICMS-ST). The public API runs in a separate process that only opens the delivery database. 57 automated test files.</li>
+  </ul>
+</div>
+
+<div class="job">
+  <div class="job-head"><b>Tibia Macros</b><span>2020 – 2026</span></div>
+  <p class="job-sub">Founder &amp; Developer</p>
+  <ul>
+    <li>Built and sold a desktop automation tool for the MMORPG Tibia as a monthly subscription (AutoHotkey, screen pattern matching); 200+ monthly users.</li>
+    <li>Ran the whole business alone from the start: license and trial API, automated Stripe billing with e-mail delivery, auto-update, website, customer support and servers. Discontinued and open-sourced after the publisher's policy change.</li>
+  </ul>
+</div>
+
+<div class="job">
+  <div class="job-head"><b>Grupo AutoBem · gas station network</b><span>Apr 2023 · Vila Velha</span></div>
+  <p class="job-sub">IT Technician &amp; Data Analyst</p>
+  <ul>
+    <li>Kept a gas station and its convenience store running: WebPosto server, ERP, POS and TEF card terminals, network and hardware.</li>
+    <li>Fueling, stock and sales analysis from the ERP's API; automated product registration in Linx Seller (Selenium, Playwright); Telegram bot for margin checks.</li>
+    <li>QA for the development team that rolled out a cashback system at a gas station, from testing to delivery.</li>
+  </ul>
+</div>
+
+<h2>Skills</h2>
+<dl class="skills">
+  <dt>Daily, in production</dt><dd>Python, Odoo 19 (ORM, OWL, QWeb), PostgreSQL, FastAPI, Django, React, Node.js, Express, SQLite, Linux, Docker, Git, Odoo.sh, Cloudflare, Claude Code</dd>
+  <dt>Integrations shipped</dt><dd>Sicoob, Banco Inter and Itaú APIs, CNAB 240, NFS-e Nacional, NF-e, Meta for Developers (Tech Provider), WhatsApp Cloud API, Stripe, Zabbix, Bitdefender GravityZone, Claude API, MCP, WebPosto</dd>
+  <dt>Also used</dt><dd>Flask, SQLAlchemy, Next.js, MySQL, MongoDB, Selenium, Playwright, AutoHotkey, Lua, Java, Google Cloud, Hetzner, Hyper-V, VMware, C, x86 Assembly</dd>
+  <dt>Studying</dt><dd>Kubernetes, Argo CD, Terraform, Redis, AWS</dd>
+</dl>
+
+<div class="two">
+  <div>
+    <h2>Education</h2>
+    <p style="margin:0"><b>B.Sc. Computer Engineering</b> · Multivix Vila Velha<br><span class="muted">2024 – 2029 (expected)</span></p>
+    <p style="margin:1.5mm 0 0"><b>Courses</b> · CS50, Harvard (in progress) · Programming logic, Alura · Data analysis with Python</p>
+  </div>
+  <div>
+    <h2>Languages</h2>
+    <p style="margin:0">Portuguese: native<br>English: professional (advanced reading and listening)<br>Spanish: professional (client meetings)</p>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,986 @@
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Gabriel Lucas</title>
+<meta name="description" content="Odoo developer connecting ERPs to banks, the Brazilian tax authority, WhatsApp and monitoring. Built and ran my own software product.">
+<link rel="icon" href="assets/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" href="assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  /* Blue, type and icons follow the NexView ITSM brand manual (navy + blue→cyan, Inter, Lucide outline).
+     The warm accent is OutView's sunset (sampled from its logo): it marks the person and the results,
+     blue marks the systems. */
+  :root {
+    --sun: linear-gradient(120deg, #f15c48 0%, #f87934 45%, #f9992b 75%, #f3b44a 100%);
+    --sun-text: linear-gradient(120deg, #d9412e 5%, #e8641e 55%, #d97706 95%);
+    --warm: #c2410c;
+    --warm-glow: rgba(248, 121, 52, 0.10);
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --surface-2: #eef2f8;
+    --ink: #0f172a;
+    --muted: #475569;
+    --line: #e2e8f0;
+    --accent: #1b4fd8;
+    --accent-ink: #ffffff;
+    --accent-soft: #e7eefc;
+    --tile: #eaf1fd;
+    --tile-ink: #1b4fd8;
+    --navy: #0b1530;
+    --grad: linear-gradient(135deg, #1b4fd8, #00b8ff);
+    --grad-text: linear-gradient(120deg, #1b4fd8 10%, #0a8fd6 90%);
+    --glow: rgba(27, 79, 216, 0.10);
+    --grid: rgba(15, 23, 42, 0.05);
+    --todo: #b45309;
+    --todo-soft: #fef3c7;
+    --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      color-scheme: dark;
+      --sun-text: linear-gradient(120deg, #f15c48 5%, #f87934 50%, #f9b233 95%);
+      --warm: #f87934;
+      --warm-glow: rgba(248, 121, 52, 0.12);
+      --bg: #060b1f;
+      --surface: #0c1633;
+      --surface-2: #101c3f;
+      --ink: #f1f5f9;
+      --muted: #94a3b8;
+      --line: #1c2a4f;
+      --accent: #00b8ff;
+      --accent-ink: #04122b;
+      --accent-soft: #0b2147;
+      --tile: #10214a;
+      --tile-ink: #38c6f4;
+      --grad-text: linear-gradient(120deg, #5b8cff 10%, #00b8ff 90%);
+      --glow: rgba(0, 184, 255, 0.14);
+      --grid: rgba(148, 163, 184, 0.06);
+      --todo: #f59e0b;
+      --todo-soft: #2a2110;
+    }
+  }
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+    --sun-text: linear-gradient(120deg, #f15c48 5%, #f87934 50%, #f9b233 95%);
+    --warm: #f87934;
+    --warm-glow: rgba(248, 121, 52, 0.12);
+    --bg: #060b1f;
+    --surface: #0c1633;
+    --surface-2: #101c3f;
+    --ink: #f1f5f9;
+    --muted: #94a3b8;
+    --line: #1c2a4f;
+    --accent: #00b8ff;
+    --accent-ink: #04122b;
+    --accent-soft: #0b2147;
+    --tile: #10214a;
+    --tile-ink: #38c6f4;
+    --grad-text: linear-gradient(120deg, #5b8cff 10%, #00b8ff 90%);
+    --glow: rgba(0, 184, 255, 0.14);
+    --grid: rgba(148, 163, 184, 0.06);
+    --todo: #f59e0b;
+    --todo-soft: #2a2110;
+  }
+
+  :root:not([data-lang="pt"]) .pt { display: none !important; }
+  :root[data-lang="pt"] .en { display: none !important; }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 400 16px/1.6 var(--sans); -webkit-font-smoothing: antialiased; }
+  a { color: var(--accent); text-underline-offset: 3px; }
+  a:hover { text-decoration-thickness: 2px; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+  .ic { width: 1em; height: 1em; flex: none; display: inline-block; vertical-align: -0.125em; }
+  img.ic { object-fit: contain; }
+
+  .wrap { max-width: 1140px; margin: 0 auto; padding-inline: 20px; }
+
+  /* top bar */
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 18px; }
+  .mark { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; }
+  .mark-dot { width: 10px; height: 10px; border-radius: 3px; background: var(--sun); }
+  .top nav { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; justify-content: flex-end; }
+  .top nav a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 500; }
+  .top nav a:hover { color: var(--ink); }
+  .lang { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; padding: 3px; background: var(--surface); }
+  .lang button { display: inline-flex; align-items: center; gap: 7px; font: 600 0.74rem/1 var(--sans); letter-spacing: 0.06em; color: var(--muted); background: none; border: 0; padding: 6px 10px; border-radius: 999px; cursor: pointer; }
+  .lang button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
+  .flag { display: inline-flex; width: 18px; height: 12.6px; border-radius: 2px; overflow: hidden; flex: none; box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.12); }
+  .flag svg { width: 100%; height: 100%; display: block; }
+  @media (max-width: 680px) { .top nav .navlink { display: none; } }
+
+  /* hero */
+  .hero-band { position: relative; border-block: 1px solid var(--line); background: radial-gradient(55% 75% at 82% 30%, var(--glow), transparent 70%), radial-gradient(45% 60% at 8% 95%, var(--warm-glow), transparent 70%), var(--bg); overflow: hidden; }
+  .hero-band::before { content: ""; position: absolute; inset: 0; background-image: linear-gradient(var(--grid) 1px, transparent 1px), linear-gradient(90deg, var(--grid) 1px, transparent 1px); background-size: 32px 32px; -webkit-mask-image: radial-gradient(70% 90% at 70% 40%, #000 30%, transparent 80%); mask-image: radial-gradient(70% 90% at 70% 40%, #000 30%, transparent 80%); pointer-events: none; }
+  .hero { position: relative; display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr); gap: 56px; padding-block: 56px 64px; align-items: start; }
+  @media (max-width: 940px) { .hero { grid-template-columns: 1fr; gap: 40px; padding-block: 40px 52px; } }
+
+  .who { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; margin-bottom: 26px; }
+  .avatar { width: 112px; height: 112px; border-radius: 50%; padding: 3px; background: var(--sun); flex: none; }
+  @media (max-width: 480px) { .avatar { width: 92px; height: 92px; } }
+  .avatar span { display: grid; place-items: center; width: 100%; height: 100%; border-radius: 50%; background: var(--navy); color: #f1f5f9; font-weight: 800; font-size: 1.3rem; letter-spacing: -0.02em; }
+  .avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; display: block; }
+  .at { display: grid; gap: 8px; }
+  .at-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+  .brands { display: flex; flex-wrap: wrap; gap: 8px; }
+  .brand-chip { display: inline-flex; align-items: center; gap: 9px; padding: 6px 12px 6px 8px; border-radius: 8px; background: var(--navy); color: #f1f5f9; font-weight: 700; font-size: 0.88rem; letter-spacing: -0.01em; text-decoration: none; border: 1px solid rgba(255, 255, 255, 0.08); }
+  .brand-chip img { display: block; }
+  .brand-chip small { font-weight: 500; color: #94a3b8; font-size: 0.78rem; letter-spacing: 0; }
+
+  .eyebrow { font-size: 0.76rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin: 0 0 14px; }
+  h1 { font-weight: 900; font-size: clamp(3rem, 7.6vw, 5.6rem); line-height: 0.95; letter-spacing: -0.045em; margin: 0 0 24px; text-wrap: balance; }
+  .grad-text { background: var(--sun-text); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .lead { font-size: clamp(1.06rem, 1.55vw, 1.22rem); line-height: 1.55; color: var(--muted); max-width: 33em; margin: 0 0 26px; }
+  .lead strong { color: var(--ink); font-weight: 600; }
+  .facts { list-style: none; margin: 0 0 30px; padding: 0; display: flex; flex-wrap: wrap; gap: 10px 22px; font-size: 0.88rem; color: var(--muted); }
+  .facts li { display: inline-flex; gap: 8px; align-items: center; }
+  .facts .ic { color: var(--warm); font-size: 1rem; }
+  .cta { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn { display: inline-flex; align-items: center; gap: 9px; font: 600 0.92rem/1 var(--sans); padding: 12px 16px; border-radius: 8px; text-decoration: none; border: 1px solid var(--line); color: var(--ink); background: var(--surface); }
+  .btn .ic { font-size: 1.05rem; }
+  .btn.primary { background: #f87934; border-color: #f87934; color: #0b1530; }
+  .btn:hover { border-color: var(--muted); }
+  .btn.primary:hover { background: #f9992b; border-color: #f9992b; }
+
+  /* wiring panel */
+  .wire { position: relative; padding-left: 30px; }
+  .wire::before { content: ""; position: absolute; left: 9px; top: 30px; bottom: 34px; width: 3px; background: linear-gradient(180deg, #1b4fd8, #00b8ff); border-radius: 2px; }
+  .pulse { position: absolute; left: 6px; top: 30px; width: 9px; height: 9px; border-radius: 50%; background: #00b8ff; box-shadow: 0 0 0 4px var(--glow), 0 0 12px #00b8ff; animation: travel 5.5s ease-in-out infinite; }
+  @keyframes travel { 0% { top: 30px; opacity: 0; } 8% { opacity: 1; } 88% { opacity: 1; } 100% { top: calc(100% - 40px); opacity: 0; } }
+  @media (prefers-reduced-motion: reduce) { .pulse { display: none; } }
+  .wire-head { display: flex; align-items: center; gap: 12px; margin: 0 0 16px -30px; }
+  .port { width: 21px; height: 21px; border-radius: 50%; border: 3px solid #1b4fd8; background: var(--bg); flex: none; }
+  .wire-head strong { display: inline-flex; align-items: center; gap: 8px; font: 500 0.8rem/1 var(--mono); letter-spacing: 0.1em; }
+  .wire-head strong img { width: 22px; height: 22px; border-radius: 5px; }
+  .sub img.ic { width: 1.15em; height: 1.15em; margin-right: 6px; vertical-align: -0.2em; border-radius: 3px; }
+  .wire-head span { font-size: 0.85rem; color: var(--muted); }
+  .links { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .link { position: relative; display: grid; grid-template-columns: 38px minmax(0, 1fr); gap: 12px; align-items: start; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px 13px 12px; }
+  .link::before { content: ""; position: absolute; left: -21px; top: 29px; width: 21px; height: 3px; background: #1b4fd8; }
+  /* Tiles center with flex and fixed pixel sizes: a percentage size inside an auto-sized grid
+     track resolves against the image's natural width and pushes it off-center. */
+  .tile { width: 38px; height: 38px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex: none; overflow: hidden; background: var(--tile); color: var(--tile-ink); font-size: 19px; }
+  .tile img { display: block; width: 22px; height: 22px; object-fit: contain; }
+  .tile.dark { background: var(--navy); }
+  .tile.white { background: #ffffff; box-shadow: inset 0 0 0 1px var(--line); }
+  .link-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; }
+  .link-top b { font-weight: 700; font-size: 0.98rem; letter-spacing: -0.01em; }
+  .link-top i { font-style: normal; font-size: 0.84rem; color: var(--muted); }
+  .link p { margin: 2px 0 0; font-size: 0.89rem; line-height: 1.45; }
+  .link code { display: block; margin-top: 6px; font: 400 0.73rem/1.4 var(--mono); color: var(--accent); }
+
+  /* sections */
+  section { padding-block: 72px; border-top: 1px solid var(--line); }
+  section:first-of-type { border-top: 0; }
+  .rule { width: 44px; height: 3px; border-radius: 2px; background: var(--sun); margin-bottom: 18px; }
+  h2 { font-weight: 800; font-size: clamp(1.8rem, 3.6vw, 2.6rem); line-height: 1.05; letter-spacing: -0.035em; margin: 0 0 12px; text-wrap: balance; }
+  .sub { color: var(--muted); margin: 0 0 36px; max-width: 46em; }
+  .sub b { color: var(--ink); font-weight: 600; }
+
+  .companies { display: flex; flex-wrap: wrap; gap: 12px 28px; margin: 0 0 36px; }
+  .company { display: flex; align-items: center; gap: 12px; }
+  .company .tile { width: 48px; height: 48px; border-radius: 11px; }
+  .company .tile.white img { width: 38px; height: 38px; }
+  .company .tile.nx img { width: 36px; height: 17px; }
+  .company b { display: block; font-weight: 700; }
+  .company > div > span { display: block; font-size: 0.86rem; color: var(--muted); }
+
+  /* cases */
+  .cases { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 48px; }
+  @media (max-width: 800px) { .cases { grid-template-columns: 1fr; } }
+  .case { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 16px; padding-block: 24px 28px; border-top: 1px solid var(--line); }
+  .case .tile { width: 44px; height: 44px; font-size: 21px; }
+  .case .tile img { width: 28px; height: 28px; }
+  .case .tile.nx img { width: 34px; height: 16px; }
+  .case-body { display: grid; gap: 8px; align-content: start; min-width: 0; }
+  .case h3 { font-weight: 700; font-size: 1.14rem; line-height: 1.3; letter-spacing: -0.015em; margin: 0; }
+  .case p { margin: 0; color: var(--muted); max-width: 38em; }
+  .case .stack { font: 400 0.75rem/1.5 var(--mono); color: var(--muted); }
+  .case .metric { font-size: 0.8rem; font-weight: 600; color: var(--warm); }
+  .note { position: relative; margin: 30px 0 0; padding: 16px 18px 16px 22px; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; max-width: 62em; }
+  .note::before { content: ""; position: absolute; left: -1px; top: -1px; bottom: -1px; width: 4px; border-radius: 10px 0 0 10px; background: linear-gradient(180deg, #1b4fd8, #00b8ff); }
+
+  /* freelance */
+  .feature { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 26px; padding: 26px; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; }
+  @media (max-width: 640px) { .feature { grid-template-columns: 1fr; gap: 18px; padding: 20px; } }
+  .feature-logo img { width: 120px; height: 120px; border-radius: 16px; display: block; }
+  .feature .metric { font-size: 0.8rem; font-weight: 600; color: var(--warm); }
+  .feature-body { display: grid; gap: 12px; min-width: 0; }
+  .feature h3 { font-weight: 800; font-size: 1.5rem; letter-spacing: -0.03em; margin: 0; }
+  .feature .tag { font: 400 0.78rem/1.4 var(--mono); color: var(--muted); margin: 0; }
+  .feature p { margin: 0; color: var(--muted); max-width: 44em; }
+  .feature .mini { margin-top: 2px; }
+
+  /* product */
+  .product { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 48px; }
+  @media (max-width: 900px) { .product { grid-template-columns: 1fr; gap: 32px; } }
+  .product-title { display: flex; align-items: center; gap: 14px; margin: 0 0 6px; }
+  .product-title img { height: 44px; width: auto; }
+  .product-title h3 { font-weight: 800; font-size: 1.7rem; letter-spacing: -0.03em; margin: 0; }
+  .product .tag { font: 400 0.78rem/1.4 var(--mono); color: var(--muted); margin: 0 0 16px; }
+  .product p { margin: 0 0 14px; max-width: 38em; color: var(--muted); }
+  .label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+  .roles { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  @media (max-width: 440px) { .roles { grid-template-columns: 1fr; } }
+  .roles li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  .roles li { display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: 10px; align-items: start; background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 11px 12px; font-size: 0.9rem; font-weight: 600; line-height: 1.3; }
+  .roles li .ic { font-size: 18px; color: var(--accent); margin-top: 1px; }
+  .roles li small { display: block; font: 400 0.72rem/1.4 var(--mono); color: var(--muted); margin-top: 3px; }
+
+  .side { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px 40px; margin-top: 52px; padding-top: 40px; border-top: 1px dashed var(--line); }
+  @media (max-width: 960px) { .side { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 640px) { .side { grid-template-columns: 1fr; } }
+  .side-head { display: flex; align-items: center; gap: 10px; margin: 0 0 8px; }
+  .logos { display: inline-flex; gap: 6px; flex: none; }
+  .side-head h4 { min-width: 0; }
+  .logos img, .logos .ic { width: 26px; height: 26px; border-radius: 6px; object-fit: contain; }
+  .logos .ic { color: var(--ink); padding: 3px; }
+  .logos .app-tile { display: grid; place-items: center; width: 26px; height: 26px; border-radius: 6px; background: #ffffff; box-shadow: inset 0 0 0 1px var(--line); }
+  .logos .app-tile .ic { width: 20px; height: 20px; padding: 0; }
+  .logos .app-tile img { width: 18px; height: 20px; border-radius: 0; object-fit: contain; }
+  .mini img.logo { width: 18px; height: 18px; flex: none; border-radius: 5px; background: #ffffff; padding: 2px; object-fit: contain; }
+  .mini img.app { width: 18px; height: 18px; border-radius: 5px; object-fit: cover; flex: none; }
+  .side h4 { font-weight: 700; font-size: 1.02rem; letter-spacing: -0.01em; margin: 0; }
+  .side p { margin: 0; color: var(--muted); font-size: 0.95rem; }
+  .side p.side-tag { font: 400 0.76rem/1.4 var(--mono); margin: -2px 0 8px; }
+  .mini { list-style: none; margin: 12px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .mini li { display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem; font-weight: 500; padding: 5px 9px; border-radius: 6px; background: var(--surface-2); color: var(--ink); }
+  .mini .ic { font-size: 0.95rem; }
+  .mini small { color: var(--muted); font-weight: 400; }
+
+  /* timeline */
+  .timeline { list-style: none; margin: 0; padding: 0; display: grid; }
+  .timeline li { display: grid; grid-template-columns: 90px minmax(0, 1fr); gap: 16px; padding-block: 13px; border-top: 1px solid var(--line); }
+  .timeline time { font: 500 0.95rem/1.6 var(--mono); color: var(--accent); font-variant-numeric: tabular-nums; }
+  .timeline li.ahead time { color: var(--muted); }
+
+  /* stack */
+  .tiers { display: grid; gap: 30px; }
+  .tier h3 { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin: 0 0 12px; }
+  .chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips li { display: inline-flex; align-items: center; gap: 9px; font-size: 0.88rem; font-weight: 500; line-height: 1.2; padding: 7px 12px 7px 8px; border-radius: 8px; border: 1px solid transparent; background: var(--surface-2); color: var(--ink); }
+  .chips .logo { width: 20px; height: 20px; flex: none; border-radius: 5px; object-fit: contain; background: #ffffff; padding: 2px; box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.08); }
+  .chips .logo.app { background: none; padding: 0; box-shadow: none; object-fit: cover; }
+  .t1 .chips li { border-color: var(--accent); font-weight: 600; }
+  .t3 .chips li { background: var(--surface); border-color: var(--line); }
+  .t4 .chips li { background: transparent; border-style: dashed; border-color: var(--line); color: var(--muted); }
+
+  /* education */
+  .two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 56px; }
+  @media (max-width: 800px) { .two { grid-template-columns: 1fr; } }
+  .two h3 { font-weight: 700; font-size: 1.15rem; letter-spacing: -0.015em; margin: 0 0 16px; }
+  .rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .rows li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 14px; align-items: center; }
+  .rows .logo-box { width: 40px; height: 40px; border-radius: 9px; background: var(--surface); border: 1px solid var(--line); display: grid; place-items: center; overflow: hidden; }
+  .rows .logo-box img { width: 28px; height: 28px; object-fit: contain; }
+  .rows .logo-box .flag { width: 26px; height: 18.2px; }
+  .rows b { display: block; font-weight: 600; }
+  .rows span { display: block; color: var(--muted); font-size: 0.92rem; }
+
+  /* contact */
+  .contact-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 40px 56px; }
+  @media (max-width: 840px) { .contact-grid { grid-template-columns: 1fr; } }
+  .contact-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+  .contact-list li { display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 14px; align-items: center; }
+  .contact-list .tile { width: 40px; height: 40px; font-size: 19px; }
+  .contact-list span.k { display: block; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .btc { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 20px; display: grid; gap: 16px; }
+  .btc-head { display: flex; align-items: center; gap: 10px; }
+  .btc-head .ic { font-size: 22px; color: #f7931a; }
+  .btc h3 { font-weight: 700; font-size: 1.05rem; margin: 0; }
+  .btc-row { display: grid; gap: 6px; }
+  .btc-row .k { display: inline-flex; align-items: center; gap: 6px; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .addr { display: flex; gap: 10px; align-items: flex-start; }
+  .addr code { flex: 1; min-width: 0; font: 400 0.82rem/1.5 var(--mono); word-break: break-all; }
+  .copy { flex: none; display: inline-flex; align-items: center; gap: 6px; font: 600 0.75rem/1 var(--sans); padding: 7px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--bg); color: var(--ink); cursor: pointer; }
+  .copy .done-label, .copy .i-done { display: none; }
+  .copy[data-state="done"] .idle-label, .copy[data-state="done"] .i-idle { display: none; }
+  .copy[data-state="done"] .done-label, .copy[data-state="done"] .i-done { display: inline; }
+  .copy[data-state="done"] { color: var(--accent); border-color: var(--accent); }
+
+  .todo { color: var(--todo); background: var(--todo-soft); border: 1px dashed var(--todo); border-radius: 4px; padding: 0 5px; font: 500 0.85em/1.5 var(--mono); }
+
+
+  /* v11: orange for what is active or personal, interactive wire, screens, case studies */
+  .pulse { background: #f87934; box-shadow: 0 0 0 4px var(--warm-glow), 0 0 12px #f87934; }
+  .link { cursor: pointer; transition: border-color 0.2s ease; }
+  .link:hover, .link:focus-visible, .link.active { border-color: var(--warm); }
+  .link:hover code, .link:focus-visible code, .link.active code { color: var(--warm); }
+  .link:hover::before, .link:focus-visible::before, .link.active::before { background: var(--warm); }
+  .timeline time { color: var(--warm); }
+
+  .wire-tabs { display: flex; flex-wrap: wrap; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 22px; }
+  .wire-tabs button { display: inline-flex; align-items: center; gap: 8px; font: 600 0.88rem/1 var(--sans); color: var(--muted); background: none; border: 0; border-bottom: 2px solid transparent; padding: 12px 12px 11px; margin-bottom: -1px; cursor: pointer; }
+  .wire-tabs button:hover { color: var(--ink); }
+  .wire-tabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--warm); }
+  .wire-tabs .ic { font-size: 1rem; color: var(--accent); }
+  .wire-panel { display: grid; grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr); gap: 28px; align-items: start; }
+  @media (max-width: 900px) { .wire-panel { grid-template-columns: 1fr; } }
+  .wire-body { min-width: 0; }
+  .wire-code { background: #050a1a; border: 1px solid #1c2a4f; border-radius: 12px; overflow: auto; max-height: 540px; }
+  .wire-code pre { margin: 0; padding: 18px 20px; font: 400 0.78rem/1.65 var(--mono); color: #cbd5e1; white-space: pre; tab-size: 2; }
+  .wire-code .t { color: #7dd3fc; }
+  .wire-code .a { color: #93c5fd; }
+  .wire-code .s { color: #fdba74; }
+  .wire-code .v { color: #f1f5f9; }
+  .wire-code .dir { color: #f87934; font-weight: 700; }
+  .cnab pre { font-size: 0.8rem; }
+  .cnab .fld { border-radius: 3px; color: #f8fafc; }
+  .cnab .f0 { background: rgba(0, 184, 255, 0.22); }
+  .cnab .f1 { background: rgba(248, 121, 52, 0.26); }
+  .cnab .f2 { background: rgba(16, 185, 129, 0.24); }
+  .cnab .f3 { background: rgba(168, 85, 247, 0.26); }
+  .cnab .f4 { background: rgba(245, 158, 11, 0.24); }
+  .cnab .f5 { background: rgba(59, 130, 246, 0.28); }
+  .cnab .gap { color: #475569; }
+  .fields { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 0.84rem; }
+  .fields th { text-align: left; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); padding: 6px 8px; border-bottom: 1px solid var(--line); }
+  .fields td { padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  .fields td:first-child { font: 400 0.76rem/1.6 var(--mono); color: var(--muted); white-space: nowrap; }
+  .fields code { font: 400 0.78rem/1.6 var(--mono); }
+  .wire-notes { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; }
+  .wire-notes li { position: relative; padding-left: 20px; color: var(--muted); }
+  .wire-notes li::before { content: ""; position: absolute; left: 0; top: 0.62em; width: 8px; height: 8px; border-radius: 2px; background: var(--warm); }
+
+  .viewer { margin: 40px 0 0; display: grid; gap: 12px; }
+  .viewer.compact { max-width: 760px; }
+  .viewer-head { display: flex; align-items: baseline; justify-content: space-between; gap: 6px 16px; flex-wrap: wrap; }
+  .viewer-head h3 { margin: 0; font-weight: 700; font-size: 1.05rem; letter-spacing: -0.01em; }
+  .viewer-head > span { font-size: 0.78rem; color: var(--muted); }
+  .viewer-main { position: relative; display: block; width: 100%; padding: 0; border: 1px solid var(--line); border-radius: 12px; overflow: hidden; background: var(--surface); cursor: zoom-in; }
+  .viewer-main img { display: block; width: 100%; height: auto; }
+  .viewer-main .zoom { position: absolute; right: 10px; bottom: 10px; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 8px; background: rgba(11, 21, 48, 0.82); color: #fff; font-size: 17px; }
+  .viewer figcaption { font-size: 0.92rem; color: var(--muted); }
+  .viewer-thumbs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 4px; }
+  .viewer-thumbs button { flex: none; width: 128px; padding: 0; border: 2px solid transparent; border-radius: 8px; overflow: hidden; background: var(--surface); cursor: pointer; opacity: 0.66; transition: opacity 0.2s ease; }
+  .viewer-thumbs button:hover { opacity: 1; }
+  .viewer-thumbs button[aria-pressed="true"] { border-color: var(--warm); opacity: 1; }
+  .viewer-thumbs img { display: block; width: 100%; height: 74px; object-fit: cover; object-position: top left; }
+
+  dialog.lightbox { border: 0; padding: 0; background: transparent; max-width: 96vw; max-height: 96vh; overflow: visible; }
+  dialog.lightbox::backdrop { background: rgba(3, 7, 18, 0.88); }
+  dialog.lightbox img { display: block; max-width: min(96vw, 1600px); max-height: 84vh; border-radius: 10px; margin: 0 auto; }
+  .lb-bar { display: flex; align-items: center; gap: 10px; margin-top: 12px; color: #e2e8f0; font-size: 0.9rem; }
+  .lb-bar .lb-cap { flex: 1; min-width: 0; }
+  .lb-btn { display: grid; place-items: center; width: 38px; height: 38px; border-radius: 9px; border: 1px solid rgba(255, 255, 255, 0.18); background: rgba(11, 21, 48, 0.9); color: #fff; font-size: 18px; cursor: pointer; flex: none; }
+  .lb-btn:hover { border-color: #f87934; }
+
+  .btn.small { padding: 9px 13px; font-size: 0.86rem; }
+  dialog.case-study { border: 1px solid var(--line); border-radius: 16px; padding: 0; width: min(780px, 94vw); max-height: 90vh; background: var(--bg); color: var(--ink); }
+  dialog.case-study::backdrop { background: rgba(3, 7, 18, 0.72); }
+  .cs-inner { position: relative; padding: 40px 44px 44px; }
+  @media (max-width: 600px) { .cs-inner { padding: 30px 20px 32px; } }
+  .cs-close { position: absolute; top: 14px; right: 14px; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 9px; border: 1px solid var(--line); background: var(--surface); color: var(--ink); font-size: 18px; cursor: pointer; }
+  .cs-eyebrow { font-size: 0.74rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--warm); margin: 0 0 10px; }
+  dialog.case-study h2 { font-size: clamp(1.45rem, 3vw, 2rem); margin: 0 0 12px; padding-right: 36px; }
+  .cs-meta { font: 400 0.78rem/1.55 var(--mono); color: var(--muted); margin: 0 0 8px; }
+  dialog.case-study h3 { font-size: 1.05rem; font-weight: 700; margin: 28px 0 8px; }
+  dialog.case-study p { color: var(--muted); max-width: 64ch; line-height: 1.7; margin: 0 0 10px; }
+  dialog.case-study code { font: 400 0.86em var(--mono); background: var(--surface-2); padding: 1px 5px; border-radius: 4px; color: var(--ink); }
+
+  .side { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .side > div { grid-column: span 2; }
+  .side > div.wide { grid-column: span 3; }
+  @media (max-width: 960px) { .side { grid-template-columns: repeat(2, minmax(0, 1fr)); } .side > div, .side > div.wide { grid-column: auto; } }
+  @media (max-width: 640px) { .side { grid-template-columns: 1fr; } }
+
+  .colophon { display: grid; gap: 4px; }
+
+  footer { border-top: 1px solid var(--line); padding-block: 28px 44px; color: var(--muted); font-size: 0.85rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; }
+</style>
+
+<!--ICON_SPRITE-->
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none" aria-hidden="true">
+  <symbol id="flag-br" viewBox="0 0 20 14"><rect width="20" height="14" fill="#009b3a"/><polygon points="10,1.5 18.5,7 10,12.5 1.5,7" fill="#fedf00"/><circle cx="10" cy="7" r="3.5" fill="#002776"/><path d="M6.7 6.2 Q10 5.1 13.4 7.3" stroke="#ffffff" stroke-width="0.7" fill="none"/></symbol>
+  <symbol id="flag-us" viewBox="0 0 20 14"><rect width="20" height="14" fill="#b22234"/><g fill="#ffffff"><rect y="1.08" width="20" height="1.08"/><rect y="3.23" width="20" height="1.08"/><rect y="5.38" width="20" height="1.08"/><rect y="7.54" width="20" height="1.08"/><rect y="9.69" width="20" height="1.08"/><rect y="11.85" width="20" height="1.08"/></g><rect width="8.6" height="7.54" fill="#3c3b6e"/><g fill="#ffffff"><circle cx="1.6" cy="1.4" r="0.45"/><circle cx="4.3" cy="1.4" r="0.45"/><circle cx="7" cy="1.4" r="0.45"/><circle cx="2.95" cy="3.1" r="0.45"/><circle cx="5.65" cy="3.1" r="0.45"/><circle cx="1.6" cy="4.8" r="0.45"/><circle cx="4.3" cy="4.8" r="0.45"/><circle cx="7" cy="4.8" r="0.45"/><circle cx="2.95" cy="6.4" r="0.45"/><circle cx="5.65" cy="6.4" r="0.45"/></g></symbol>
+  <symbol id="flag-es" viewBox="0 0 20 14"><rect width="20" height="14" fill="#aa151b"/><rect y="3.5" width="20" height="7" fill="#f1bf00"/></symbol>
+</svg>
+
+<div class="wrap">
+  <header class="top">
+    <a class="mark" href="#top"><span class="mark-dot" aria-hidden="true"></span>Gabriel Lucas</a>
+    <nav aria-label="Sections">
+      <a class="navlink" href="#work"><span class="en">Work</span><span class="pt">Trabalho</span></a>
+      <a class="navlink" href="#freelance">Freelance</a>
+      <a class="navlink" href="#product"><span class="en">Own product</span><span class="pt">Produto próprio</span></a>
+      <a class="navlink" href="#stack">Stack</a>
+      <a class="navlink" href="#contact"><span class="en">Contact</span><span class="pt">Contato</span></a>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" id="lang-en" data-set-lang="en" aria-pressed="true"><span class="flag" aria-hidden="true"><svg><use href="#flag-us"/></svg></span>EN</button>
+        <button type="button" id="lang-pt" data-set-lang="pt" aria-pressed="false"><span class="flag" aria-hidden="true"><svg><use href="#flag-br"/></svg></span>PT</button>
+      </div>
+    </nav>
+  </header>
+</div>
+
+<div class="hero-band" id="top">
+  <div class="wrap">
+    <div class="hero">
+      <div>
+        <div class="who">
+          <div class="avatar"><img src="assets/avatar.jpg" alt="Illustrated portrait of Gabriel Lucas" width="112" height="112"></div>
+          <div class="at">
+            <span class="at-label"><span class="en">Currently at</span><span class="pt">Atualmente na</span></span>
+            <div class="brands">
+              <span class="brand-chip"><img src="assets/outview-symbol.png" alt="" width="20" height="20">OutView</span>
+              <span class="brand-chip"><img src="assets/nexview-nx.png" alt="" width="30" height="14">NexView <small>ITSM</small></span>
+            </div>
+          </div>
+        </div>
+        <p class="eyebrow"><span class="en">Odoo developer · ERP integrations · Computer Engineering</span><span class="pt">Desenvolvedor Odoo · Integrações de ERP · Engenharia da Computação</span></p>
+        <h1>Gabriel <span class="grad-text">Lucas</span></h1>
+        <p class="lead en">I connect Odoo to the systems a business depends on: <strong>monitoring and ITSM, WhatsApp, AI assistants, the tax authority and banks</strong>. Before that, I built and ran my own software product, from the code to the servers, billing and support.</p>
+        <p class="lead pt">Conecto o Odoo aos sistemas de que uma empresa depende: <strong>monitoramento e ITSM, WhatsApp, assistentes de IA, fisco e bancos</strong>. Antes disso, criei e mantive meu próprio software, do código aos servidores, à cobrança e ao suporte.</p>
+        <ul class="facts">
+          <li><svg class="ic"><use href="#lu-code-xml"/></svg><span class="en">1,400+ GitHub contributions in the last year</span><span class="pt">1.400+ contribuições no GitHub no último ano</span></li>
+          <li><svg class="ic"><use href="#si-meta"/></svg><span class="en">Meta Tech Provider accreditation</span><span class="pt">Credenciamento de Tech Provider na Meta</span></li>
+          <li><svg class="ic"><use href="#lu-users"/></svg><span class="en">Founded a software product with 200+ monthly users</span><span class="pt">Fundei um software com 200+ usuários por mês</span></li>
+          <li><svg class="ic"><use href="#lu-globe"/></svg><span class="en">Clients in Brazil and the US</span><span class="pt">Clientes no Brasil e nos EUA</span></li>
+        </ul>
+        <div class="cta">
+          <a class="btn primary" href="#contact"><svg class="ic"><use href="#lu-mail"/></svg><span class="en">Get in touch</span><span class="pt">Falar comigo</span></a>
+          <a class="btn" href="https://github.com/GabrielRCL"><svg class="ic"><use href="#si-github"/></svg>GitHub</a>
+          <a class="btn" href="https://www.linkedin.com/in/gabrielrcl777/"><svg class="ic"><use href="#lu-linkedin"/></svg>LinkedIn</a>
+          <a class="btn en" href="assets/cv/Gabriel-Lucas-CV-EN.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#lu-file-down"/></svg>CV (PDF)</a><a class="btn pt" href="assets/cv/Gabriel-Lucas-CV-PT.pdf" target="_blank" rel="noopener"><svg class="ic"><use href="#lu-file-down"/></svg>Currículo (PDF)</a>
+        </div>
+      </div>
+
+      <div class="wire" aria-label="Systems connected to Odoo">
+        <span class="pulse" aria-hidden="true"></span>
+        <div class="wire-head"><span class="port" aria-hidden="true"></span><strong><img src="assets/odoo.png" alt="">ODOO 19</strong><span class="en">what I have connected it to</span><span class="pt">ao que já conectei</span></div>
+        <ul class="links">
+          <li class="link" tabindex="0" role="button" data-wire="zabbix">
+            <span class="tile"><svg class="ic"><use href="#lu-activity"/></svg></span>
+            <div>
+              <div class="link-top"><b><span class="en">Monitoring and ITSM</span><span class="pt">Monitoramento e ITSM</span></b><i>Zabbix · Bitdefender · NexView ITSM</i></div>
+              <p><span class="en">hosts and licenses into the CMDB; ITIL incidents, problems and changes</span><span class="pt">hosts e licenças no CMDB; incidentes, problemas e mudanças no padrão ITIL</span></p>
+              <code><span class="en">JSON-RPC · scheduled sync · ITIL</span><span class="pt">JSON-RPC · sincronização agendada · ITIL</span></code>
+            </div>
+          </li>
+          <li class="link" tabindex="0" role="button" data-wire="meta">
+            <span class="tile"><svg class="ic"><use href="#si-meta"/></svg></span>
+            <div>
+              <div class="link-top"><b>Meta</b><i><span class="en">Tech Provider · WhatsApp Cloud API</span><span class="pt">Tech Provider · WhatsApp Cloud API</span></i></div>
+              <p><span class="en">Tech Provider accreditation, client onboarding, conversations</span><span class="pt">credenciamento de Tech Provider, cadastro do cliente, conversas</span></p>
+              <code>App Review · Embedded Signup · webhooks</code>
+            </div>
+          </li>
+          <li class="link" tabindex="0" role="button" data-wire="mcp">
+            <span class="tile"><svg class="ic"><use href="#si-modelcontextprotocol"/></svg></span>
+            <div>
+              <div class="link-top"><b><span class="en">AI assistants</span><span class="pt">Assistentes de IA</span></b><i>Claude · MCP</i></div>
+              <p><span class="en">read and act on Odoo data</span><span class="pt">leem e agem nos dados do Odoo</span></p>
+              <code><span class="en">access scoped per model and operation</span><span class="pt">acesso limitado por modelo e operação</span></code>
+            </div>
+          </li>
+          <li class="link" tabindex="0" role="button" data-wire="nfse">
+            <span class="tile"><svg class="ic"><use href="#lu-receipt-text"/></svg></span>
+            <div>
+              <div class="link-top"><b>Receita Federal</b><i>NFS-e Nacional · NF-e</i></div>
+              <p><span class="en">service and product invoices</span><span class="pt">notas de serviço e de produto</span></p>
+              <code><span class="en">XML signed with an A1 certificate</span><span class="pt">XML assinado com certificado A1</span></code>
+            </div>
+          </li>
+          <li class="link" tabindex="0" role="button" data-wire="cnab">
+            <span class="tile"><svg class="ic"><use href="#lu-landmark"/></svg></span>
+            <div>
+              <div class="link-top"><b><span class="en">Banks</span><span class="pt">Bancos</span></b><i>Sicoob · Banco Inter · Itaú</i></div>
+              <p><span class="en">boletos, statements, balances</span><span class="pt">boletos, extratos, saldos</span></p>
+              <code>mTLS · OAuth2 · CNAB 240</code>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <main>
+    <section id="work">
+      <div class="rule" aria-hidden="true"></div>
+      <h2><span class="en">What I build now</span><span class="pt">O que construo hoje</span></h2>
+      <p class="sub en"><img class="ic" src="assets/odoo.png" alt="">Odoo developer and implementation consultant, January 2025 to present.</p>
+      <p class="sub pt"><img class="ic" src="assets/odoo.png" alt="">Desenvolvedor Odoo e consultor de implantação, de janeiro de 2025 até hoje.</p>
+      <div class="companies">
+        <div class="company">
+          <span class="tile white"><img src="assets/outview-symbol.png" alt=""></span>
+          <div><b>OutView</b><span class="en">Odoo implementation and development</span><span class="pt">Implantação e desenvolvimento Odoo</span></div>
+        </div>
+        <div class="company">
+          <span class="tile dark nx"><img src="assets/nexview-nx.png" alt=""></span>
+          <div><b>NexView</b><span class="en">Odoo product line; its first suite is NexView ITSM</span><span class="pt">Linha de produtos para Odoo, cuja primeira suíte é a NexView ITSM</span></div>
+        </div>
+      </div>
+      <div class="cases">
+        <article class="case">
+          <span class="tile"><svg class="ic"><use href="#lu-landmark"/></svg></span>
+          <div class="case-body">
+            <h3><span class="en">Bank integration layer</span><span class="pt">Camada de integração bancária</span></h3>
+            <p class="en">A FastAPI service between Odoo and three Brazilian banks. Each bank is a provider that declares what it supports, and the routes are shared. On the Odoo side: boleto issuing and reissue, CNAB 240 files and statement import.</p>
+            <p class="pt">Um serviço FastAPI entre o Odoo e três bancos brasileiros. Cada banco é um provider que declara o que suporta, e as rotas são compartilhadas. No lado do Odoo: emissão e reemissão de boleto, arquivos CNAB 240 e importação de extrato.</p>
+            <span class="stack">FastAPI · Pydantic · SQLAlchemy · mTLS · OAuth2 · Odoo</span>
+          </div>
+        </article>
+        <article class="case">
+          <span class="tile"><svg class="ic"><use href="#lu-receipt-text"/></svg></span>
+          <div class="case-body">
+            <h3><span class="en">Brazilian e-invoicing</span><span class="pt">Nota fiscal eletrônica</span></h3>
+            <p class="en">Co-developed a Python SDK and REST API for the national service invoice (NFS-e Nacional) and NF-e. It builds the XML, signs it with the company's A1 certificate, sends it to the government and returns the XML and PDF to Odoo.</p>
+            <p class="pt">Codesenvolvi um SDK em Python e uma API REST para a NFS-e Nacional e a NF-e. Monta o XML, assina com o certificado A1 da empresa, envia ao governo e devolve o XML e o PDF ao Odoo.</p>
+            <span class="stack">Python · lxml · signxml · FastAPI · SOAP</span>
+          </div>
+        </article>
+        <article class="case">
+          <span class="tile"><svg class="ic"><use href="#si-meta"/></svg></span>
+          <div class="case-body">
+            <h3><span class="en">Meta Tech Provider, end to end</span><span class="pt">Tech Provider da Meta, do zero à produção</span></h3>
+            <p class="en">Took OutView through Meta's Tech Provider accreditation: created the Meta app and linked it to the Business Manager, gathered the company documents for business verification, submitted App Review and built the required public pages (LGPD privacy policy, terms of use and service, data deletion request). Then built the Odoo side: Embedded Signup so each client connects its own WhatsApp Business number, message echoes to coexist with the WhatsApp Business app, and a webhook log for support.</p>
+            <p class="pt">Levei a OutView pelo credenciamento de Tech Provider da Meta: criei o app no Meta for Developers e vinculei ao Business Manager, reuni os documentos da empresa para a verificação, enviei o App Review e construí as páginas públicas exigidas (política de privacidade pela LGPD, termos de uso e de serviço, solicitação de exclusão de dados). Depois construí o lado do Odoo: Embedded Signup para cada cliente conectar o próprio número do WhatsApp Business, eco de mensagens para coexistir com o app WhatsApp Business e um log de webhooks para o suporte.</p>
+            <span class="metric"><span class="en">App Review approved and in production since September 2026</span><span class="pt">App Review aprovado e em produção desde setembro de 2026</span></span>
+            <span class="stack">Meta for Developers · Business Manager · WhatsApp Cloud API · Graph API · webhooks · Odoo</span>
+            <div class="cta"><button type="button" class="btn small" data-open="case-techprovider"><svg class="ic"><use href="#lu-book-open-text"/></svg><span class="en">Read the case study</span><span class="pt">Ler o estudo de caso</span></button></div>
+          </div>
+        </article>
+        <article class="case">
+          <span class="tile dark nx"><img src="assets/nexview-nx.png" alt=""></span>
+          <div class="case-body">
+            <h3>NexView ITSM</h3>
+            <p class="en">An ITIL-based ITSM suite on Odoo: helpdesk with a priority matrix, problem and change management, CMDB, subscriptions and a customer portal. Zabbix hosts and Bitdefender GravityZone licenses sync into the CMDB, recurring incidents surface as problem candidates, and Discord receives SLA alerts.</p>
+            <p class="pt">Uma suíte de ITSM no padrão ITIL sobre o Odoo: helpdesk com matriz de prioridade, gestão de problemas e mudanças, CMDB, assinaturas e portal do cliente. Os hosts do Zabbix e as licenças do Bitdefender GravityZone sincronizam no CMDB, incidentes recorrentes viram candidatos a problema e o Discord recebe alertas de SLA.</p>
+            <span class="metric"><span class="en">Main contributor: 379 of 513 commits</span><span class="pt">Principal autor: 379 de 513 commits</span></span>
+            <span class="stack">Odoo 19 · OWL · ITIL · Zabbix API · GravityZone API · Discord</span>
+            <div class="cta"><a class="btn small" href="https://gonexview.com" target="_blank" rel="noopener"><svg class="ic"><use href="#lu-globe"/></svg><span class="en">See NexView ITSM</span><span class="pt">Conhecer a NexView ITSM</span></a></div>
+          </div>
+        </article>
+        <article class="case">
+          <span class="tile"><svg class="ic"><use href="#lu-arrow-right-left"/></svg></span>
+          <div class="case-body">
+            <h3><span class="en">CRM migration</span><span class="pt">Migração de CRM</span></h3>
+            <p class="en">Moved a US retailer from HighLevel to Odoo: about 8,500 contacts and 66,000 WhatsApp messages, with resumable extraction, idempotent loaders and rehearsals on a copy of production before the cutover.</p>
+            <p class="pt">Migrei um varejista dos EUA do HighLevel para o Odoo: cerca de 8.500 contatos e 66.000 mensagens de WhatsApp, com extração retomável, cargas idempotentes e ensaios numa cópia da produção antes do corte.</p>
+            <span class="stack">Python · HighLevel API · Odoo ORM · PostgreSQL</span>
+          </div>
+        </article>
+        <article class="case">
+          <span class="tile"><svg class="ic"><use href="#lu-sparkles"/></svg></span>
+          <div class="case-body">
+            <h3><span class="en">AI in the ERP and in the workflow</span><span class="pt">IA no ERP e no fluxo de trabalho</span></h3>
+            <p class="en">An MCP connector that gives AI assistants access to Odoo limited per model and operation. I also maintain the team's Claude Code setup: hooks, commit gates and skills that turn our rules into checks.</p>
+            <p class="pt">Um conector MCP que dá a assistentes de IA acesso ao Odoo limitado por modelo e operação. Também mantenho a configuração de Claude Code do time: hooks, travas de commit e skills que transformam nossas regras em verificações.</p>
+            <span class="stack">MCP · Claude API · Claude Code · Python</span>
+          </div>
+        </article>
+      </div>
+      <p class="note en">Implementation consulting: Sales, CRM, Helpdesk, Subscriptions, Accounting and e-commerce, with POS and inventory in current projects. I also support a junior developer on the Wayfair and Walmart marketplace integrations of a US client. Client meetings in Portuguese, English and Spanish.</p>
+      <p class="note pt">Consultoria de implantação: Vendas, CRM, Helpdesk, Assinaturas, Contabilidade e e-commerce, com PDV e estoque nos projetos atuais. Também dou suporte a um desenvolvedor júnior nas integrações com os marketplaces Wayfair e Walmart de um cliente dos EUA. Reuniões com clientes em português, inglês e espanhol.</p>
+    </section>
+
+<!--INCLUDE:partials/wire.html-->
+    <section id="freelance">
+      <div class="rule" aria-hidden="true"></div>
+      <h2>Freelance</h2>
+      <p class="sub en">Independent engagements, outside my work at OutView.</p>
+      <p class="sub pt">Projetos independentes, fora do meu trabalho na OutView.</p>
+      <article class="feature">
+        <div class="feature-logo"><img src="assets/mareminas-logo.jpg" alt="Mar &amp; Minas logo" width="120" height="120"></div>
+        <div class="feature-body">
+          <h3>Mar &amp; Minas</h3>
+          <p class="tag"><span class="en">24-hour convenience store · Posto Colorado · Vila Velha · in daily use since July 2026</span><span class="pt">Loja de conveniência 24 horas · Posto Colorado · Vila Velha · em uso diário desde julho de 2026</span></p>
+          <p class="en">The system the store runs on, built from scratch. The store panel covers point of sale, open tabs, cash register, bills, reports and a lunch-box line, and mirrors the gas station's WebPosto ERP: products, sales and cash registers sync through its API, and the system flags fiscal registration errors (NCM, CEST, ICMS-ST). On top of it runs the delivery website: storefront, bag, SMS sign-in, order tracking and chat with the store.</p>
+          <p class="pt">O sistema em que a loja roda, construído do zero. O painel da loja cobre PDV, comandas, caixa, boletos, relatórios e a linha de marmitex, e espelha o ERP WebPosto do posto: produtos, vendas e caixas sincronizam pela API dele, e o sistema aponta erros de cadastro fiscal (NCM, CEST, ICMS-ST). Em cima disso roda o site de delivery: vitrine, sacola, cadastro por SMS, acompanhamento do pedido e conversa com a loja.</p>
+          <p class="en">The public API runs in a separate process that only opens the delivery database, so a hole in the website cannot reach cost, margin or cash data. I also helped register the domain, set up the store's server and advise the owners on the operation; the developer who will maintain it works under my supervision.</p>
+          <p class="pt">A API pública roda num processo separado, que só abre o banco do delivery: um furo no site não alcança custo, margem nem caixa. Também ajudei a registrar o domínio, montei o servidor da loja e dou consultoria aos donos na operação; o desenvolvedor que vai manter o sistema trabalha sob a minha supervisão.</p>
+          <span class="metric"><span class="en">57 automated test files · 292 products mirrored from WebPosto</span><span class="pt">57 arquivos de teste automatizado · 292 produtos espelhados do WebPosto</span></span>
+          <ul class="mini">
+            <li><svg class="ic"><use href="#si-react"/></svg>React</li>
+            <li><svg class="ic"><use href="#si-vite"/></svg>Vite</li>
+            <li><svg class="ic"><use href="#si-tailwindcss"/></svg>Tailwind</li>
+            <li><svg class="ic"><use href="#si-nodedotjs"/></svg>Node.js</li>
+            <li><svg class="ic"><use href="#si-express"/></svg>Express</li>
+            <li><svg class="ic"><use href="#si-sqlite"/></svg>SQLite</li>
+            <li><svg class="ic"><use href="#si-cloudflare"/></svg>Cloudflare Workers · Tunnel</li>
+            <li><svg class="ic"><use href="#si-tailscale"/></svg>Tailscale</li>
+            <li><svg class="ic"><use href="#lu-database"/></svg><span class="en">WebPosto API</span><span class="pt">API do WebPosto</span></li>
+            <li><svg class="ic"><use href="#lu-message-square-text"/></svg>SMS · Comtele</li>
+          </ul>
+          <div class="cta"><a class="btn" href="https://mareminas.com.br"><svg class="ic"><use href="#lu-globe"/></svg>mareminas.com.br</a></div>
+        </div>
+      </article>
+    </section>
+
+    <section id="product">
+      <div class="rule" aria-hidden="true"></div>
+      <h2><span class="en">My own software business</span><span class="pt">Meu próprio negócio de software</span></h2>
+      <p class="sub en">Founder and sole developer of a subscription software product, responsible for engineering, infrastructure, billing and customer support.</p>
+      <p class="sub pt">Fundador e único desenvolvedor de um software por assinatura, responsável pela engenharia, pela infraestrutura, pela cobrança e pelo suporte.</p>
+      <div class="product">
+        <div>
+          <div class="product-title"><img src="assets/tibiamacros.png" alt="Tibia Macros logo" width="53" height="44"><h3>Tibia Macros</h3></div>
+          <p class="tag"><span class="en">AutoHotkey · 2020 to 2026 · open source since 2026</span><span class="pt">AutoHotkey · de 2020 a 2026 · open source desde 2026</span></p>
+          <p class="en">Desktop automation for the MMORPG Tibia, sold as a monthly subscription. It reads the game screen by pattern matching (health and mana bars, battle list, cooldowns) and reacts with keyboard and mouse input. It reached more than 200 monthly users.</p>
+          <p class="pt">Automação desktop para o MMORPG Tibia, vendida por assinatura mensal. Lê a tela do jogo por comparação de padrões (barras de vida e mana, battle list, cooldowns) e reage com teclado e mouse. Passou de 200 usuários por mês.</p>
+          <p class="en">After the game's publisher changed its policy on third-party software, I discontinued the service and released the source code as open source.</p>
+          <p class="pt">Depois que a empresa do jogo mudou a política sobre software de terceiros, descontinuei o serviço e publiquei o código-fonte como open source.</p>
+          <div class="cta">
+            <a class="btn" href="https://tibiamacros.netlify.app/"><svg class="ic"><use href="#lu-globe"/></svg><span class="en">Product website</span><span class="pt">Site do produto</span></a>
+            <a class="btn" href="https://github.com/GabrielRCL/tibia-macros"><svg class="ic"><use href="#si-github"/></svg>GabrielRCL/tibia-macros</a>
+          </div>
+        </div>
+        <div>
+          <p class="label"><span class="en">Responsibilities</span><span class="pt">Responsabilidades</span></p>
+          <ul class="roles">
+            <li><svg class="ic"><use href="#lu-monitor-cog"/></svg><span><span class="en">Desktop client</span><span class="pt">Cliente desktop</span><small>AutoHotkey · OCR</small></span></li>
+            <li><svg class="ic"><use href="#lu-key-round"/></svg><span><span class="en">License and trial API</span><span class="pt">API de licença e trial</span><small>Flask · SQLAlchemy · MySQL</small></span></li>
+            <li><svg class="ic"><use href="#si-stripe"/></svg><span><span class="en">Automated billing with e-mail delivery</span><span class="pt">Cobrança automática com envio por e-mail</span><small>Stripe webhooks · e-mail</small></span></li>
+            <li><svg class="ic"><use href="#lu-refresh-cw"/></svg><span><span class="en">Auto-update</span><span class="pt">Atualização automática</span><small>CDN</small></span></li>
+            <li><svg class="ic"><use href="#lu-globe"/></svg><span><span class="en">Website</span><span class="pt">Site</span><small>HTML · CSS · JS</small></span></li>
+            <li><svg class="ic"><use href="#si-discord"/></svg><span><span class="en">Customer support</span><span class="pt">Suporte ao cliente</span><small>Discord</small></span></li>
+            <li><svg class="ic"><use href="#lu-server"/></svg><span><span class="en">Servers and deploys</span><span class="pt">Servidores e deploys</span><small>Railway · Vercel · Linux</small></span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="side">
+        <div>
+          <div class="side-head"><span class="logos"><img src="assets/tibia.png" alt="Tibia"><img src="assets/minecraft.png" alt="Minecraft"></span><h4><span class="en">Game server hosting and operations</span><span class="pt">Hospedagem e operação de servidores de jogo</span></h4></div>
+          <p class="side-tag"><span class="en">Since 2017</span><span class="pt">Desde 2017</span></p>
+          <p class="en">I hosted and ran Tibia (OpenTibia) and Minecraft servers myself: the servers on my own machines, MySQL databases, Lua scripts, port forwarding on the router to open them to the internet, and the community around them.</p>
+          <p class="pt">Hospedei e operei servidores de Tibia (OpenTibia) e Minecraft por conta própria: os servidores nas minhas máquinas, bancos MySQL, scripts em Lua, redirecionamento de portas no roteador para abri-los à internet e a comunidade em volta.</p>
+          <ul class="mini">
+            <li><img class="logo" src="assets/stack/mysql.svg" alt="">MySQL <small>Tibia</small></li>
+            <li><img class="logo" src="assets/stack/lua.svg" alt="">Lua <small>Tibia</small></li>
+            <li><img class="app" src="assets/stack/xampp.svg" alt="">XAMPP <small>Tibia</small></li>
+            <li><img class="logo" src="assets/stack/java.svg" alt="">Java <small>Minecraft</small></li>
+          </ul>
+        </div>
+        <div>
+          <div class="side-head"><span class="logos"><img src="assets/cheatengine.png" alt="Cheat Engine"></span><h4><span class="en">Reverse engineering</span><span class="pt">Engenharia reversa</span></h4></div>
+          <p class="en">Memory analysis with Cheat Engine and x86 assembly, to understand how games store and manage their state.</p>
+          <p class="pt">Análise de memória com Cheat Engine e assembly x86, para entender como os jogos guardam e controlam o próprio estado.</p>
+        </div>
+        <div>
+          <div class="side-head"><span class="logos"><img src="assets/stackoverflow.png" alt="Stack Overflow"><img src="assets/cs50.png" alt="CS50"></span><h4><span class="en">Self-taught, before AI assistants</span><span class="pt">Autodidata, antes dos assistentes de IA</span></h4></div>
+          <p class="en">I learned from documentation, Stack Overflow, Harvard's CS50 and the AutoHotkey forum, where I wrote <a href="https://www.autohotkey.com/boards/memberlist.php?mode=viewprofile&amp;u=139240">more than 200 posts</a>. Today I work with AI agents every day and review what they produce with the habits I built without them.</p>
+          <p class="pt">Aprendi com documentação, Stack Overflow, o CS50 de Harvard e o fórum do AutoHotkey, onde escrevi <a href="https://www.autohotkey.com/boards/memberlist.php?mode=viewprofile&amp;u=139240">mais de 200 posts</a>. Hoje trabalho com agentes de IA todos os dias e reviso o que eles entregam com os hábitos que formei sem eles.</p>
+        </div>
+        <div class="wide">
+          <div class="side-head"><span class="logos"><img src="assets/autobem.png" alt="AutoBem"></span><h4>Grupo AutoBem</h4></div>
+          <p class="side-tag"><span class="en">IT Technician &amp; Data Analyst · gas station network · 2023</span><span class="pt">Técnico de TI &amp; Analista de Dados · rede de postos · 2023</span></p>
+          <p class="en">At a gas station network with convenience stores, I kept the WebPosto server that linked the forecourt and the store running, set up the ERP, the POS and the TEF card terminals, and handled the network and hardware. I was also the QA of the team that rolled out a cashback system at one of the stations. On the data side: fueling, stock and sales analysis from the ERP's API, product registration automated in Linx Seller with Selenium and Playwright, and a Telegram bot for margin checks.</p>
+          <p class="pt">Numa rede de postos com lojas de conveniência, mantive o servidor do WebPosto que ligava a pista e a loja, configurei o ERP, o PDV e o TEF, e cuidei da rede e do hardware. Também fui o QA do time que implantou um sistema de cashback num dos postos. Na parte de dados: análise de abastecimento, estoque e vendas pela API do ERP, cadastro de produtos automatizado no Linx Seller com Selenium e Playwright e um bot de Telegram para consulta de margem.</p>
+        </div>
+        <div class="wide">
+          <div class="side-head"><span class="logos"><span class="app-tile"><img src="assets/raspberrypi.svg" alt="Raspberry Pi"></span><img src="assets/gestfi.png" alt="GestFi"><img src="assets/umbrel-bitcoin.png" alt="Bitcoin"></span><h4>Home lab</h4></div>
+          <p class="side-tag"><span class="en">Raspberry Pi 4 · Umbrel · in production</span><span class="pt">Raspberry Pi 4 · Umbrel · em produção</span></p>
+          <p class="en">A Raspberry Pi 4 with Umbrel runs two things I use every day. GestFi, my multi-currency personal finance app for people who earn in one currency and spend in others (Django 5.2, PostgreSQL, statement parsers for five banks plus OFX, encrypted backups), used by me and a friend through Tailscale. And my own Bitcoin and Lightning node, plus tooling I wrote to parse Bitcoin Core's raw block files.</p>
+          <p class="pt">Um Raspberry Pi 4 com Umbrel roda duas coisas que uso todo dia. O GestFi, minha aplicação de finanças pessoais multimoeda para quem ganha numa moeda e gasta em outras (Django 5.2, PostgreSQL, leitores de extrato de cinco bancos mais OFX, backup cifrado), usada por mim e por um amigo via Tailscale. E meu próprio nó de Bitcoin e Lightning, além de ferramentas que escrevi para ler os arquivos de bloco brutos do Bitcoin Core.</p>
+          <ul class="mini">
+            <li><img class="app" src="assets/gestfi.png" alt="">GestFi</li>
+            <li><img class="app" src="assets/umbrel-bitcoin.png" alt="">Bitcoin Core</li>
+            <li><img class="app" src="assets/umbrel-lightning.png" alt="">LND</li>
+            <li><img class="app" src="assets/umbrel-electrs.svg" alt="">Electrs</li>
+            <li><img class="app" src="assets/umbrel-lndg.svg" alt="">LNDg</li>
+            <li><img class="app" src="assets/umbrel-mempool.svg" alt="">Mempool</li>
+            <li><img class="app" src="assets/umbrel.png" alt="">Umbrel</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="path">
+      <div class="rule" aria-hidden="true"></div>
+      <h2><span class="en">Timeline</span><span class="pt">Trajetória</span></h2>
+      <p class="sub en">From 2022 onward, dates are taken from each project's first commit; earlier entries predate my use of Git.</p>
+      <p class="sub pt">De 2022 em diante, as datas vêm do primeiro commit de cada projeto; as anteriores são de antes de eu usar Git.</p>
+      <ol class="timeline">
+        <li><time>2017</time><span><span class="en">Began hosting and running Tibia and Minecraft game servers</span><span class="pt">Comecei a hospedar e operar servidores de Tibia e Minecraft</span></span></li>
+        <li><time>2020</time><span><span class="en">Founded Tibia Macros, my own software business, with automated Stripe billing and e-mail delivery from the start</span><span class="pt">Fundei o Tibia Macros, meu próprio negócio de software, já com cobrança automática pela Stripe e envio por e-mail</span></span></li>
+        <li><time>2021</time><span><span class="en">Studied Harvard's CS50 (C) and programming logic</span><span class="pt">Estudei o CS50 de Harvard (C) e lógica de programação</span></span></li>
+        <li><time>2022</time><span><span class="en">Adopted Git and version control in every project</span><span class="pt">Adotei Git e controle de versão em todos os projetos</span></span></li>
+        <li><time>2023</time><span><span class="en">IT Technician &amp; Data Analyst at Grupo AutoBem</span><span class="pt">Técnico de TI &amp; Analista de Dados no Grupo AutoBem</span></span></li>
+        <li><time>2024</time><span><span class="en">Began a B.Sc. in Computer Engineering at Multivix</span><span class="pt">Iniciei o bacharelado em Engenharia da Computação na Multivix</span></span></li>
+        <li><time>2025</time><span><span class="en">Joined OutView as an Odoo developer · First bank and e-invoicing integrations in Odoo</span><span class="pt">Entrei na OutView como desenvolvedor Odoo · Primeiras integrações bancárias e fiscais no Odoo</span></span></li>
+        <li><time>2026</time><span><span class="en">Meta Tech Provider approved · NFS-e SDK and bank API in production · Delivered the Mar &amp; Minas store system · Released Tibia Macros as open source · Built GestFi</span><span class="pt">Tech Provider aprovado pela Meta · SDK de NFS-e e API bancária em produção · Entreguei o sistema da Mar &amp; Minas · Publiquei o Tibia Macros como open source · Construí o GestFi</span></span></li>
+        <li class="ahead"><time>2029</time><span><span class="en">B.Sc. in Computer Engineering at Multivix (expected)</span><span class="pt">Bacharelado em Engenharia da Computação na Multivix (previsão)</span></span></li>
+      </ol>
+    </section>
+
+    <section id="stack">
+      <div class="rule" aria-hidden="true"></div>
+      <h2>Stack</h2>
+      <p class="sub en">Grouped by how much I have used each one.</p>
+      <p class="sub pt">Agrupada pelo quanto usei cada item.</p>
+      <div class="tiers">
+        <div class="tier t1">
+          <h3><span class="en">Daily, in production</span><span class="pt">Uso diário, em produção</span></h3>
+          <ul class="chips">
+            <li><img class="logo" src="assets/stack/python.svg" alt="">Python</li>
+            <li><img class="logo app" src="assets/odoo.png" alt="">Odoo 19 · ORM · OWL · QWeb</li>
+            <li><img class="logo" src="assets/stack/postgresql.svg" alt="">PostgreSQL</li>
+            <li><img class="logo" src="assets/stack/fastapi.svg" alt="">FastAPI</li>
+            <li><img class="logo" src="assets/stack/django.svg" alt="">Django</li>
+            <li><img class="logo" src="assets/stack/linux.svg" alt="">Linux</li>
+            <li><img class="logo" src="assets/stack/docker.svg" alt="">Docker</li>
+            <li><img class="logo" src="assets/stack/git.svg" alt="">Git</li>
+            <li><img class="logo app" src="assets/odoo.png" alt="">Odoo.sh</li>
+            <li><img class="logo app" src="assets/stack/claude.svg" alt="">Claude Code</li>
+            <li><img class="logo" src="assets/stack/react.svg" alt="">React</li>
+            <li><img class="logo" src="assets/stack/nodejs.svg" alt="">Node.js · Express</li>
+            <li><img class="logo" src="assets/stack/sqlite.svg" alt="">SQLite</li>
+            <li><img class="logo" src="assets/stack/cloudflare.svg" alt="">Cloudflare Workers · Tunnel</li>
+            <li><img class="logo" src="assets/raspberrypi.svg" alt="">Raspberry Pi</li>
+            <li><img class="logo app" src="assets/stack/tailscale.svg" alt="">Tailscale</li>
+          </ul>
+        </div>
+        <div class="tier t2">
+          <h3><span class="en">Integrations I have shipped</span><span class="pt">Integrações que entreguei</span></h3>
+          <ul class="chips">
+            <li><img class="logo app" src="assets/stack/sicoob.png" alt="">Sicoob API</li>
+            <li><img class="logo app" src="assets/stack/inter.png" alt="">Banco Inter API</li>
+            <li><img class="logo app" src="assets/stack/itau.png" alt="">Itaú API</li>
+            <li><img class="logo app" src="assets/stack/cnab.svg" alt="">CNAB 240</li>
+            <li><img class="logo app" src="assets/stack/nfse.svg" alt="">NFS-e Nacional · NF-e</li>
+            <li><img class="logo app" src="assets/stack/meta.svg" alt="">Meta for Developers · Tech Provider</li>
+            <li><img class="logo app" src="assets/stack/whatsapp.svg" alt="">WhatsApp Cloud API</li>
+            <li><img class="logo app" src="assets/stack/stripe.svg" alt="">Stripe</li>
+            <li><img class="logo app" src="assets/zabbix.png" alt="">Zabbix API</li>
+            <li><img class="logo app" src="assets/stack/bitdefender.svg" alt="">Bitdefender GravityZone</li>
+            <li><img class="logo app" src="assets/stack/anthropic.svg" alt="">Claude API</li>
+            <li><img class="logo app" src="assets/stack/mcp.svg" alt="">MCP</li>
+            <li><img class="logo app" src="assets/stack/telegram.svg" alt="">Telegram Bot API</li>
+            <li><img class="logo app" src="assets/stack/highlevel.png" alt="">HighLevel API</li>
+            <li><img class="logo app" src="assets/stack/webposto.svg" alt="">WebPosto ERP</li>
+          </ul>
+        </div>
+        <div class="tier t3">
+          <h3><span class="en">Used in projects</span><span class="pt">Já usei em projetos</span></h3>
+          <ul class="chips">
+            <li><img class="logo" src="assets/stack/flask.svg" alt="">Flask</li>
+            <li><img class="logo" src="assets/stack/sqlalchemy.svg" alt="">SQLAlchemy</li>
+            <li><img class="logo" src="assets/stack/nextjs.svg" alt="">Next.js</li>
+            <li><img class="logo" src="assets/stack/vite.svg" alt="">Vite</li>
+            <li><img class="logo" src="assets/stack/javascript.svg" alt="">JavaScript</li>
+            <li><img class="logo" src="assets/stack/tailwind.svg" alt="">Tailwind</li>
+            <li><img class="logo" src="assets/stack/mysql.svg" alt="">MySQL</li>
+            <li><img class="logo" src="assets/stack/mongodb.svg" alt="">MongoDB</li>
+            <li><img class="logo" src="assets/stack/selenium.svg" alt="">Selenium</li>
+            <li><img class="logo" src="assets/playwright.svg" alt="">Playwright</li>
+            <li><img class="logo app" src="assets/stack/autohotkey.png" alt="">AutoHotkey</li>
+            <li><img class="logo" src="assets/stack/lua.svg" alt="">Lua</li>
+            <li><img class="logo" src="assets/stack/java.svg" alt="">Java</li>
+            <li><img class="logo app" src="assets/stack/xampp.svg" alt="">XAMPP</li>
+            <li><img class="logo app" src="assets/stack/railway.svg" alt="">Railway</li>
+            <li><img class="logo app" src="assets/stack/vercel.svg" alt="">Vercel</li>
+            <li><img class="logo app" src="assets/stack/hetzner.svg" alt="">Hetzner</li>
+            <li><img class="logo" src="assets/stack/googlecloud.svg" alt="">Google Cloud</li>
+            <li><img class="logo app" src="assets/stack/systemd.svg" alt="">systemd</li>
+            <li><img class="logo app" src="assets/stack/vmware.svg" alt="">Hyper-V · VMware</li>
+            <li><img class="logo" src="assets/stack/c.svg" alt="">C</li>
+            <li><img class="logo app" src="assets/stack/x86.svg" alt="">x86 Assembly</li>
+            <li><img class="logo" src="assets/cheatengine.png" alt="">Cheat Engine</li>
+            <li><img class="logo app" src="assets/umbrel-bitcoin.png" alt="">Bitcoin Core</li>
+          </ul>
+        </div>
+        <div class="tier t4">
+          <h3><span class="en">Studying</span><span class="pt">Estudando</span></h3>
+          <ul class="chips">
+            <li><img class="logo" src="assets/stack/kubernetes.svg" alt="">Kubernetes</li>
+            <li><img class="logo" src="assets/stack/argocd.svg" alt="">Argo CD</li>
+            <li><img class="logo" src="assets/stack/terraform.svg" alt="">Terraform</li>
+            <li><img class="logo" src="assets/stack/redis.svg" alt="">Redis</li>
+            <li><img class="logo" src="assets/stack/aws.svg" alt="">AWS</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="education">
+      <div class="two">
+        <div>
+          <h3><span class="en">Education</span><span class="pt">Formação</span></h3>
+          <ul class="rows">
+            <li><span class="logo-box"><img src="assets/multivix.png" alt="Multivix"></span><span><b><span class="en">B.Sc. Computer Engineering</span><span class="pt">Engenharia da Computação</span></b><span>Multivix Vila Velha · <span class="en">2024 to 2029 (expected)</span><span class="pt">de 2024 a 2029 (previsão)</span></span></span></li>
+            <li><span class="logo-box"><img src="assets/cs50.png" alt="Harvard CS50"></span><span><b>CS50</b><span class="en">Harvard's introduction to computer science, in C · in progress</span><span class="pt">Introdução à ciência da computação de Harvard, em C · em andamento</span></span></li>
+          </ul>
+        </div>
+        <div>
+          <h3><span class="en">Languages</span><span class="pt">Idiomas</span></h3>
+          <ul class="rows">
+            <li><span class="logo-box"><span class="flag" aria-hidden="true"><svg><use href="#flag-br"/></svg></span></span><span><b><span class="en">Portuguese</span><span class="pt">Português</span></b><span class="en">Native</span><span class="pt">Nativo</span></span></li>
+            <li><span class="logo-box"><span class="flag" aria-hidden="true"><svg><use href="#flag-us"/></svg></span></span><span><b><span class="en">English</span><span class="pt">Inglês</span></b><span class="en">Advanced reading and listening, intermediate speaking</span><span class="pt">Leitura e escuta avançadas, conversação intermediária</span></span></li>
+            <li><span class="logo-box"><span class="flag" aria-hidden="true"><svg><use href="#flag-es"/></svg></span></span><span><b><span class="en">Spanish</span><span class="pt">Espanhol</span></b><span class="en">Intermediate, used in client meetings</span><span class="pt">Intermediário, uso em reuniões com clientes</span></span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="rule" aria-hidden="true"></div>
+      <h2><span class="en">Contact</span><span class="pt">Contato</span></h2>
+      <p class="sub en">Open to remote roles and Odoo projects, in Brazil or abroad.</p>
+      <p class="sub pt">Aberto a vagas remotas e projetos de Odoo, no Brasil ou no exterior.</p>
+      <div class="contact-grid">
+        <ul class="contact-list">
+          <li><span class="tile"><svg class="ic"><use href="#lu-mail"/></svg></span><span><span class="k">E-mail</span><span class="addr"><code id="email-addr">gabrielrcl@protonmail.com</code><button type="button" class="copy" id="copy-email" data-copy="email-addr"><svg class="ic i-idle"><use href="#lu-copy"/></svg><svg class="ic i-done"><use href="#lu-check"/></svg><span class="idle-label"><span class="en">Copy</span><span class="pt">Copiar</span></span><span class="done-label"><span class="en">Copied</span><span class="pt">Copiado</span></span></button></span></span></li>
+          <li><span class="tile"><svg class="ic"><use href="#lu-linkedin"/></svg></span><span><span class="k">LinkedIn</span><a href="https://www.linkedin.com/in/gabrielrcl777/">linkedin.com/in/gabrielrcl777</a></span></li>
+          <li><span class="tile"><svg class="ic"><use href="#si-github"/></svg></span><span><span class="k">GitHub</span><a href="https://github.com/GabrielRCL">github.com/GabrielRCL</a></span></li>
+          <li><span class="tile"><svg class="ic"><use href="#lu-file-down"/></svg></span><span><span class="k"><span class="en">CV</span><span class="pt">Currículo</span></span><a href="assets/cv/Gabriel-Lucas-CV-EN.pdf" target="_blank" rel="noopener">English (PDF)</a> · <a href="assets/cv/Gabriel-Lucas-CV-PT.pdf" target="_blank" rel="noopener">Português (PDF)</a></span></li>
+        </ul>
+        <div class="btc">
+          <div class="btc-head"><svg class="ic"><use href="#si-bitcoin"/></svg><h3><span class="en">Bitcoin donations</span><span class="pt">Doações em bitcoin</span></h3></div>
+          <div class="btc-row">
+            <span class="k"><svg class="ic"><use href="#lu-wallet"/></svg>On-chain</span>
+            <div class="addr">
+              <code id="btc-addr">bc1qlwrptn0jgnexylsycpecpqrekl7zert5hsrxv9</code>
+              <button type="button" class="copy" id="copy-btc" data-copy="btc-addr"><svg class="ic i-idle"><use href="#lu-copy"/></svg><svg class="ic i-done"><use href="#lu-check"/></svg><span class="idle-label"><span class="en">Copy</span><span class="pt">Copiar</span></span><span class="done-label"><span class="en">Copied</span><span class="pt">Copiado</span></span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer><span>© 2026 Gabriel Lucas</span><span class="colophon"><span class="en">Built by hand: HTML, CSS and a few lines of JavaScript. No framework, no tracking, no cookies.</span><span class="pt">Feito à mão: HTML, CSS e poucas linhas de JavaScript. Sem framework, sem rastreamento, sem cookies.</span><span class="en">Colors from the OutView and NexView brands.</span><span class="pt">Cores das marcas OutView e NexView.</span></span></footer>
+</div>
+
+<dialog class="lightbox" id="lightbox" aria-label="Screenshot">
+  <img alt="">
+  <div class="lb-bar">
+    <button type="button" class="lb-btn" data-prev aria-label="Previous"><svg class="ic"><use href="#lu-chevron-left"/></svg></button>
+    <span class="lb-cap"></span>
+    <button type="button" class="lb-btn" data-next aria-label="Next"><svg class="ic"><use href="#lu-chevron-right"/></svg></button>
+    <button type="button" class="lb-btn" data-close aria-label="Close"><svg class="ic"><use href="#lu-x"/></svg></button>
+  </div>
+</dialog>
+<!--INCLUDE:partials/cases.html-->
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var viewers = [];
+  var buttons = document.querySelectorAll('[data-set-lang]');
+  function setLang(lang) {
+    root.setAttribute('data-lang', lang);
+    root.lang = lang === 'pt' ? 'pt-BR' : 'en';
+    buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-set-lang') === lang)); });
+    try { localStorage.setItem('lang', lang); } catch (e) {}
+    viewers.forEach(function (v) { v.refresh(); });
+  }
+  var saved = null;
+  try { saved = localStorage.getItem('lang'); } catch (e) {}
+  var hash = (location.hash || '').slice(1);
+  var browserPt = (navigator.language || '').toLowerCase().indexOf('pt') === 0;
+  setLang(hash === 'pt' || hash === 'en' ? hash : (saved === 'pt' || saved === 'en' ? saved : (browserPt ? 'pt' : 'en')));
+  buttons.forEach(function (b) { b.addEventListener('click', function () { setLang(b.getAttribute('data-set-lang')); }); });
+
+  document.querySelectorAll('[data-copy]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var el = document.getElementById(btn.getAttribute('data-copy'));
+      var text = el.textContent.trim();
+      function done() { btn.setAttribute('data-state', 'done'); setTimeout(function () { btn.removeAttribute('data-state'); }, 1600); }
+      function selectText() { var r = document.createRange(); r.selectNodeContents(el); var s = window.getSelection(); s.removeAllRanges(); s.addRange(r); }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, selectText);
+      } else {
+        selectText();
+      }
+    });
+  });
+
+  // What goes over the wire: tabs, and the hero cards that open them
+  var wireTabs = Array.prototype.slice.call(document.querySelectorAll('.wire-tabs [role="tab"]'));
+  function selectWire(key, focus) {
+    wireTabs.forEach(function (t) {
+      var on = t.getAttribute('data-wire') === key;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      var p = document.getElementById(t.getAttribute('aria-controls'));
+      if (p) p.hidden = !on;
+      if (on && focus) t.focus();
+    });
+    document.querySelectorAll('.link[data-wire]').forEach(function (l) { l.classList.toggle('active', l.getAttribute('data-wire') === key); });
+  }
+  wireTabs.forEach(function (t, i) {
+    t.addEventListener('click', function () { selectWire(t.getAttribute('data-wire')); });
+    t.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      var n = (i + (e.key === 'ArrowRight' ? 1 : wireTabs.length - 1)) % wireTabs.length;
+      selectWire(wireTabs[n].getAttribute('data-wire'), true);
+      e.preventDefault();
+    });
+  });
+  var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  document.querySelectorAll('.link[data-wire]').forEach(function (l) {
+    function go() {
+      selectWire(l.getAttribute('data-wire'));
+      var s = document.getElementById('wire');
+      if (s) s.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+    }
+    l.addEventListener('click', go);
+    l.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+  });
+
+  // Screen viewers and the lightbox
+  var lb = document.getElementById('lightbox');
+  var lbImg = lb ? lb.querySelector('img') : null;
+  var lbCap = lb ? lb.querySelector('.lb-cap') : null;
+  var lbList = [], lbIdx = 0;
+  function capOf(b) { return b.getAttribute('data-cap-' + (root.getAttribute('data-lang') === 'pt' ? 'pt' : 'en')) || ''; }
+  function showLb() {
+    var b = lbList[lbIdx];
+    lbImg.src = b.getAttribute('data-full');
+    lbImg.alt = capOf(b);
+    lbCap.textContent = capOf(b) + '  ·  ' + (lbIdx + 1) + '/' + lbList.length;
+    if (!lb.open && lb.showModal) lb.showModal();
+  }
+  viewers = Array.prototype.slice.call(document.querySelectorAll('[data-viewer]')).map(function (v) {
+    var main = v.querySelector('.viewer-main'), img = main.querySelector('img'), cap = v.querySelector('figcaption');
+    var thumbs = Array.prototype.slice.call(v.querySelectorAll('.viewer-thumbs button'));
+    var current = thumbs[0];
+    function show(b) {
+      current = b;
+      thumbs.forEach(function (t) { t.setAttribute('aria-pressed', String(t === b)); });
+      img.src = b.getAttribute('data-full');
+      img.alt = capOf(b);
+      cap.textContent = capOf(b);
+    }
+    thumbs.forEach(function (b) { b.addEventListener('click', function () { show(b); }); });
+    main.addEventListener('click', function () {
+      if (!lb) return;
+      lbList = thumbs;
+      lbIdx = thumbs.indexOf(current);
+      showLb();
+    });
+    show(current);
+    return { refresh: function () { cap.textContent = capOf(current); img.alt = capOf(current); } };
+  });
+  if (lb) {
+    lb.querySelector('[data-prev]').addEventListener('click', function () { lbIdx = (lbIdx + lbList.length - 1) % lbList.length; showLb(); });
+    lb.querySelector('[data-next]').addEventListener('click', function () { lbIdx = (lbIdx + 1) % lbList.length; showLb(); });
+    lb.querySelector('[data-close]').addEventListener('click', function () { lb.close(); });
+    lb.addEventListener('click', function (e) { if (e.target === lb) lb.close(); });
+    lb.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { lbIdx = (lbIdx + 1) % lbList.length; showLb(); }
+      if (e.key === 'ArrowLeft') { lbIdx = (lbIdx + lbList.length - 1) % lbList.length; showLb(); }
+    });
+  }
+
+  // Case studies
+  document.querySelectorAll('[data-open]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var d = document.getElementById(b.getAttribute('data-open'));
+      if (d && d.showModal) d.showModal();
+    });
+  });
+  document.querySelectorAll('dialog.case-study').forEach(function (d) {
+    d.querySelector('[data-close]').addEventListener('click', function () { d.close(); });
+    d.addEventListener('click', function (e) { if (e.target === d) d.close(); });
+  });
+})();
+</script>

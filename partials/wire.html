@@ -1,0 +1,117 @@
+<section id="wire">
+      <div class="rule" aria-hidden="true"></div>
+      <h2><span class="en">What goes over the wire</span><span class="pt">O que trafega nas integrações</span></h2>
+      <p class="sub en">Real message shapes from my integrations, with fictitious data. Pick a connection.</p>
+      <p class="sub pt">O formato real das mensagens das minhas integrações, com dados fictícios. Escolha uma conexão.</p>
+      <div class="wire-tabs" role="tablist" aria-label="Integrations"><button type="button" role="tab" id="wtab-zabbix" aria-controls="wpanel-zabbix" aria-selected="true" data-wire="zabbix"><svg class="ic"><use href="#lu-activity"/></svg><span class="en">Zabbix → CMDB</span><span class="pt">Zabbix → CMDB</span></button><button type="button" role="tab" id="wtab-meta" aria-controls="wpanel-meta" aria-selected="false" data-wire="meta"><svg class="ic"><use href="#si-whatsapp"/></svg><span class="en">WhatsApp</span><span class="pt">WhatsApp</span></button><button type="button" role="tab" id="wtab-mcp" aria-controls="wpanel-mcp" aria-selected="false" data-wire="mcp"><svg class="ic"><use href="#si-modelcontextprotocol"/></svg><span class="en">MCP</span><span class="pt">MCP</span></button><button type="button" role="tab" id="wtab-nfse" aria-controls="wpanel-nfse" aria-selected="false" data-wire="nfse"><svg class="ic"><use href="#lu-receipt-text"/></svg><span class="en">NFS-e Nacional</span><span class="pt">NFS-e Nacional</span></button><button type="button" role="tab" id="wtab-cnab" aria-controls="wpanel-cnab" aria-selected="false" data-wire="cnab"><svg class="ic"><use href="#lu-landmark"/></svg><span class="en">CNAB 240</span><span class="pt">CNAB 240</span></button></div>
+      <div class="wire-panel" role="tabpanel" id="wpanel-zabbix" aria-labelledby="wtab-zabbix"><div class="wire-body"><div class="wire-code" tabindex="0"><pre>{
+  <span class="a">"jsonrpc"</span>: <span class="s">"2.0"</span>,
+  <span class="a">"result"</span>: [{
+    <span class="a">"hostid"</span>: <span class="s">"10542"</span>,
+    <span class="a">"host"</span>: <span class="s">"prod-web-01"</span>,
+    <span class="a">"name"</span>: <span class="s">"PROD-WEB-01 (VM)"</span>,
+    <span class="a">"status"</span>: <span class="s">"0"</span>,
+    <span class="a">"description"</span>: <span class="s">"Customer portal, web tier"</span>,
+    <span class="a">"interfaces"</span>: [{
+      <span class="a">"interfaceid"</span>: <span class="s">"31"</span>, <span class="a">"ip"</span>: <span class="s">"10.10.20.15"</span>, <span class="a">"dns"</span>: <span class="s">""</span>,
+      <span class="a">"port"</span>: <span class="s">"10050"</span>, <span class="a">"type"</span>: <span class="s">"1"</span>, <span class="a">"main"</span>: <span class="s">"1"</span>, <span class="a">"useip"</span>: <span class="s">"1"</span>
+    }],
+    <span class="a">"groups"</span>: [{ <span class="a">"groupid"</span>: <span class="s">"42"</span>, <span class="a">"name"</span>: <span class="s">"Production / Web"</span> }],
+    <span class="a">"tags"</span>: [
+      { <span class="a">"tag"</span>: <span class="s">"category"</span>, <span class="a">"value"</span>: <span class="s">"Server"</span> },
+      { <span class="a">"tag"</span>: <span class="s">"impact"</span>, <span class="a">"value"</span>: <span class="s">"High"</span> }
+    ]
+  }],
+  <span class="a">"id"</span>: 1
+}</pre></div></div><ul class="wire-notes"><li><span class="en">The host.get result the scheduled sync reads: host, status, interfaces, group and tags.</span><span class="pt">O resultado do host.get que a sincronização agendada lê: host, status, interfaces, grupo e tags.</span></li><li><span class="en">Each host becomes a CMDB asset; status 0 means monitored, and only the category, product, doc and impact tags are kept.</span><span class="pt">Cada host vira um ativo do CMDB; status 0 significa monitorado, e só as tags category, product, doc e impact são mantidas.</span></li><li><span class="en">The asset then links to tickets, problems and changes in NexView ITSM.</span><span class="pt">O ativo passa a se ligar a tickets, problemas e mudanças na NexView ITSM.</span></li></ul></div>
+      <div class="wire-panel" role="tabpanel" id="wpanel-meta" aria-labelledby="wtab-meta" hidden><div class="wire-body"><div class="wire-code" tabindex="0"><pre>{
+  <span class="a">"object"</span>: <span class="s">"whatsapp_business_account"</span>,
+  <span class="a">"entry"</span>: [{
+    <span class="a">"id"</span>: <span class="s">"102030405060708"</span>,
+    <span class="a">"changes"</span>: [{
+      <span class="a">"field"</span>: <span class="s">"smb_message_echoes"</span>,
+      <span class="a">"value"</span>: {
+        <span class="a">"messaging_product"</span>: <span class="s">"whatsapp"</span>,
+        <span class="a">"metadata"</span>: {
+          <span class="a">"display_phone_number"</span>: <span class="s">"5527999990000"</span>,
+          <span class="a">"phone_number_id"</span>: <span class="s">"109876543210987"</span>
+        },
+        <span class="a">"message_echoes"</span>: [{
+          <span class="a">"from"</span>: <span class="s">"5527999990000"</span>,
+          <span class="a">"to"</span>: <span class="s">"5527988887777"</span>,
+          <span class="a">"id"</span>: <span class="s">"wamid.HBgMNTUyNzk4ODg4Nzc3NxUCABEY…"</span>,
+          <span class="a">"timestamp"</span>: <span class="s">"1790412345"</span>,
+          <span class="a">"type"</span>: <span class="s">"text"</span>,
+          <span class="a">"text"</span>: { <span class="a">"body"</span>: <span class="s">"Seu pedido saiu para entrega."</span> }
+        }]
+      }
+    }]
+  }]
+}</pre></div></div><ul class="wire-notes"><li><span class="en">A coexistence echo: a message the business sent from the WhatsApp Business app on the phone.</span><span class="pt">Um eco de coexistência: uma mensagem que a empresa mandou pelo app WhatsApp Business no celular.</span></li><li><span class="en">The module finds the account by WABA and phone number, checks Meta&#x27;s signature, dedupes by wamid and posts it in the customer&#x27;s conversation in Odoo.</span><span class="pt">O módulo acha a conta pelo WABA e pelo número, confere a assinatura da Meta, elimina duplicatas pelo wamid e publica na conversa do cliente no Odoo.</span></li><li><span class="en">Without it, half of every conversation would be missing in Odoo.</span><span class="pt">Sem ele, metade de cada conversa faltaria no Odoo.</span></li></ul></div>
+      <div class="wire-panel" role="tabpanel" id="wpanel-mcp" aria-labelledby="wtab-mcp" hidden><div class="wire-body"><div class="wire-code" tabindex="0"><pre><span class="dir">→</span> {<span class="a">"jsonrpc"</span>: <span class="s">"2.0"</span>, <span class="a">"id"</span>: 7, <span class="a">"method"</span>: <span class="s">"tools/call"</span>,
+   <span class="a">"params"</span>: {<span class="a">"name"</span>: <span class="s">"search_read"</span>, <span class="a">"arguments"</span>: {
+     <span class="a">"model"</span>: <span class="s">"helpdesk.ticket"</span>,
+     <span class="a">"domain"</span>: [[<span class="s">"stage_id.fold"</span>, <span class="s">"="</span>, <span class="v">false</span>]],
+     <span class="a">"fields"</span>: [<span class="s">"name"</span>, <span class="s">"priority"</span>, <span class="s">"user_id"</span>], <span class="a">"limit"</span>: 5}}}
+
+<span class="dir">←</span> {<span class="a">"jsonrpc"</span>: <span class="s">"2.0"</span>, <span class="a">"id"</span>: 7, <span class="a">"result"</span>: {<span class="a">"content"</span>: [{<span class="a">"type"</span>: <span class="s">"text"</span>,
+   <span class="a">"text"</span>: <span class="s">"[{\"id\":29,\"name\":\"VPN down for northern branch\",\"priority\":\"2\",\"user_id\":[2,\"Mitchell Admin\"]}]"</span>}]}}
+
+<span class="dir">→</span> {<span class="a">"jsonrpc"</span>: <span class="s">"2.0"</span>, <span class="a">"id"</span>: 8, <span class="a">"method"</span>: <span class="s">"tools/call"</span>,
+   <span class="a">"params"</span>: {<span class="a">"name"</span>: <span class="s">"search_read"</span>, <span class="a">"arguments"</span>: {
+     <span class="a">"model"</span>: <span class="s">"hr.employee"</span>, <span class="a">"fields"</span>: [<span class="s">"name"</span>, <span class="s">"job_title"</span>]}}}
+
+<span class="dir">←</span> {<span class="a">"jsonrpc"</span>: <span class="s">"2.0"</span>, <span class="a">"id"</span>: 8, <span class="a">"result"</span>: {<span class="a">"isError"</span>: <span class="v">true</span>, <span class="a">"content"</span>: [{<span class="a">"type"</span>: <span class="s">"text"</span>,
+   <span class="a">"text"</span>: <span class="s">"'hr.employee': This information is not available through the assistant. Ask an administrator to enable the permission."</span>}]}}</pre></div></div><ul class="wire-notes"><li><span class="en">An AI assistant calling Odoo through the MCP connector: the first call is allowed, the second is refused.</span><span class="pt">Um assistente de IA chamando o Odoo pelo conector MCP: a primeira chamada é permitida, a segunda é recusada.</span></li><li><span class="en">Access is granted per model and per operation; a model without a grant returns the same polite refusal, never the data.</span><span class="pt">O acesso é concedido por modelo e por operação; um modelo sem permissão devolve sempre a mesma recusa educada, nunca o dado.</span></li><li><span class="en">Tool errors come back as results with isError, so the assistant can explain them instead of crashing.</span><span class="pt">Erros de ferramenta voltam como resultado com isError, para que o assistente explique em vez de quebrar.</span></li></ul></div>
+      <div class="wire-panel" role="tabpanel" id="wpanel-nfse" aria-labelledby="wtab-nfse" hidden><div class="wire-body"><div class="wire-code" tabindex="0"><pre>&lt;<span class="t">DPS</span> <span class="a">xmlns</span>=<span class="s">"http://www.sped.fazenda.gov.br/nfse"</span> <span class="a">versao</span>=<span class="s">"1.01"</span>&gt;
+  &lt;<span class="t">infDPS</span> <span class="a">Id</span>=<span class="s">"DPS320520021122233300018100001000000000000482"</span>&gt;
+    &lt;<span class="t">tpAmb</span>&gt;<span class="v">2</span>&lt;/<span class="t">tpAmb</span>&gt;
+    &lt;<span class="t">dhEmi</span>&gt;<span class="v">2026-09-26T10:30:00-03:00</span>&lt;/<span class="t">dhEmi</span>&gt;
+    &lt;<span class="t">verAplic</span>&gt;<span class="v">1.0</span>&lt;/<span class="t">verAplic</span>&gt;
+    &lt;<span class="t">serie</span>&gt;<span class="v">1</span>&lt;/<span class="t">serie</span>&gt;
+    &lt;<span class="t">nDPS</span>&gt;<span class="v">482</span>&lt;/<span class="t">nDPS</span>&gt;
+    &lt;<span class="t">dCompet</span>&gt;<span class="v">2026-09-26</span>&lt;/<span class="t">dCompet</span>&gt;
+    &lt;<span class="t">tpEmit</span>&gt;<span class="v">1</span>&lt;/<span class="t">tpEmit</span>&gt;
+    &lt;<span class="t">cLocEmi</span>&gt;<span class="v">3205200</span>&lt;/<span class="t">cLocEmi</span>&gt;
+    &lt;<span class="t">prest</span>&gt;
+      &lt;<span class="t">CNPJ</span>&gt;<span class="v">11222333000181</span>&lt;/<span class="t">CNPJ</span>&gt;
+      &lt;<span class="t">regTrib</span>&gt;&lt;<span class="t">opSimpNac</span>&gt;<span class="v">1</span>&lt;/<span class="t">opSimpNac</span>&gt;&lt;<span class="t">regEspTrib</span>&gt;<span class="v">0</span>&lt;/<span class="t">regEspTrib</span>&gt;&lt;/<span class="t">regTrib</span>&gt;
+    &lt;/<span class="t">prest</span>&gt;
+    &lt;<span class="t">toma</span>&gt;
+      &lt;<span class="t">CNPJ</span>&gt;<span class="v">44555666000134</span>&lt;/<span class="t">CNPJ</span>&gt;
+      &lt;<span class="t">xNome</span>&gt;<span class="v">Cliente Exemplo Ltda</span>&lt;/<span class="t">xNome</span>&gt;
+    &lt;/<span class="t">toma</span>&gt;
+    &lt;<span class="t">serv</span>&gt;
+      &lt;<span class="t">locPrest</span>&gt;&lt;<span class="t">cLocPrestacao</span>&gt;<span class="v">3205200</span>&lt;/<span class="t">cLocPrestacao</span>&gt;&lt;/<span class="t">locPrest</span>&gt;
+      &lt;<span class="t">cServ</span>&gt;
+        &lt;<span class="t">cTribNac</span>&gt;<span class="v">010701</span>&lt;/<span class="t">cTribNac</span>&gt;
+        &lt;<span class="t">xDescServ</span>&gt;<span class="v">Suporte técnico em sistema de gestão</span>&lt;/<span class="t">xDescServ</span>&gt;
+      &lt;/<span class="t">cServ</span>&gt;
+    &lt;/<span class="t">serv</span>&gt;
+    &lt;<span class="t">valores</span>&gt;
+      &lt;<span class="t">vServPrest</span>&gt;&lt;<span class="t">vServ</span>&gt;<span class="v">1500.00</span>&lt;/<span class="t">vServ</span>&gt;&lt;/<span class="t">vServPrest</span>&gt;
+      &lt;<span class="t">trib</span>&gt;
+        &lt;<span class="t">tribMun</span>&gt;&lt;<span class="t">tribISSQN</span>&gt;<span class="v">1</span>&lt;/<span class="t">tribISSQN</span>&gt;&lt;<span class="t">tpRetISSQN</span>&gt;<span class="v">1</span>&lt;/<span class="t">tpRetISSQN</span>&gt;&lt;/<span class="t">tribMun</span>&gt;
+        &lt;<span class="t">totTrib</span>&gt;&lt;<span class="t">indTotTrib</span>&gt;<span class="v">0</span>&lt;/<span class="t">indTotTrib</span>&gt;&lt;/<span class="t">totTrib</span>&gt;
+      &lt;/<span class="t">trib</span>&gt;
+    &lt;/<span class="t">valores</span>&gt;
+  &lt;/<span class="t">infDPS</span>&gt;
+  &lt;<span class="t">Signature</span> <span class="a">xmlns</span>=<span class="s">"http://www.w3.org/2000/09/xmldsig#"</span>&gt;
+    &lt;<span class="t">SignedInfo</span>&gt;
+      &lt;<span class="t">CanonicalizationMethod</span> <span class="a">Algorithm</span>=<span class="s">"http://www.w3.org/TR/2001/REC-xml-c14n-20010315"</span>/&gt;
+      &lt;<span class="t">SignatureMethod</span> <span class="a">Algorithm</span>=<span class="s">"http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"</span>/&gt;
+      &lt;<span class="t">Reference</span> <span class="a">URI</span>=<span class="s">"#DPS320520021122233300018100001000000000000482"</span>&gt;
+        &lt;<span class="t">Transforms</span>&gt;
+          &lt;<span class="t">Transform</span> <span class="a">Algorithm</span>=<span class="s">"http://www.w3.org/2000/09/xmldsig#enveloped-signature"</span>/&gt;
+          &lt;<span class="t">Transform</span> <span class="a">Algorithm</span>=<span class="s">"http://www.w3.org/TR/2001/REC-xml-c14n-20010315"</span>/&gt;
+        &lt;/<span class="t">Transforms</span>&gt;
+        &lt;<span class="t">DigestMethod</span> <span class="a">Algorithm</span>=<span class="s">"http://www.w3.org/2001/04/xmlenc#sha256"</span>/&gt;
+        &lt;<span class="t">DigestValue</span>&gt;<span class="v">q3N0…Zk8=</span>&lt;/<span class="t">DigestValue</span>&gt;
+      &lt;/<span class="t">Reference</span>&gt;
+    &lt;/<span class="t">SignedInfo</span>&gt;
+    &lt;<span class="t">SignatureValue</span>&gt;<span class="v">hL9f…w2Q==</span>&lt;/<span class="t">SignatureValue</span>&gt;
+    &lt;<span class="t">KeyInfo</span>&gt;&lt;<span class="t">X509Data</span>&gt;&lt;<span class="t">X509Certificate</span>&gt;<span class="v">MIIH…A1…</span>&lt;/<span class="t">X509Certificate</span>&gt;&lt;/<span class="t">X509Data</span>&gt;&lt;/<span class="t">KeyInfo</span>&gt;
+  &lt;/<span class="t">Signature</span>&gt;
+&lt;/<span class="t">DPS</span>&gt;</pre></div></div><ul class="wire-notes"><li><span class="en">The DPS the SDK builds: the Id joins municipality, CNPJ, series and number into 45 characters.</span><span class="pt">A DPS que o SDK monta: o Id junta município, CNPJ, série e número em 45 caracteres.</span></li><li><span class="en">Signed with the company&#x27;s A1 certificate (XMLDSig, RSA-SHA256, enveloped), sent gzipped and base64-encoded over mutual TLS.</span><span class="pt">Assinada com o certificado A1 da empresa (XMLDSig, RSA-SHA256, enveloped), enviada compactada em gzip e base64 por TLS mútuo.</span></li><li><span class="en">tpAmb 2 is the government&#x27;s restricted production environment, used for testing.</span><span class="pt">tpAmb 2 é o ambiente de produção restrita do governo, usado para testes.</span></li></ul></div>
+      <div class="wire-panel" role="tabpanel" id="wpanel-cnab" aria-labelledby="wtab-cnab" hidden><div class="wire-body"><div class="wire-code cnab" tabindex="0"><pre><span class="fld f0" title="001-003 Bank">756</span><span class="fld f1" title="004-007 Batch">0001</span><span class="fld f2" title="008-008 Record type">3</span><span class="fld f3" title="009-013 Sequence">00001</span><span class="fld f4" title="014-014 Segment">P</span><span class="gap">&#183;</span><span class="fld f5" title="016-017 Movement 01 = new title">01</span><span class="fld f0" title="018-022 Branch">04321</span><span class="gap">0</span><span class="fld f1" title="024-035 Account">000000123456</span><span class="gap">7</span><span class="gap">&#183;</span><span class="fld f2" title="038-057 Our number">000001234501014&#183;&#183;&#183;&#183;&#183;</span><span class="gap">10&#183;22</span><span class="fld f3" title="063-077 Document">NF-000482&#183;&#183;&#183;&#183;&#183;&#183;</span><span class="fld f4" title="078-085 Due date">10102026</span><span class="fld f5" title="086-100 Amount (cents)">000000000150000</span><span class="gap">00000&#183;04N</span><span class="fld f0" title="110-117 Issue date">26092026</span><span class="gap">111102026000000000000033000000000000000000000000000000000000000000000000000000</span><span class="fld f1" title="196-220 Your reference">INV/2026/00482&#183;&#183;&#183;&#183;&#183;&#183;&#183;&#183;&#183;&#183;&#183;</span><span class="gap">3000&#183;&#183;&#183;090000000000&#183;</span></pre></div><table class="fields"><thead><tr><th><span class="en">Positions</span><span class="pt">Posições</span></th><th><span class="en">Field</span><span class="pt">Campo</span></th><th><span class="en">Value</span><span class="pt">Valor</span></th></tr></thead><tbody><tr><td>001–003</td><td><span class="en">Bank</span><span class="pt">Banco</span></td><td><code>756</code></td></tr><tr><td>004–007</td><td><span class="en">Batch</span><span class="pt">Lote</span></td><td><code>0001</code></td></tr><tr><td>008–008</td><td><span class="en">Record type</span><span class="pt">Tipo de registro</span></td><td><code>3</code></td></tr><tr><td>009–013</td><td><span class="en">Sequence</span><span class="pt">Sequencial</span></td><td><code>00001</code></td></tr><tr><td>014–014</td><td><span class="en">Segment</span><span class="pt">Segmento</span></td><td><code>P</code></td></tr><tr><td>016–017</td><td><span class="en">Movement 01 = new title</span><span class="pt">Movimento 01 = entrada de título</span></td><td><code>01</code></td></tr><tr><td>018–022</td><td><span class="en">Branch</span><span class="pt">Agência</span></td><td><code>04321</code></td></tr><tr><td>024–035</td><td><span class="en">Account</span><span class="pt">Conta</span></td><td><code>000000123456</code></td></tr><tr><td>038–057</td><td><span class="en">Our number</span><span class="pt">Nosso número</span></td><td><code>000001234501014</code></td></tr><tr><td>063–077</td><td><span class="en">Document</span><span class="pt">Documento</span></td><td><code>NF-000482</code></td></tr><tr><td>078–085</td><td><span class="en">Due date</span><span class="pt">Vencimento</span></td><td><code>10102026</code></td></tr><tr><td>086–100</td><td><span class="en">Amount (cents)</span><span class="pt">Valor (centavos)</span></td><td><code>000000000150000</code></td></tr><tr><td>110–117</td><td><span class="en">Issue date</span><span class="pt">Emissão</span></td><td><code>26092026</code></td></tr><tr><td>196–220</td><td><span class="en">Your reference</span><span class="pt">Sua referência</span></td><td><code>INV/2026/00482</code></td></tr></tbody></table></div><ul class="wire-notes"><li><span class="en">Segment P of a Sicoob remittance file: one boleto per record, every field at a fixed position, exactly 240 characters.</span><span class="pt">Segmento P de um arquivo de remessa do Sicoob: um boleto por registro, cada campo numa posição fixa, exatamente 240 caracteres.</span></li><li><span class="en">Amounts go in cents without a decimal point; dates as DDMMYYYY.</span><span class="pt">Valores em centavos, sem vírgula; datas em DDMMAAAA.</span></li><li><span class="en">Inter and Itaú are integrated through their REST APIs (mTLS + OAuth2) in the same bank service.</span><span class="pt">Inter e Itaú entram pelas APIs REST deles (mTLS + OAuth2), no mesmo serviço bancário.</span></li></ul></div>
+    </section>
