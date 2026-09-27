@@ -89,7 +89,9 @@
 
   .wrap { max-width: 1140px; margin: 0 auto; padding-inline: 20px; }
 
-  /* top bar */
+  /* top bar: stays at the top of the screen over a blurred band; anchors land below it */
+  html { scroll-padding-top: calc(var(--top-h, 64px) + 8px); }
+  .topbar { position: sticky; top: 0; z-index: 70; background: color-mix(in srgb, var(--bg) 82%, transparent); -webkit-backdrop-filter: saturate(140%) blur(14px); backdrop-filter: saturate(140%) blur(14px); border-bottom: 1px solid var(--line); }
   .top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 18px; }
   .mark { display: inline-flex; align-items: center; gap: 10px; font-weight: 800; letter-spacing: -0.01em; color: var(--ink); text-decoration: none; }
   /* >_ with a blinking cursor: the same prompt the GitHub banner types after */
@@ -105,4 +107,23 @@
   .lang button[aria-pressed="true"] { background: var(--ink); color: var(--bg); }
   .flag { display: inline-flex; width: 18px; height: 12.6px; border-radius: 2px; overflow: hidden; flex: none; box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.12); }
   .flag svg { width: 100%; height: 100%; display: block; }
-  @media (max-width: 680px) { .top nav .navlink { display: none; } }
+  .navlinks { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; }
+  .menu-btn { display: none; }
+  /* phones and small tablets: the section links fold into a menu under three lines */
+  @media (max-width: 900px) {
+    .top { padding-block: 11px; }
+    .top nav { gap: 10px; flex-wrap: nowrap; }
+    .menu-btn { display: inline-grid; align-content: center; justify-items: center; gap: 5px; width: 42px; height: 38px; padding: 0; border-radius: 9px; border: 1px solid var(--line); background: var(--surface); cursor: pointer; }
+    .menu-btn span { display: block; width: 18px; height: 2px; border-radius: 2px; background: var(--ink); transition: transform 0.25s ease, opacity 0.2s ease; }
+    .topbar.open .menu-btn span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .topbar.open .menu-btn span:nth-child(2) { opacity: 0; }
+    .topbar.open .menu-btn span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+    .navlinks { display: none; position: absolute; left: 0; right: 0; top: 100%; flex-direction: column; align-items: stretch; gap: 0; padding: 6px 20px 14px; background: var(--bg); border-bottom: 1px solid var(--line); box-shadow: 0 20px 40px rgba(3, 7, 18, 0.35); }
+    .topbar.open .navlinks { display: flex; animation: menu-in 0.22s ease-out both; }
+    .top nav .navlinks a { display: flex; align-items: center; justify-content: space-between; padding: 15px 2px; border-bottom: 1px solid var(--line); font-size: 1.05rem; font-weight: 600; color: var(--ink); }
+    .top nav .navlinks a::after { content: "›"; font-size: 1.3rem; line-height: 1; color: var(--muted); }
+    .top nav .navlinks a:last-child { border-bottom: 0; }
+  }
+  @keyframes menu-in { from { opacity: 0; transform: translate3d(0, -8px, 0); } }
+  @media (prefers-reduced-motion: reduce) { .topbar.open .navlinks { animation: none; } .menu-btn span { transition: none; } }
+  @media (max-width: 400px) { .lang .flag { display: none; } .lang button { padding: 6px 9px; } .mark { gap: 8px; } }

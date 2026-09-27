@@ -4,7 +4,6 @@
 
   if (!reduceMotion && window.requestAnimationFrame) (function () {
     root.classList.add('motion');
-    var header = document.querySelector('.top');
     var targets = [];
 
     function mark(sel, mode, range) {
@@ -21,6 +20,7 @@
     }
 
     mark('.hero-band', 'leave');
+    mark('.hero .link', 'enter', 0.3);
     mark('main > section', 'enter', 0.4);
     mark('.companies', 'enter', 0.35);
     mark('.case', 'enter', 0.45);
@@ -86,7 +86,8 @@
       a.querySelector('.pt').textContent = l[1];
       a.addEventListener('click', function (e) {
         e.preventDefault();
-        window.scrollTo({ top: sec.getBoundingClientRect().top + scrollY, behavior: 'smooth' });
+        var bar = sec.id === 'top' ? 0 : document.querySelector('.topbar').offsetHeight;
+        window.scrollTo({ top: sec.getBoundingClientRect().top + scrollY - bar, behavior: 'smooth' });
       });
       rail.appendChild(a);
       return a;
@@ -103,7 +104,6 @@
     var current = -1;
 
     function layout() {
-      root.style.setProperty('--top-h', header.offsetHeight + 'px');
       var max = Math.max(1, document.documentElement.scrollHeight - innerHeight);
       scenes.forEach(function (sec, i) {
         var y = Math.min(1, (sec.getBoundingClientRect().top + scrollY) / max);

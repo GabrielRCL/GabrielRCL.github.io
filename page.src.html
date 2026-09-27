@@ -303,27 +303,51 @@
   /* scenes added with the motion pass */
   .motion .stats[data-p] .stat { --e: clamp(0, calc((var(--p) - var(--f, 0) * 0.5) * 2), 1); opacity: var(--e); transform: translate3d(0, calc((1 - var(--e)) * 44px), 0) scale(calc(0.88 + var(--e) * 0.12)); }
 
+  /* phones: header, name, text and the four buttons fit the first screen at any height; the facts
+     move below the buttons */
+  @media (max-width: 940px) {
+    .hero { padding-block: clamp(14px, 2.6svh, 26px) 44px; gap: 34px; }
+    .hero > div:first-child { display: flex; flex-direction: column; }
+    .who { gap: 12px; flex-wrap: nowrap; margin-bottom: clamp(10px, 2.2svh, 22px); }
+    .avatar { width: clamp(56px, 9svh, 84px); height: clamp(56px, 9svh, 84px); padding: 2px; }
+    .at { gap: 6px; }
+    .brands { flex-wrap: nowrap; gap: 6px; }
+    .brand-chip { gap: 7px; padding: 5px 9px 5px 7px; font-size: 0.8rem; }
+    .eyebrow { font-size: 0.64rem; letter-spacing: 0.1em; margin-bottom: clamp(6px, 1.2svh, 12px); }
+    h1 { font-size: clamp(2.4rem, min(14vw, 7.4svh), 4.2rem); margin-bottom: clamp(10px, 1.9svh, 20px); }
+    .lead { order: 1; font-size: clamp(0.92rem, min(4.2vw, 2.25svh), 1.1rem); margin-bottom: clamp(14px, 2.4svh, 24px); }
+    .hero .cta { order: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .hero .cta .btn { justify-content: center; padding: 12px 10px; }
+    .facts { order: 3; margin: clamp(20px, 3svh, 30px) 0 0; }
+  }
+
   footer { border-top: 1px solid var(--line); padding-block: 28px 44px; color: var(--muted); font-size: 0.85rem; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 10px; }
 </style>
 
 <!--ICON_SPRITE-->
 <!--INCLUDE:partials/flags.svg-->
 
+<div class="topbar">
 <div class="wrap">
   <header class="top">
     <a class="mark" href="#top"><span class="mark-glyph" aria-hidden="true">&gt;<i></i></span>Gabriel Lucas</a>
     <nav aria-label="Sections">
-      <a class="navlink" href="#work"><span class="en">Work</span><span class="pt">Trabalho</span></a>
-      <a class="navlink" href="#freelance">Freelance</a>
-      <a class="navlink" href="#product"><span class="en">Own product</span><span class="pt">Produto próprio</span></a>
-      <a class="navlink" href="#stack">Stack</a>
-      <a class="navlink" href="#contact"><span class="en">Contact</span><span class="pt">Contato</span></a>
+      <div class="navlinks" id="menu">
+        <a href="#work"><span class="en">Work</span><span class="pt">Trabalho</span></a>
+        <a href="#freelance">Freelance</a>
+        <a href="#product"><span class="en">Own product</span><span class="pt">Produto próprio</span></a>
+        <a href="#stack">Stack</a>
+        <a href="#contact"><span class="en">Contact</span><span class="pt">Contato</span></a>
+        <a href="links/">Links</a>
+      </div>
       <div class="lang" role="group" aria-label="Language">
         <button type="button" id="lang-en" data-set-lang="en" aria-pressed="true"><span class="flag" aria-hidden="true"><svg><use href="#flag-us"/></svg></span>EN</button>
         <button type="button" id="lang-pt" data-set-lang="pt" aria-pressed="false"><span class="flag" aria-hidden="true"><svg><use href="#flag-br"/></svg></span>PT</button>
       </div>
+      <button type="button" class="menu-btn" aria-expanded="false" aria-controls="menu" aria-label="Menu"><span></span><span></span><span></span></button>
     </nav>
   </header>
+</div>
 </div>
 
 <div class="hero-band" id="top" data-label-en="Start" data-label-pt="Início">
@@ -804,6 +828,25 @@
   var browserPt = (navigator.language || '').toLowerCase().indexOf('pt') === 0;
   setLang(hash === 'pt' || hash === 'en' ? hash : (saved === 'pt' || saved === 'en' ? saved : (browserPt ? 'pt' : 'en')));
   buttons.forEach(function (b) { b.addEventListener('click', function () { setLang(b.getAttribute('data-set-lang')); }); });
+
+  // Header: its height (anchors land below the sticky bar, the hero fills the rest), and the phone menu
+  var topbar = document.querySelector('.topbar');
+  var menuBtn = document.querySelector('.menu-btn');
+  function topHeight() { root.style.setProperty('--top-h', topbar.offsetHeight + 'px'); }
+  topHeight();
+  addEventListener('resize', topHeight);
+  function setMenu(open) {
+    topbar.classList.toggle('open', open);
+    menuBtn.setAttribute('aria-expanded', String(open));
+  }
+  menuBtn.addEventListener('click', function () { setMenu(!topbar.classList.contains('open')); });
+  document.querySelectorAll('.navlinks a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && topbar.classList.contains('open')) { setMenu(false); menuBtn.focus(); }
+  });
+  document.addEventListener('click', function (e) {
+    if (topbar.classList.contains('open') && !topbar.contains(e.target)) setMenu(false);
+  });
 
   document.querySelectorAll('[data-copy]').forEach(function (btn) {
     btn.addEventListener('click', function () {

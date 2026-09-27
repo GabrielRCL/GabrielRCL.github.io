@@ -47,21 +47,29 @@
   .motion .hero .facts li:nth-child(3) { animation-delay: 0.96s; }
   .motion .hero .facts li:nth-child(4) { animation-delay: 1.04s; }
   .motion .hero .cta { animation: rise 0.8s 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
-  .motion .hero .wire-head { animation: rise 0.7s 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
-  .motion .hero .wire::before { transform-origin: top; animation: grow-down 1.2s 0.45s cubic-bezier(0.7, 0, 0.2, 1) both; }
-  .motion .hero .link { animation: slide-in 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
-  .motion .hero .link:nth-child(1) { animation-delay: 0.6s; }
-  .motion .hero .link:nth-child(2) { animation-delay: 0.7s; }
-  .motion .hero .link:nth-child(3) { animation-delay: 0.8s; }
-  .motion .hero .link:nth-child(4) { animation-delay: 0.9s; }
-  .motion .hero .link:nth-child(5) { animation-delay: 1s; }
-  .motion .hero .link .tile { animation: pop 0.7s cubic-bezier(0.3, 1.6, 0.5, 1) both; animation-delay: inherit; }
-
-  /* hero: the camera pulls back as it scrolls away (--p runs 0 -> 1 while the hero leaves) */
-  .motion .hero-band::before { transform: scale(calc(1 + var(--p, 0) * 0.35)) translate3d(0, calc(var(--p, 0) * 70px), 0); }
-  .motion .hero > div:first-child { transform: translate3d(0, calc(var(--p, 0) * -110px), 0) scale(calc(1 - var(--p, 0) * 0.05)); opacity: calc(1 - var(--p, 0) * 1.35); transform-origin: left top; }
-  .motion .hero .wire { transform: translate3d(0, calc(var(--p, 0) * -40px), 0) scale(calc(1 - var(--p, 0) * 0.06)); opacity: calc(1 - var(--p, 0) * 1.15); transform-origin: right top; }
-  .motion .hero-band .cue { opacity: calc(1 - var(--p, 0) * 5); }
+  /* Desktop only: there the hero is one screen, the wire enters with it on load, and the camera pulls
+     back as the hero scrolls away (--p runs 0 -> 1 while it leaves). On a phone the hero is several
+     screens tall, so the same pull-back would dim the buttons and the wire while they are still being
+     read; there the wire cards enter one by one as they reach the screen instead. */
+  @media (min-width: 941px) {
+    .motion .hero .wire-head { animation: rise 0.7s 0.35s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+    .motion .hero .wire::before { transform-origin: top; animation: grow-down 1.2s 0.45s cubic-bezier(0.7, 0, 0.2, 1) both; }
+    .motion .hero .link { animation: slide-in 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+    .motion .hero .link:nth-child(1) { animation-delay: 0.6s; }
+    .motion .hero .link:nth-child(2) { animation-delay: 0.7s; }
+    .motion .hero .link:nth-child(3) { animation-delay: 0.8s; }
+    .motion .hero .link:nth-child(4) { animation-delay: 0.9s; }
+    .motion .hero .link:nth-child(5) { animation-delay: 1s; }
+    .motion .hero .link .tile { animation: pop 0.7s cubic-bezier(0.3, 1.6, 0.5, 1) both; animation-delay: inherit; }
+    .motion .hero-band::before { transform: scale(calc(1 + var(--p, 0) * 0.35)) translate3d(0, calc(var(--p, 0) * 70px), 0); }
+    .motion .hero > div:first-child { transform: translate3d(0, calc(var(--p, 0) * -110px), 0) scale(calc(1 - var(--p, 0) * 0.05)); opacity: calc(1 - var(--p, 0) * 1.35); transform-origin: left top; }
+    .motion .hero .wire { transform: translate3d(0, calc(var(--p, 0) * -40px), 0) scale(calc(1 - var(--p, 0) * 0.06)); opacity: calc(1 - var(--p, 0) * 1.15); transform-origin: right top; }
+    .motion .hero-band .cue { opacity: calc(1 - var(--p, 0) * 5); }
+  }
+  @media (max-width: 940px) {
+    .motion .hero .link[data-p] { opacity: var(--p); transform: translate3d(calc((1 - var(--p)) * 44px), 0, 0); }
+    .motion .hero .link[data-p] .tile { transform: scale(calc(0.5 + var(--p) * 0.5)) rotate(calc((1 - var(--p)) * -20deg)); }
+  }
 
   /* every section head: the rule grows, the title wipes in, the subtitle rises */
   .motion main section[data-p="enter"] > .rule { transform-origin: left; transform: scaleX(var(--p)); }
@@ -99,7 +107,7 @@
   .motion .contact-grid[data-p] .btc { opacity: var(--p); transform: translate3d(0, calc((1 - var(--p)) * 60px), 0) rotate(calc((1 - var(--p)) * 3deg)); }
 
   /* progress bar, scene rail and timecode (built by motion.js) */
-  .progress { position: fixed; top: 0; left: 0; right: 0; z-index: 60; height: 2px; background: var(--sun); transform-origin: left; transform: scaleX(var(--gp, 0)); pointer-events: none; }
+  .progress { position: fixed; top: 0; left: 0; right: 0; z-index: 80; height: 2px; background: var(--sun); transform-origin: left; transform: scaleX(var(--gp, 0)); pointer-events: none; }
   .rail, .hud { display: none; }
   @media (min-width: 1280px) {
     .motion .rail { display: block; position: fixed; left: 26px; top: 50%; z-index: 50; width: 18px; height: 58vh; transform: translateY(-50%); }
