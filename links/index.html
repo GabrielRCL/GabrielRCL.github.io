@@ -398,7 +398,7 @@
     <section class="profile">
       <div class="avatar"><img src="../assets/avatar.jpg" alt="Illustrated portrait of Gabriel Lucas" width="168" height="168"></div>
       <h1>Gabriel Lucas</h1>
-      <p class="role"><span class="en">Full Stack Developer · Odoo Developer · Computer Engineering</span><span class="pt">Desenvolvedor Full Stack · Desenvolvedor Odoo · Engenharia da Computação</span></p>
+      <p class="role"><span class="en">Full Stack Developer&nbsp;· Odoo Developer&nbsp;· Computer Engineering</span><span class="pt">Desenvolvedor Full Stack&nbsp;· Desenvolvedor Odoo&nbsp;· Engenharia da Computação</span></p>
       <p class="stackline"><span class="en">Odoo 19, Python, FastAPI, React and more</span><span class="pt">Odoo 19, Python, FastAPI, React e mais</span></p>
     </section>
 
@@ -485,6 +485,36 @@
   });
   if (themeQuery && themeQuery.addEventListener) themeQuery.addEventListener('change', paintTheme);
   paintTheme();
+
+  // Brave on the iPhone: pulling to refresh and pushing the page back up before the reload ends can
+  // leave the page parked below the top of the screen, a blank band above the header. The iOS refresh
+  // control removes its space but not the scroll offset, so the page sits at a negative scrollY and
+  // nothing moves. A normal bounce never stays there (it keeps moving back to 0), so a negative scrollY
+  // that holds still between two checks, with no finger on the screen, is that state: a 1 px scroll and
+  // back makes the browser put the page in place. After a load and after every touch, for 2.4 s.
+  (function () {
+    var touching = false, timer = null;
+    function watch() {
+      clearTimeout(timer);
+      var last = null, left = 12;
+      (function check() {
+        var y = window.scrollY;
+        if (!touching && y < 0 && y === last) {
+          window.scrollTo(0, 1);
+          requestAnimationFrame(function () { window.scrollTo(0, 0); });
+          return;
+        }
+        last = touching ? null : y;
+        if (--left > 0) timer = setTimeout(check, 200);
+      })();
+    }
+    function release(e) { touching = e.touches.length > 0; if (!touching) watch(); }
+    addEventListener('touchstart', function () { touching = true; }, { passive: true });
+    addEventListener('touchend', release, { passive: true });
+    addEventListener('touchcancel', release, { passive: true });
+    addEventListener('load', watch);
+    addEventListener('pageshow', function (e) { if (e.persisted) watch(); });
+  })();
 
   var buttons = document.querySelectorAll('[data-set-lang]');
   function setLang(lang) {
