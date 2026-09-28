@@ -513,6 +513,12 @@
   }
   .cue { display: none; }
   @media (min-width: 941px) and (min-height: 700px) {
+    /* the cue's room (20 px from the bottom, 69 px tall): the hero centers above it. When the hero and
+       the cue do not both fit on the first screen, fitCue() drops the cue (no-cue) rather than let the
+       content run under it or push it below the screen. */
+    .hero-band { padding-bottom: 90px; }
+    .hero-band.no-cue { padding-bottom: 0; }
+    .hero-band.no-cue .cue { display: none; }
     .cue { position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%); display: grid; justify-items: center; gap: 10px; font: 500 0.66rem/1 var(--mono); letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
     .cue i { position: relative; width: 2px; height: 38px; border-radius: 2px; overflow: hidden; background: var(--line); }
     .cue i::after { content: ""; position: absolute; left: 0; top: -40%; width: 100%; height: 40%; background: var(--sun); animation: drip 1.9s cubic-bezier(0.6, 0, 0.2, 1) infinite; }
@@ -1526,6 +1532,7 @@
     buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-set-lang') === lang)); });
     try { localStorage.setItem('lang', lang); } catch (e) {}
     viewers.forEach(function (v) { v.refresh(); });
+    fitCue();
     fitFooter();
   }
   var saved = null;
@@ -1542,11 +1549,26 @@
   topHeight();
   addEventListener('resize', topHeight);
 
+  // The scroll cue shows only when the hero and the cue's room both fit on the first screen (see the
+  // cue in motion.css); otherwise the band drops it (no-cue) instead of running under it or pushing
+  // it below the screen.
+  var band = document.querySelector('.hero-band');
+  function fitCue() {
+    if (!band) return;
+    band.classList.remove('no-cue');
+    if (getComputedStyle(band.querySelector('.cue')).display === 'none') return;
+    band.classList.toggle('no-cue', band.offsetHeight > innerHeight - topbar.offsetHeight + 1);
+  }
+  fitCue();
+  addEventListener('resize', fitCue);
+  addEventListener('load', fitCue);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitCue);
+
   // The page ends with the whole coffee card on screen, 12 px under the header: the footer gives up the
   // height the card needs (--sf-flex, see the footer CSS). A phone keeps at least a strip of the scene,
-  // or drops it (sf-bare), and then the roles line too (sf-min), when not even that fits. The screen is measured at 100svh, not innerHeight: the phone's
-  // browser bars can be back at the end of the page. Positions come from the layout (offsetTop), which
-  // the scroll scenes' transforms do not move.
+  // or drops it (sf-bare), and then the roles line too (sf-min), when not even that fits. The screen is
+  // measured at 100svh, not innerHeight: the phone's browser bars can be back at the end of the page.
+  // Positions come from the layout (offsetTop), which the scroll scenes' transforms do not move.
   var footer = document.querySelector('.site-footer');
   var coffee = document.getElementById('coffee');
   var screenProbe = document.createElement('div');
