@@ -509,6 +509,8 @@
     .cue { position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%); display: grid; justify-items: center; gap: 10px; font: 500 0.66rem/1 var(--mono); letter-spacing: 0.24em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
     .cue i { position: relative; width: 2px; height: 38px; border-radius: 2px; overflow: hidden; background: var(--line); }
     .cue i::after { content: ""; position: absolute; left: 0; top: -40%; width: 100%; height: 40%; background: var(--sun); animation: drip 1.9s cubic-bezier(0.6, 0, 0.2, 1) infinite; }
+    /* the arrowhead at the end of the line: two sides of a square turned 45 degrees, tip on the line's end */
+    .cue::after { content: ""; width: 9px; height: 9px; margin-top: -22px; border-right: 2px solid var(--warm); border-bottom: 2px solid var(--warm); border-radius: 0 0 2px 0; transform: rotate(45deg); }
     .cue:hover { color: var(--ink); }
   }
   @media (prefers-reduced-motion: reduce) { .cue i::after { animation: none; top: 30%; } }
@@ -1007,10 +1009,10 @@
           <span class="tile dark nx"><img src="assets/nexview-nx.png" alt=""></span>
           <div class="case-body">
             <h3>NexView ITSM</h3>
-            <p class="en">An ITIL-based ITSM suite on Odoo: helpdesk with a priority matrix, problem and change management, CMDB, subscriptions and a customer portal. Zabbix hosts and Bitdefender GravityZone licenses sync into the CMDB, recurring incidents surface as problem candidates, and Discord receives SLA alerts.</p>
-            <p class="pt">Uma suíte de ITSM no padrão ITIL sobre o Odoo: helpdesk com matriz de prioridade, gestão de problemas e mudanças, CMDB, assinaturas e portal do cliente. Os hosts do Zabbix e as licenças do Bitdefender GravityZone sincronizam no CMDB, incidentes recorrentes viram candidatos a problema e o Discord recebe alertas de SLA.</p>
+            <p class="en">An ITIL-based ITSM suite on Odoo: helpdesk with a priority matrix, problem and change management, CMDB, subscriptions and a customer portal. Zabbix hosts and Bitdefender GravityZone licenses sync into the CMDB, recurring incidents surface as problem candidates, and Discord receives SLA alerts. It covers the processes ISO/IEC 20000-1 requires of a service desk (incidents, requests, problems, changes and configuration), and its documentation in Knowledge follows the structure of ISO 9001, each procedure linked to the record that carries it out.</p>
+            <p class="pt">Uma suíte de ITSM no padrão ITIL sobre o Odoo: helpdesk com matriz de prioridade, gestão de problemas e mudanças, CMDB, assinaturas e portal do cliente. Os hosts do Zabbix e as licenças do Bitdefender GravityZone sincronizam no CMDB, incidentes recorrentes viram candidatos a problema e o Discord recebe alertas de SLA. Cobre os processos que a ISO/IEC 20000-1 exige de um service desk (incidentes, requisições, problemas, mudanças e configuração), e a documentação no Knowledge segue a estrutura da ISO 9001, com cada procedimento ligado ao registro que o executa.</p>
             <span class="metric"><span class="en">Main contributor: 379 of 513 commits</span><span class="pt">Principal autor: 379 de 513 commits</span></span>
-            <span class="stack">Odoo 19 · OWL · ITIL · Zabbix API · GravityZone API · Discord</span>
+            <span class="stack">Odoo 19 · OWL · ITIL · ISO/IEC 20000-1 · ISO 9001 · Zabbix API · GravityZone API · Discord</span>
             <div class="cta"><a class="btn small" href="https://gonexview.com" target="_blank" rel="noopener"><svg class="ic"><use href="#lu-globe"/></svg><span class="en">See NexView ITSM</span><span class="pt">Conhecer a NexView ITSM</span></a></div>
           </div>
         </article>
@@ -1289,8 +1291,8 @@
     <section id="contact">
       <div class="rule" aria-hidden="true"></div>
       <h2><span class="en">Contact</span><span class="pt">Contato</span></h2>
-      <p class="sub en">Open to remote roles and Odoo projects, in Brazil or abroad.</p>
-      <p class="sub pt">Aberto a vagas remotas e projetos de Odoo, no Brasil ou no exterior.</p>
+      <p class="sub en">Liked one of these projects? Let's talk.</p>
+      <p class="sub pt">Gostou de algum projeto? Vamos conversar.</p>
       <div class="contact-grid">
         <ul class="contact-list">
           <li><span class="tile"><svg class="ic"><use href="#lu-mail"/></svg></span><span><span class="k">E-mail</span><span class="addr"><code id="email-addr">gabrielrcl@protonmail.com</code><button type="button" class="copy" id="copy-email" data-copy="email-addr"><svg class="ic i-idle"><use href="#lu-copy"/></svg><svg class="ic i-done"><use href="#lu-check"/></svg><span class="idle-label"><span class="en">Copy</span><span class="pt">Copiar</span></span><span class="done-label"><span class="en">Copied</span><span class="pt">Copiado</span></span></button></span></span></li>

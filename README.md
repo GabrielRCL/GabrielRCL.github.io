@@ -2,8 +2,6 @@
 
 Personal site of Gabriel Lucas, Odoo developer: <https://gabrielrcl.dev>.
 
-One HTML page, CSS and a few lines of JavaScript. No framework, no tracking, no cookies.
-
 ## Build
 
 ```bash
