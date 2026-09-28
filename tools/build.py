@@ -12,6 +12,7 @@ import base64
 import os
 import re
 import shutil
+import stat
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -81,7 +82,9 @@ def main():
         os.makedirs(args.stage, exist_ok=True)
         shutil.copy(os.path.join(ROOT, "page.html"), os.path.join(args.stage, "page.html"))
         dst = os.path.join(args.stage, "assets")
-        shutil.rmtree(dst, ignore_errors=True)
+        if os.path.exists(dst):
+            # files copied out of OneDrive keep their read-only bit, which stops a plain rmtree
+            shutil.rmtree(dst, onexc=lambda func, path, _: (os.chmod(path, stat.S_IWRITE), func(path)))
         shutil.copytree(os.path.join(ROOT, "assets"), dst)
         print("staged in", args.stage, sorted(os.listdir(dst)))
 
