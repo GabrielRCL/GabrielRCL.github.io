@@ -27,16 +27,14 @@
     mark('.stats', 'enter', 0.6);
     mark('.feature', 'enter', 0.5);
     mark('.product', 'enter', 0.55);
-    mark('.side', 'enter', 0.6);
-    mark('.timeline', 'enter', 0.85);
+    mark('.roles li', 'enter', 0.45);
+    mark('.side > div', 'enter', 0.45);
+    mark('.timeline li', 'enter', 0.45);
     mark('.tier', 'enter', 0.7);
     mark('.two', 'enter', 0.5);
     mark('.contact-grid', 'enter', 0.5);
     mark('.site-footer', 'enter', 0.35);
     stagger('.stats', '.stat');
-    stagger('.roles', 'li');
-    stagger('.side', ':scope > div');
-    stagger('.timeline', 'li');
     stagger('.tier', '.chips li');
     stagger('.rows', 'li');
     stagger('.contact-list', 'li');
@@ -104,7 +102,21 @@
     var REEL = 90; // seconds: the whole page reads as a 1:30 reel
     var current = -1;
 
+    // Items that are their own scene but share a row (--col in motion.css): the column each one is in,
+    // from the layout, so it follows the grid at any width (2 roles a row, 1 to 3 side notes).
+    function columns(sel, child) {
+      document.querySelectorAll(sel).forEach(function (box) {
+        var kids = [].slice.call(box.querySelectorAll(child));
+        kids.forEach(function (k) {
+          var col = kids.filter(function (o) { return Math.abs(o.offsetTop - k.offsetTop) < 4 && o.offsetLeft < k.offsetLeft; }).length;
+          k.style.setProperty('--col', col);
+        });
+      });
+    }
+
     function layout() {
+      columns('.roles', 'li');
+      columns('.side', ':scope > div');
       var max = Math.max(1, document.documentElement.scrollHeight - innerHeight);
       scenes.forEach(function (sec, i) {
         var y = Math.min(1, (sec.getBoundingClientRect().top + scrollY) / max);

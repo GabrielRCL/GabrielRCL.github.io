@@ -15,6 +15,13 @@
   @keyframes pop { from { opacity: 0; transform: scale(0.35) rotate(-16deg); } }
   @keyframes drip { from { top: -40%; } to { top: 100%; } }
   @keyframes beacon { 0%, 100% { box-shadow: 0 0 0 0 rgba(248, 121, 52, 0.55); } 50% { box-shadow: 0 0 0 10px rgba(248, 121, 52, 0); } }
+  /* the scroll cue's arrowhead lights while the drip passes through the line's end: with drip's easing
+     over 1.9 s, the drip's front reaches the end at 50.5% of the cycle and it is gone by about 90% */
+  @keyframes cue-tip {
+    0%, 48% { border-color: var(--line); filter: none; }
+    56%, 70% { border-color: var(--warm); filter: drop-shadow(0 0 5px rgba(248, 121, 52, 0.7)); }
+    92%, 100% { border-color: var(--line); filter: none; }
+  }
 
   /* hero: the name, split into masked lines */
   h1 .line { display: block; overflow: hidden; padding-bottom: 0.1em; margin-bottom: -0.1em; }
@@ -31,10 +38,10 @@
     .cue i { position: relative; width: 2px; height: 38px; border-radius: 2px; overflow: hidden; background: var(--line); }
     .cue i::after { content: ""; position: absolute; left: 0; top: -40%; width: 100%; height: 40%; background: var(--sun); animation: drip 1.9s cubic-bezier(0.6, 0, 0.2, 1) infinite; }
     /* the arrowhead at the end of the line: two sides of a square turned 45 degrees, tip on the line's end */
-    .cue::after { content: ""; width: 9px; height: 9px; margin-top: -22px; border-right: 2px solid var(--warm); border-bottom: 2px solid var(--warm); border-radius: 0 0 2px 0; transform: rotate(45deg); }
+    .cue::after { content: ""; width: 9px; height: 9px; margin-top: -22px; border-right: 2px solid var(--line); border-bottom: 2px solid var(--line); border-radius: 0 0 2px 0; transform: rotate(45deg); animation: cue-tip 1.9s linear infinite; }
     .cue:hover { color: var(--ink); }
   }
-  @media (prefers-reduced-motion: reduce) { .cue i::after { animation: none; top: 30%; } }
+  @media (prefers-reduced-motion: reduce) { .cue i::after { animation: none; top: 30%; } .cue::after { animation: none; border-color: var(--warm); } }
 
   /* hero: entrance, once, on load */
   .motion .hero .who { animation: rise 0.8s 0.05s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
@@ -89,15 +96,17 @@
   .motion .feature[data-p] .feature-logo { opacity: var(--p); transform: perspective(700px) rotateY(calc((1 - var(--p)) * -48deg)) scale(calc(0.75 + var(--p) * 0.25)); }
   .motion .feature[data-p] .feature-body { opacity: var(--p); transform: translate3d(calc((1 - var(--p)) * 56px), 0, 0); }
 
-  /* product: story from the left, responsibilities pop in one by one, side notes rise */
+  /* product: story from the left, responsibilities pop in and side notes rise. Each item is its own
+     scene, so it moves when it reaches the screen, however far below the story it sits (on a phone the
+     list starts a screen further down); in a row, each column (--col) starts a little later. */
   .motion .product[data-p] > div:first-child { opacity: var(--p); transform: translate3d(calc((1 - var(--p)) * -56px), 0, 0); }
-  .motion .product[data-p] .roles li { --e: clamp(0, calc((var(--p) - var(--f, 0) * 0.5) * 2), 1); opacity: var(--e); transform: translate3d(0, calc((1 - var(--e)) * 28px), 0) scale(calc(0.9 + var(--e) * 0.1)); }
-  .motion .side[data-p] > div { --e: clamp(0, calc((var(--p) - var(--f, 0) * 0.5) * 2), 1); opacity: var(--e); transform: translate3d(0, calc((1 - var(--e)) * 44px), 0); }
+  .motion .roles li[data-p] { --e: clamp(0, calc((var(--p) - var(--col, 0) * 0.2) / 0.8), 1); opacity: var(--e); transform: translate3d(0, calc((1 - var(--e)) * 28px), 0) scale(calc(0.9 + var(--e) * 0.1)); }
+  .motion .side > div[data-p] { --e: clamp(0, calc((var(--p) - var(--col, 0) * 0.2) / 0.8), 1); opacity: var(--e); transform: translate3d(0, calc((1 - var(--e)) * 44px), 0); }
 
-  /* timeline: each year arrives in order, its rule drawn left to right */
-  .motion .timeline[data-p] li { --e: clamp(0, calc((var(--p) - var(--f, 0) * 0.6) / 0.4), 1); position: relative; border-top-color: transparent; opacity: var(--e); transform: translate3d(calc((1 - var(--e)) * -36px), 0, 0); }
-  .motion .timeline[data-p] li::before { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: var(--line); transform-origin: left; transform: scaleX(var(--e)); }
-  .motion .timeline[data-p] li time { display: inline-block; transform-origin: left center; transform: scale(calc(0.6 + var(--e) * 0.4)); }
+  /* timeline: each year arrives as it reaches the screen, its rule drawn left to right */
+  .motion .timeline li[data-p] { position: relative; border-top-color: transparent; opacity: var(--p); transform: translate3d(calc((1 - var(--p)) * -56px), 0, 0); }
+  .motion .timeline li[data-p]::before { content: ""; position: absolute; left: 0; right: 0; top: -1px; height: 1px; background: var(--line); transform-origin: left; transform: scaleX(var(--p)); }
+  .motion .timeline li[data-p] time { display: inline-block; transform-origin: left center; transform: scale(calc(0.6 + var(--p) * 0.4)); }
 
   /* stack: the chips fly in from scattered positions and settle into their tier */
   .motion .tier[data-p] h3 { clip-path: inset(-0.3em calc((1 - var(--p)) * 100%) -0.3em 0); }
