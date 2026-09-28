@@ -57,8 +57,13 @@ def build(src_name, out_name, sprite):
     if absent:
         sys.exit(f"{src_name}: missing files: " + ", ".join(absent))
 
-    page = src.replace("<!--ICON_SPRITE-->", sprite)
-    write(os.path.join(ROOT, out_name), '<!doctype html>\n<html lang="en">\n' + page + "\n</html>\n")
+    head, marker, body = src.partition("<!--ICON_SPRITE-->")
+    if not marker:
+        sys.exit(f"{src_name}: no <!--ICON_SPRITE--> where the body starts")
+    page = head + sprite + body
+    # An explicit head and body: LinkedIn's link preview reads the Open Graph tags only inside <head>,
+    # and without one it built the preview from a section title and the first logo it found.
+    write(os.path.join(ROOT, out_name), '<!doctype html>\n<html lang="en">\n<head>\n' + head.strip() + "\n</head>\n<body>\n" + sprite + body.rstrip() + "\n</body>\n</html>\n")
     print(f"{out_name} {len(page)} bytes, {len(used)} icons, {len(refs)} local files")
     return page
 
